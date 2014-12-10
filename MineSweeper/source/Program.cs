@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConsoleApplication1;
 
-namespace ConsoleApplication1
+namespace Trumpf.Katas.MineSweeper
 {
     class Program
     {

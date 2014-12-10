@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ConsoleApplication1.Model;
+using Trumpf.Katas.MineSweeper.Model;
 
-namespace ConsoleApplication1
+namespace Trumpf.Katas.MineSweeper
 {
     public class SchummelRechner
     {

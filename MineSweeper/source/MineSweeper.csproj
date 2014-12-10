@@ -7,8 +7,8 @@
     <ProjectGuid>{FAEEF02B-7967-4036-981B-D2297F965BFC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleApplication1</RootNamespace>
-    <AssemblyName>MineSweeper1</AssemblyName>
+    <RootNamespace>Trumpf.Katas.MineSweeper</RootNamespace>
+    <AssemblyName>MineSweeper</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
