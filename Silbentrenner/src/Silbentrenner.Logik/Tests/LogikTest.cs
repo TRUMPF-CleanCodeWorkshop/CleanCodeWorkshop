@@ -1,19 +1,11 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using NUnit;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NHunspell;
 using NUnit.Framework;
-
 
 namespace Silbentrenner.Logik.Tests
 {
-    using System.Collections.Generic;
-
-    using NHunspell;
-
     [TestFixture]
     public class LogikTest
     {
