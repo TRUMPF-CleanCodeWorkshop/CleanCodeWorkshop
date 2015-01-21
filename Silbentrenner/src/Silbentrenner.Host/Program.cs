@@ -15,14 +15,14 @@ namespace Silbentrenner.Host
         public static void Main(string[] args)
         {
             var mainWindow = new MainWindow();
+            var app = new App();
 
             mainWindow.DataContext = new MainViewModel();
-
             mainWindow.Show();
 
-            var app = new App();
-            app.
-           
+            app.MainWindow = mainWindow;
+            app.Run();
+
         }
     }
 }
