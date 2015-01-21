@@ -20,7 +20,10 @@ namespace Silbentrenner.Fileadapter
 
         public static void SaveToOutputFile(string dividedText, string path)
         {
-            throw new NotImplementedException();
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                writer.Write(dividedText);
+            }
         }
     }
 }
