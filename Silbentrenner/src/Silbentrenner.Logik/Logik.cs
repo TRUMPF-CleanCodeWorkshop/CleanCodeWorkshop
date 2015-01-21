@@ -80,7 +80,7 @@ namespace Silbentrenner.Logik
                 wort.Silben = hyphenQueue;
             }
 
-            return new List<Wort>();
+            return woerter;
         }
     }
 }
