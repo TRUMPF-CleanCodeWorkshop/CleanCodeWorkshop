@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Silbentrenner.Logik
 {
+    using NHunspell;
+
     public class Logik
     {
 
