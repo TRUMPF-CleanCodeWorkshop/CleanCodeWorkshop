@@ -11,17 +11,17 @@
         <TextBox Width="500" HorizontalAlignment="Left" Text="{Binding SourceFileName, UpdateSourceTrigger = PropertyChanged}" Margin="5"></TextBox>
         <Button Grid.Row="0" Width="100" HorizontalAlignment="Right" Command="{Binding LadeText}" Margin="5">Laden</Button>
 
-        <ScrollViewer Grid.Row="1">
-            <TextBox Text="{Binding SourceText,UpdateSourceTrigger = PropertyChanged}" TextWrapping="Wrap" Margin="5"></TextBox>
+        <ScrollViewer Grid.Row="1" Margin="5">
+            <TextBox Text="{Binding SourceText,UpdateSourceTrigger = PropertyChanged}" TextWrapping="Wrap"></TextBox>
         </ScrollViewer>
-        
+
         <TextBox Grid.Row="2" Width="150" HorizontalAlignment="Left" Margin="5" Text="{Binding MaxCharacters}"></TextBox>
         <Button Grid.Row="2" Width="100" HorizontalAlignment="Right" Command="{Binding TrenneText}" Margin="5">Trennen</Button>
 
-        <ScrollViewer Grid.Row="3">
-            <TextBox Text="{Binding SplittedText}" Margin="5"></TextBox>
+        <ScrollViewer Grid.Row="3" Margin="5">
+            <TextBox Text="{Binding SplittedText}"></TextBox>
         </ScrollViewer>
-        
+
         <TextBox Grid.Row="4" Width="500" HorizontalAlignment="Left" Text="{Binding TargetFileName,UpdateSourceTrigger = PropertyChanged}" Margin="5"></TextBox>
         <Button Grid.Row="4" Width="100" HorizontalAlignment="Right" Command="{Binding SpeichereText}" Margin="5">Speichern</Button>
     </Grid>
