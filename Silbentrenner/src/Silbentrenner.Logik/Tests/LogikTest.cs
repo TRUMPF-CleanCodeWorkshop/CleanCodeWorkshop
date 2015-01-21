@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 
 
-namespace Silbentrenner.Logik
+namespace Silbentrenner.Logik.Tests
 {
     using System.Collections.Generic;
 
