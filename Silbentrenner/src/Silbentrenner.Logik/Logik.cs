@@ -18,33 +18,39 @@ namespace Silbentrenner.Logik
             return text.Replace(Environment.NewLine, " ");
         }
 
-        public static IEnumerable<String> WoerterZuZeilenZusammensetzen(IEnumerable<Wort> woerter, int zeilenlaenge)
+        public static IEnumerable<String> WoerterZuZeilenZusammensetzen(IEnumerable<Wort> wörter, int zeilenlänge)
         {
             var aktuelleZeile = "";
-            var vorigeSilbeWarLetzteDesWortes = false;
+            var trennzeichenNötig = true;
 
-            foreach (var wort in woerter)
+            foreach (var wort in wörter)
             {
                 foreach (var silbe in wort.Silben)
                 {
-                    if ((aktuelleZeile.Length + silbe.Length) >= zeilenlaenge)
+                    if ((aktuelleZeile.Length + silbe.Length) >= zeilenlänge)
                     {
-                        yield return VollstaendigeZeileZurueckgeben(vorigeSilbeWarLetzteDesWortes, aktuelleZeile);
+                        yield return VollständigeZeileZurückgeben(trennzeichenNötig, aktuelleZeile);
                         aktuelleZeile = "";
                     }
                     aktuelleZeile += silbe;
-                    vorigeSilbeWarLetzteDesWortes = wort.Silben.Last() == silbe;
+                    trennzeichenNötig = wort.Silben.Last() != silbe;
                 }
                 aktuelleZeile += " ";
             }
             aktuelleZeile = aktuelleZeile.Trim();
+
             yield return aktuelleZeile;
         }
 
-        private static string VollstaendigeZeileZurueckgeben(bool vorigeSilbeWarLetzteDesWortes, string aktuelleZeile)
+        private static string VollständigeZeileZurückgeben(bool trennzeichenNötig, string aktuelleZeile)
         {
             aktuelleZeile = aktuelleZeile.Trim();
-            if (!vorigeSilbeWarLetzteDesWortes) aktuelleZeile += "-";
+
+            if (trennzeichenNötig)
+            {
+                aktuelleZeile += "-";
+            }
+
             return aktuelleZeile;
         }
 
