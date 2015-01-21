@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Silbentrenner.Logik
 {
+    using System.Text.RegularExpressions;
+
+    using NHunspell;
+
     public class Logik
     {
 
@@ -46,16 +50,28 @@ namespace Silbentrenner.Logik
 
         public static IEnumerable<Wort> TextInWoerterZerlegen(string text)
         {
-            return new List<Wort>();
+            return text.Split(' ').Select(W => new Wort() {Text = W}).ToList();
         }
 
         public static string BereinigenVonLeerzeichen(string text)
         {
-            return "";
+            string pattern = "\\s+";
+            string replacement = " ";
+            Regex rgx = new Regex(pattern);
+            var cleanedString = rgx.Replace(text, replacement);
+
+            return cleanedString.TrimEnd(' ');
         }
 
         public static IEnumerable<Wort> WoerterInSilbenTrennen(IEnumerable<Wort> woerter)
         {
+            var silbentrenner = new Hyphen("hyph_de_DE.dic");
+            var wortMitSilben = "Kaffeefahrt";
+            var libTest = silbentrenner.Hyphenate(wortMitSilben);
+            //// Ergebnis : Kaf=fee=fahrt
+            
+
+
             return new List<Wort>();
         }
     }
