@@ -8,6 +8,8 @@ using NUnit.Framework;
 
 namespace Silbentrenner.Logik
 {
+    using System.Collections.Generic;
+
     using NHunspell;
 
     [TestFixture]
