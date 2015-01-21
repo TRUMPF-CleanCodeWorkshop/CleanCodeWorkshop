@@ -1,19 +1,12 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using NUnit;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
+using NHunspell;
 using NUnit.Framework;
-
 
 namespace Silbentrenner.Logik.Tests
 {
-    using System.Collections.Generic;
-
-    using NHunspell;
-
     [TestFixture]
     public class LogikTest
     {
@@ -131,6 +124,12 @@ namespace Silbentrenner.Logik.Tests
             //Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortOhneSilben).First().Silben.First(), Is.EqualTo(ausgabeWortOhneSilben.First().Silben.First()));
             //Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortMitSilben), Is.EqualTo(ausgabeWortMitSilben));
             //Assert.That(Logik.WoerterInSilbenTrennen(eingabeTextMitSilben), Is.EqualTo(ausgabeTextMitSilben));
+=======
+
+            Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortOhneSilben), Is.EqualTo(ausgabeWortOhneSilben));
+            Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortMitSilben), Is.EqualTo(ausgabeWortMitSilben));
+            Assert.That(Logik.WoerterInSilbenTrennen(eingabeTextMitSilben), Is.EqualTo(ausgabeTextMitSilben));
+>>>>>>> ff5bfaeb6c0e287e511ad29b3635de4dbae66397
         }
 
         [Test]
@@ -155,7 +154,6 @@ namespace Silbentrenner.Logik.Tests
 
             var result = Logik.WoerterZuZeilenZusammensetzen(woerter, 15);
 
-
             Assert.That(result.Count(), Is.EqualTo(5));
             Assert.That(result.First(), Is.EqualTo("Erwartet wer-"));
             Assert.That(result.Skip(1).First(), Is.EqualTo("den in dem Ski-"));
@@ -163,6 +161,16 @@ namespace Silbentrenner.Logik.Tests
             Assert.That(result.Skip(3).First(), Is.EqualTo("wie Kanzlerin"));
             Assert.That(result.Skip(4).First(), Is.EqualTo("Angie"));
 
+        }
+
+        [Test]
+        public void Ein_Zu_langes_Wort_wird_Hart_aufgetrennt()
+        {
+            var woerter = new List<Wort>() { new Wort() { Text = "hasudirsogedacht", Silben = new Queue<string>(new List<string>() { "hasudirsogedacht" }) } };
+
+            var result = Logik.WoerterZuZeilenZusammensetzen(woerter, 10);
+
+            Assert.That(result.First(), Is.EqualTo("hasudirsog-"));
         }
 
         private static List<Wort> ErstelleTestWoerter()
