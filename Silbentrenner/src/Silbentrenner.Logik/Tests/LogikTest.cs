@@ -18,7 +18,9 @@ namespace Silbentrenner.Logik
         {
             var text = "123" + Environment.NewLine + "ab" + Environment.NewLine;
 
+            var result = Logik.ErsetzeCRLFDurchSpace(text);
 
+            Assert.That(result, Is.EqualTo("123 ab "));
 
         }
 
