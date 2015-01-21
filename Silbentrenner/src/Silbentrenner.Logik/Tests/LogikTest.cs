@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using NHunspell;
 using NUnit.Framework;
 
@@ -36,7 +37,7 @@ namespace Silbentrenner.Logik.Tests
         public void Woerter_In_Silben_Trennen()
         {
             var silbentrenner = new Hyphen("hyph_de_DE.dic");
-            
+
             var silbenqueueVon_Kaffeefahrt = new Queue<string>();
             silbenqueueVon_Kaffeefahrt.Enqueue("Kaf");
             silbenqueueVon_Kaffeefahrt.Enqueue("fee");
@@ -103,7 +104,7 @@ namespace Silbentrenner.Logik.Tests
             var ergebnis = silbentrenner.Hyphenate("Kaffeefahrt.");
             Assert.That(silbentrenner.Hyphenate("Kaffeefahrt.").HyphenatedWord, Is.EqualTo("Kaf=fee=fahr=t."));
             Assert.That(silbentrenner.Hyphenate("Mensch").HyphenatedWord, Is.EqualTo("Mensch"));
-        
+
             Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortOhneSilben), Is.EqualTo(ausgabeWortOhneSilben));
             Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortMitSilben), Is.EqualTo(ausgabeWortMitSilben));
             Assert.That(Logik.WoerterInSilbenTrennen(eingabeTextMitSilben), Is.EqualTo(ausgabeTextMitSilben));
@@ -131,7 +132,6 @@ namespace Silbentrenner.Logik.Tests
 
             var result = Logik.WoerterZuZeilenZusammensetzen(woerter, 15);
 
-
             Assert.That(result.Count(), Is.EqualTo(5));
             Assert.That(result.First(), Is.EqualTo("Erwartet wer-"));
             Assert.That(result.Skip(1).First(), Is.EqualTo("den in dem Ski-"));
@@ -139,6 +139,16 @@ namespace Silbentrenner.Logik.Tests
             Assert.That(result.Skip(3).First(), Is.EqualTo("wie Kanzlerin"));
             Assert.That(result.Skip(4).First(), Is.EqualTo("Angie"));
 
+        }
+
+        [Test]
+        public void Ein_Zu_langes_Wort_wird_Hart_aufgetrennt()
+        {
+            var woerter = new List<Wort>() { new Wort() { Text = "hasudirsogedacht", Silben = new Queue<string>(new List<string>() { "hasudirsogedacht" }) } };
+
+            var result = Logik.WoerterZuZeilenZusammensetzen(woerter, 10);
+
+            Assert.That(result.First(), Is.EqualTo("hasudirsog-"));
         }
 
         private static List<Wort> ErstelleTestWoerter()
