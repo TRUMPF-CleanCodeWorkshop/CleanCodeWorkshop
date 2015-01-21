@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silbentrenner.Client", "src\Silbentrenner.Client\Silbentrenner.Client.csproj", "{C616BBF0-8A91-4D5C-B050-CB682DE2ACAD}"
 EndProject
@@ -10,6 +10,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silbentrenner.Fileadapter", "src\Silbentrenner.Fileadapter\Silbentrenner.Fileadapter.csproj", "{CE4A23C4-06F4-4104-B18A-9D62C1C00E1B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silbentrenner.Host", "src\Silbentrenner.Host\Silbentrenner.Host.csproj", "{8BD41AD1-5B24-4927-A4CB-DC5486088FD7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B3C798D-64FD-48BF-AA3F-67929EA7CBDA}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.config = nuget.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
