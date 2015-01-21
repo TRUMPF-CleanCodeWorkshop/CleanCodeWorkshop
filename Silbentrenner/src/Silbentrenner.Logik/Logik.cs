@@ -12,7 +12,6 @@ namespace Silbentrenner.Logik
 
     public class Logik
     {
-
         public static string ErsetzeCRLFDurchSpace(string text)
         {
             return text.Replace(Environment.NewLine, " ");
@@ -37,9 +36,8 @@ namespace Silbentrenner.Logik
                 }
                 aktuelleZeile += " ";
             }
-            aktuelleZeile = aktuelleZeile.Trim();
 
-            yield return aktuelleZeile;
+            yield return VollständigeZeileZurückgeben(false, aktuelleZeile); ;
         }
 
         private static string VollständigeZeileZurückgeben(bool trennzeichenNötig, string aktuelleZeile)
