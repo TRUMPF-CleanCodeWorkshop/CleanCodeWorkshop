@@ -11,7 +11,7 @@ namespace Silbentrenner.Logik
 
         public static string ErsetzeCRLFDurchSpace(string text)
         {
-            return "";
+            return text.Replace(Environment.NewLine, " ");
         }
 
         public static IEnumerable<String> WoerterZuZeilenZusammensetzen(IEnumerable<Wort> woerter, int zeilenlaenge)
