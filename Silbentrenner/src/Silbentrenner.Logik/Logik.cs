@@ -55,10 +55,9 @@ namespace Silbentrenner.Logik
 
         public static string BereinigenVonLeerzeichen(string text)
         {
-            string pattern = "\\s+";
-            string replacement = " ";
-            Regex rgx = new Regex(pattern);
-            var cleanedString = rgx.Replace(text, replacement);
+            var rgx = new Regex("\\s+");
+
+            var cleanedString = rgx.Replace(text, " ");
 
             return cleanedString.TrimEnd(' ');
         }
@@ -66,21 +65,16 @@ namespace Silbentrenner.Logik
         public static IEnumerable<Wort> WoerterInSilbenTrennen(IEnumerable<Wort> woerter)
         {
             var silbentrenner = new Hyphen("hyph_de_DE.dic");
+            return woerter.Select(Wort => FügeSilbenDemWortHinzu(silbentrenner,Wort)).ToList();
+        }
 
-            foreach (var wort in woerter)
-            {
-                var hyphenationResult = silbentrenner.Hyphenate(wort.Text);
-                var hyphenQueue = new Queue<string>();
+        private static Wort FügeSilbenDemWortHinzu(Hyphen Silbentrenner, Wort Wort)
+        {
+            var hyphenationResult = Silbentrenner.Hyphenate(Wort.Text);
 
-                foreach (var hyphen in hyphenationResult.HyphenatedWord.Split('='))
-                {
-                    hyphenQueue.Enqueue(hyphen);
-                }
+            Wort.Silben = new Queue<string>(hyphenationResult.HyphenatedWord.Split('='));
 
-                wort.Silben = hyphenQueue;
-            }
-
-            return woerter;
+            return Wort;
         }
     }
 }
