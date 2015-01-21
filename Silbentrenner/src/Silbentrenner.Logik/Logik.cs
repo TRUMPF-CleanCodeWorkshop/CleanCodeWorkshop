@@ -41,11 +41,19 @@ namespace Silbentrenner.Logik
         public static IEnumerable<Wort> WoerterInSilbenTrennen(IEnumerable<Wort> woerter)
         {
             var silbentrenner = new Hyphen("hyph_de_DE.dic");
-            var wortMitSilben = "Kaffeefahrt";
-            var libTest = silbentrenner.Hyphenate(wortMitSilben);
-            //// Ergebnis : Kaf=fee=fahrt
-            
 
+            foreach (var wort in woerter)
+            {
+                var hyphenationResult = silbentrenner.Hyphenate(wort.Text);
+                var hyphenQueue = new Queue<string>();
+
+                foreach (var hyphen in hyphenationResult.HyphenatedWord.Split("="))
+                {
+                    hyphenQueue.Enqueue(hyphen);
+                }
+
+                wort.Silben = hyphenQueue;
+            }
 
             return new List<Wort>();
         }
