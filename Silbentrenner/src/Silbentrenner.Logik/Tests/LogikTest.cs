@@ -124,12 +124,6 @@ namespace Silbentrenner.Logik.Tests
             //Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortOhneSilben).First().Silben.First(), Is.EqualTo(ausgabeWortOhneSilben.First().Silben.First()));
             //Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortMitSilben), Is.EqualTo(ausgabeWortMitSilben));
             //Assert.That(Logik.WoerterInSilbenTrennen(eingabeTextMitSilben), Is.EqualTo(ausgabeTextMitSilben));
-=======
-
-            Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortOhneSilben), Is.EqualTo(ausgabeWortOhneSilben));
-            Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortMitSilben), Is.EqualTo(ausgabeWortMitSilben));
-            Assert.That(Logik.WoerterInSilbenTrennen(eingabeTextMitSilben), Is.EqualTo(ausgabeTextMitSilben));
->>>>>>> ff5bfaeb6c0e287e511ad29b3635de4dbae66397
         }
 
         [Test]
