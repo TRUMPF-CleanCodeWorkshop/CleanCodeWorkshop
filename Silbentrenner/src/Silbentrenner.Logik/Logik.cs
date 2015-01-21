@@ -18,5 +18,10 @@ namespace Silbentrenner.Logik
         {
             return new List<String>();
         }
+
+        public static IEnumerable<Wort> TextInWoerterZerlegen(string text)
+        {
+            return new List<Wort>();
+        } 
     }
 }
