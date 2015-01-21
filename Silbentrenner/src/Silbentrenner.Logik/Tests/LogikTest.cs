@@ -1,6 +1,5 @@
 ﻿using NUnit;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +33,21 @@ namespace Silbentrenner.Logik
         public void Woerter_In_Silben_Trennen()
         {
             
+        }
+
+        [Test]
+        public void EinTextWirdInEineWoerterlisteUmgewandelt()
+        {
+            string text = "bla bla trennen baume? ? ...";
+
+            var woerterliste = Logik.TextInWoerterZerlegen(text);
+
+            Assert.That(woerterliste.Count(), Is.EqualTo(6));
+            Assert.That(woerterliste.WieOftKommtWortVor("bla"), Is.EqualTo(2));
+            Assert.That(woerterliste.WieOftKommtWortVor("trennen"), Is.EqualTo(1));
+            Assert.That(woerterliste.WieOftKommtWortVor("baume?"), Is.EqualTo(1));
+            Assert.That(woerterliste.WieOftKommtWortVor("?"), Is.EqualTo(1));
+            Assert.That(woerterliste.WieOftKommtWortVor("..."), Is.EqualTo(1));
         }
     }
 }
