@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Silbentrenner.Fileadapter
 {
-    public class Class1
+    public class Fileadapter
     {
     }
 }
