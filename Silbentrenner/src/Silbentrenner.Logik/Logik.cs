@@ -21,12 +21,7 @@ namespace Silbentrenner.Logik
 
         public static IEnumerable<Wort> TextInWoerterZerlegen(string text)
         {
-            List<Wort> woerter = new List<Wort>();
-            foreach (var wort in text.Split(' '))
-            {
-                woerter.Add(new Wort() { Text = wort });
-            }
-            return woerter;
+            return text.Split(' ').Select(W => new Wort() {Text = W}).ToList();
         }
 
         public static string BereinigenVonLeerzeichen(string text)
