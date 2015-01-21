@@ -22,6 +22,16 @@ namespace Silbentrenner.Logik
         public static IEnumerable<Wort> TextInWoerterZerlegen(string text)
         {
             return new List<Wort>();
-        } 
+        }
+
+        public static string BereinigenVonLeerzeichen(string text)
+        {
+            return "";
+        }
+
+        public static IEnumerable<Wort> WoerterInSilbenTrennen(IEnumerable<Wort> woerter)
+        {
+            return new List<Wort>();
+        }
     }
 }
