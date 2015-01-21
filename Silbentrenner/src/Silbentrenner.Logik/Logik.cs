@@ -72,7 +72,7 @@ namespace Silbentrenner.Logik
                 var hyphenationResult = silbentrenner.Hyphenate(wort.Text);
                 var hyphenQueue = new Queue<string>();
 
-                foreach (var hyphen in hyphenationResult.HyphenatedWord.Split("="))
+                foreach (var hyphen in hyphenationResult.HyphenatedWord.Split('='))
                 {
                     hyphenQueue.Enqueue(hyphen);
                 }
