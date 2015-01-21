@@ -1,19 +1,34 @@
 ﻿<Window x:Class="Silbentrenner.Client.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="750" Width="725">
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:client="clr-namespace:Silbentrenner.Client"
+        Title="Silbentrenner" Height="750" Width="725"
+        
+        d:DataContext="{d:DesignInstance Type=client:MainViewModel, IsDesignTimeCreatable=True}"
+        >
     <Grid Margin="30">
         <Grid.RowDefinitions>
-            <RowDefinition Height ="30" ></RowDefinition>
+            <RowDefinition Height="40" ></RowDefinition>
             <RowDefinition Height ="1*"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height ="1*"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
-        
-        <TextBox  Width="350" HorizontalAlignment="Left"></TextBox>
-        <Button Grid.Row="0" Width="50" HorizontalAlignment="Right">Laden</Button>
-        
-        <TextBox Grid.Row="1" ></TextBox>
+
+        <TextBox  Width="350" HorizontalAlignment="Left" Text="{Binding SourceFileName, UpdateSourceTrigger = PropertyChanged}" Margin="5"></TextBox>
+        <Button Grid.Row="0" Width="100" HorizontalAlignment="Right" Command="{Binding LadeText}"  Margin="5">Laden</Button>
+
+        <TextBox Grid.Row="1" Text ="{Binding SourceText,UpdateSourceTrigger = PropertyChanged}"  Margin="5"></TextBox>
+
+        <TextBox Grid.Row="2" Width="350" HorizontalAlignment ="Left" Margin="5" Text ="{Binding MaxCharacters}"></TextBox>
+        <Button Grid.Row="2" Width="100" HorizontalAlignment="Right" Command="{Binding TrenneText}"  Margin="5">Trennen</Button>
+
+        <TextBox Grid.Row="3" Text ="{Binding SplittedText}"  Margin="5"></TextBox>
+
+        <TextBox Grid.Row="4" Width="350" HorizontalAlignment="Left" Text="{Binding TargetFileName,UpdateSourceTrigger = PropertyChanged}" Margin="5"></TextBox>
+        <Button Grid.Row="4" Width="100" HorizontalAlignment="Right" Command="{Binding SpeichereText}"  Margin="5">Speichern</Button>
     </Grid>
 </Window>
