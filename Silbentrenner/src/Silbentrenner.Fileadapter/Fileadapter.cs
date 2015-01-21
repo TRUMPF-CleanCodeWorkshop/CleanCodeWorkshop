@@ -6,16 +6,24 @@ using System.Threading.Tasks;
 
 namespace Silbentrenner.Fileadapter
 {
+    using System.IO;
+
     public class Fileadapter
     {
         public static string ReadTextFromFile(string path)
         {
-            throw new NotImplementedException();
+            using (StreamReader reader = new StreamReader(path))
+            {
+                return reader.ReadToEnd();
+            }
         }
 
         public static void SaveToOutputFile(string dividedText, string path)
         {
-            throw new NotImplementedException();
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                writer.Write(dividedText);
+            }
         }
     }
 }

@@ -48,6 +48,7 @@
     <Compile Include="Logik.cs" />
     <Compile Include="Tests\LogikTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\TextWirdInWoerterlisteUmgewandeltHelper.cs" />
     <Compile Include="Wort.cs" />
   </ItemGroup>
   <ItemGroup>
