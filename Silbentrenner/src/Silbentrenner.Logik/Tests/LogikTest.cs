@@ -22,6 +22,16 @@ namespace Silbentrenner.Logik
 
         }
 
+        [Test]
+        public void Bereinigen_Von_Leerzeichen()
+        {
+            
+        }
 
+        [Test]
+        public void Woerter_In_Silben_Trennen()
+        {
+            
+        }
     }
 }
