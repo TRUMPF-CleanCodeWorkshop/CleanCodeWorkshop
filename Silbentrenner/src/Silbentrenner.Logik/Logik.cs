@@ -8,14 +8,20 @@ namespace Silbentrenner.Logik
 {
     public class Logik
     {
-        public static string BereinigenVonLeerzeichen(string text)
+
+        public static string ErsetzeCRLFDurchSpace(string text)
         {
             return "";
         }
 
-        public static IEnumerable<Wort> WoerterInSilbenTrennen(IEnumerable<Wort> woerter)
+        public static IEnumerable<String> WoerterZuZeilenZusammensetzen(IEnumerable<Wort> woerter, int zeilenlaenge)
+        {
+            return new List<String>();
+        }
+
+        public static IEnumerable<Wort> TextInWoerterZerlegen(string text)
         {
             return new List<Wort>();
-        }
+        } 
     }
 }

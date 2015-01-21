@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8BD41AD1-5B24-4927-A4CB-DC5486088FD7}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Silbentrenner.Host</RootNamespace>
     <AssemblyName>Silbentrenner.Host</AssemblyName>
@@ -33,17 +33,35 @@
     <StartupObject>Silbentrenner.Host.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Silbentrenner.Client\Silbentrenner.Client.csproj">
+      <Project>{c616bbf0-8a91-4d5c-b050-cb682de2acad}</Project>
+      <Name>Silbentrenner.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Silbentrenner.Fileadapter\Silbentrenner.Fileadapter.csproj">
+      <Project>{ce4a23c4-06f4-4104-b18a-9d62c1c00e1b}</Project>
+      <Name>Silbentrenner.Fileadapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Silbentrenner.Logik\Silbentrenner.Logik.csproj">
+      <Project>{a04e4699-d11f-46a1-810e-1e58b8d7876a}</Project>
+      <Name>Silbentrenner.Logik</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
