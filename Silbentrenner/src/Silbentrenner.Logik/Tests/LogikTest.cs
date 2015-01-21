@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using NHunspell;
 using NUnit.Framework;
 
@@ -12,52 +11,44 @@ namespace Silbentrenner.Logik.Tests
     {
 
         [Test]
-        public void ErsetzeCRLFDurchSpace_zwei_Returns()
+        public void Ersetze_alle_Zeilenumbrüche_in_einem_Text_durch_Space()
         {
             var text = "123" + Environment.NewLine + "ab" + Environment.NewLine;
 
             var result = Logik.ErsetzeCRLFDurchSpace(text);
 
             Assert.That(result, Is.EqualTo("123 ab "));
-
         }
 
         [Test]
-        public void Bereinigen_Von_Leerzeichen()
+        public void In_einem_Text_werden_alle_überflüssigen_Leerzeichen_gelöscht()
         {
             var stringMitLeerzeichen = "A B  C   D.       F ";
-            var gewuenschtesStringergebnis = "A B C D. F";
 
-            var probandString = Silbentrenner.Logik.Logik.BereinigenVonLeerzeichen(stringMitLeerzeichen);
+            var probandString = Logik.BereinigenVonLeerzeichen(stringMitLeerzeichen);
 
-            Assert.That(probandString, Is.EqualTo(gewuenschtesStringergebnis));
+            Assert.That(probandString, Is.EqualTo("A B C D. F"));
         }
 
         [Test]
-        public void Wort_Mit_Silben_Trennen()
+        public void Für_ein_mehrsillbiges_Wort_wird_in_Silben_aufgetrennt()
         {
-            var eingabeWortMitSilben = new List<Wort>
-                {
-                    new Wort { Text = "Kaffeefahrt.", Silben = new Queue<string>() }
-                };
+            var wörter = new List<Wort >(){ErstelleWort("Kaffeefahrt.")};
 
-            var result = Logik.WoerterInSilbenTrennen(eingabeWortMitSilben);
+            var result = Logik.WoerterInSilbenTrennen(wörter).First();
 
-            Assert.That(result.First().Silben.First(), Is.EqualTo("Kaf"));
-            Assert.That(result.First().Silben.Skip(1).First(), Is.EqualTo("fee"));
-            Assert.That(result.First().Silben.Skip(2).First(), Is.EqualTo("fahr"));
-            Assert.That(result.First().Silben.Skip(3).First(), Is.EqualTo("t."));
+            Assert.That(result.Silben.First(), Is.EqualTo("Kaf"));
+            Assert.That(result.Silben.Skip(1).First(), Is.EqualTo("fee"));
+            Assert.That(result.Silben.Skip(2).First(), Is.EqualTo("fahr"));
+            Assert.That(result.Silben.Skip(3).First(), Is.EqualTo("t."));
         }
 
         [Test]
-        public void Wort_Ohne_Silben_Trennen()
+        public void Für_ein_einsilbiges_Wort_wird_nach_Trennversuch_genau_eine_Silbe_zurückgeliefert()
         {
-            var eingabeWortOhneSilben = new List<Wort>
-                {
-                    new Wort { Text = "Mensch", Silben = new Queue<string>() }
-                };
+            var wörter = new List<Wort>() { ErstelleWort("Mensch") };
 
-            var result = Logik.WoerterInSilbenTrennen(eingabeWortOhneSilben);
+            var result = Logik.WoerterInSilbenTrennen(wörter);
 
             Assert.That(result.First().Silben.First(), Is.EqualTo("Mensch"));
         }
@@ -86,7 +77,7 @@ namespace Silbentrenner.Logik.Tests
             var silbenqueueVon_Die = new Queue<string>();
             silbenqueueVon_Die.Enqueue("die");
 
-            
+
             var eingabeTextMitSilben = new List<Wort>
                 {
                     new Wort{ Text = "Mensch", Silben = null },
@@ -120,33 +111,32 @@ namespace Silbentrenner.Logik.Tests
             var ergebnis = silbentrenner.Hyphenate("Kaffeefahrt.");
             Assert.That(silbentrenner.Hyphenate("Kaffeefahrt.").HyphenatedWord, Is.EqualTo("Kaf=fee=fahr=t."));
             Assert.That(silbentrenner.Hyphenate("Mensch").HyphenatedWord, Is.EqualTo("Mensch"));
-        
+
             //Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortOhneSilben).First().Silben.First(), Is.EqualTo(ausgabeWortOhneSilben.First().Silben.First()));
             //Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortMitSilben), Is.EqualTo(ausgabeWortMitSilben));
             //Assert.That(Logik.WoerterInSilbenTrennen(eingabeTextMitSilben), Is.EqualTo(ausgabeTextMitSilben));
         }
 
-        [Test]
         public void EinTextWirdInEineWoerterlisteUmgewandelt()
         {
             string text = "bla bla trennen baume? ? ...";
 
-            var woerterliste = Logik.TextInWoerterZerlegen(text);
+            var wörter = Logik.TextInWoerterZerlegen(text).ToList();
 
-            Assert.That(woerterliste.Count(), Is.EqualTo(6));
-            Assert.That(woerterliste.WieOftKommtWortVor("bla"), Is.EqualTo(2));
-            Assert.That(woerterliste.WieOftKommtWortVor("trennen"), Is.EqualTo(1));
-            Assert.That(woerterliste.WieOftKommtWortVor("baume?"), Is.EqualTo(1));
-            Assert.That(woerterliste.WieOftKommtWortVor("?"), Is.EqualTo(1));
-            Assert.That(woerterliste.WieOftKommtWortVor("..."), Is.EqualTo(1));
+            Assert.That(wörter.Count(), Is.EqualTo(6));
+            Assert.That(wörter.WieOftKommtWortVor("bla"), Is.EqualTo(2));
+            Assert.That(wörter.WieOftKommtWortVor("trennen"), Is.EqualTo(1));
+            Assert.That(wörter.WieOftKommtWortVor("baume?"), Is.EqualTo(1));
+            Assert.That(wörter.WieOftKommtWortVor("?"), Is.EqualTo(1));
+            Assert.That(wörter.WieOftKommtWortVor("..."), Is.EqualTo(1));
         }
 
         [Test]
-        public void WoerterZuZeilenZusammensetzen()
+        public void WörterZuZeilenZusammensetzen()
         {
-            var woerter = ErstelleTestWoerter();
+            var wörter = ErstelleTestWoerter();
 
-            var result = Logik.WoerterZuZeilenZusammensetzen(woerter, 15);
+            var result = Logik.WoerterZuZeilenZusammensetzen(wörter, 15).ToList();
 
             Assert.That(result.Count(), Is.EqualTo(5));
             Assert.That(result.First(), Is.EqualTo("Erwartet wer-"));
@@ -160,7 +150,7 @@ namespace Silbentrenner.Logik.Tests
         [Test]
         public void Ein_Zu_langes_Wort_wird_Hart_aufgetrennt()
         {
-            var woerter = new List<Wort>() { new Wort() { Text = "hasudirsogedacht", Silben = new Queue<string>(new List<string>() { "hasudirsogedacht" }) } };
+            var woerter = new List<Wort>() { ErstelleWort("hasudirsogedacht", "hasudirsogedacht") };
 
             var result = Logik.WoerterZuZeilenZusammensetzen(woerter, 10);
 
@@ -169,44 +159,28 @@ namespace Silbentrenner.Logik.Tests
 
         private static List<Wort> ErstelleTestWoerter()
         {
-            var woerter = new List<Wort>()
+            return new List<Wort>()
             {
-                new Wort() {Text = "Erwartet", Silben = new Queue<string>()},
-                new Wort() {Text = "werden", Silben = new Queue<string>()},
-                new Wort() {Text = "in", Silben = new Queue<string>()},
-                new Wort() {Text = "dem", Silben = new Queue<string>()},
-                new Wort() {Text = "Skiort", Silben = new Queue<string>()},
-                new Wort() {Text = "Top-Promis", Silben = new Queue<string>()},
-                new Wort() {Text = "wie", Silben = new Queue<string>()},
-                new Wort() {Text = "Kanzlerin", Silben = new Queue<string>()},
-                new Wort() {Text = "Angie", Silben = new Queue<string>()},
+                ErstelleWort("Erwartet", "Er", "war", "tet"),
+                ErstelleWort("werden", "wer", "den"),
+                ErstelleWort("in", "in"),
+                ErstelleWort("dem", "dem"),
+                ErstelleWort("Skiort", "Ski", "ort"),
+                ErstelleWort("Top-Promis", "Top-", "Promis"),
+                ErstelleWort("wie", "wie"),
+                ErstelleWort("Kanzlerin", "Kanz", "ler", "in"),
+                ErstelleWort("Angie", "An", "gie"),
             };
+        }
 
-            woerter[0].Silben.Enqueue("Er");
-            woerter[0].Silben.Enqueue("war");
-            woerter[0].Silben.Enqueue("tet");
+        private static Wort ErstelleWort(string Wort)
+        {
+            return new Wort { Text = Wort, Silben = new Queue<string>() };
+        }
 
-            woerter[1].Silben.Enqueue("wer");
-            woerter[1].Silben.Enqueue("den");
-
-            woerter[2].Silben.Enqueue("in");
-            woerter[3].Silben.Enqueue("dem");
-
-            woerter[4].Silben.Enqueue("Ski");
-            woerter[4].Silben.Enqueue("ort");
-
-            woerter[5].Silben.Enqueue("Top-");
-            woerter[5].Silben.Enqueue("Promis");
-
-            woerter[6].Silben.Enqueue("wie");
-
-            woerter[7].Silben.Enqueue("Kanz");
-            woerter[7].Silben.Enqueue("ler");
-            woerter[7].Silben.Enqueue("in");
-
-            woerter[8].Silben.Enqueue("An");
-            woerter[8].Silben.Enqueue("gie");
-            return woerter;
+        private static Wort ErstelleWort(string Wort, params string[] Silben)
+        {
+            return new Wort { Text = Wort, Silben = new Queue<string>(Silben) };
         }
     }
 }
