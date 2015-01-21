@@ -29,7 +29,8 @@ namespace Silbentrenner.Logik
                 {
                     if ((aktuelleZeile.Length + silbe.Length) >= zeilenlaenge)
                     {
-                        yield return VollstaendigeZeileZurueckgeben(vorigeSilbeWarLetzteDesWortes, ref aktuelleZeile);
+                        yield return VollstaendigeZeileZurueckgeben(vorigeSilbeWarLetzteDesWortes, aktuelleZeile);
+                        aktuelleZeile = "";
                     }
                     aktuelleZeile += silbe;
                     vorigeSilbeWarLetzteDesWortes = wort.Silben.Last() == silbe;
@@ -40,12 +41,11 @@ namespace Silbentrenner.Logik
             yield return aktuelleZeile;
         }
 
-        private static string VollstaendigeZeileZurueckgeben(bool vorigeSilbeWarLetzteDesWortes, ref string aktuelleZeile)
+        private static string VollstaendigeZeileZurueckgeben(bool vorigeSilbeWarLetzteDesWortes, string aktuelleZeile)
         {
             aktuelleZeile = aktuelleZeile.Trim();
             if (!vorigeSilbeWarLetzteDesWortes) aktuelleZeile += "-";
             return aktuelleZeile;
-            aktuelleZeile = "";
         }
 
         public static IEnumerable<Wort> TextInWoerterZerlegen(string text)
