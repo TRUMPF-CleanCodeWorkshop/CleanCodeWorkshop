@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{49CAC543-1CA0-4098-BEC5-12E6BC346F78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{22B5ACFE-A586-405E-B169-D414C84E6A06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogic", "Logic\GameLogic.csproj", "{B74557FC-CD18-4CA5-A075-ED6CD6F9BEF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{6727BB83-B31B-4683-B326-89611314CC8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitmapAdapter", "BitmapAdapter\BitmapAdapter.csproj", "{BCCBB18E-6C6A-4673-99AC-17456F40955A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A6392B4D-253C-4444-888C-8377E87D3E0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogic.Tests", "GameLogic.Tests\GameLogic.Tests.csproj", "{5293DC1B-01FF-4D04-B78F-7A31AD2A0283}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0697FA6A-10F7-4491-BA6E-93F930490E48}"
+	ProjectSection(SolutionItems) = preProject
+		..\nuget.config = ..\nuget.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitmapAdapter.Tests", "BitmapAdapter.Tests\BitmapAdapter.Tests.csproj", "{5721A9E0-AF70-484A-B5B5-F1C285097049}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49CAC543-1CA0-4098-BEC5-12E6BC346F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49CAC543-1CA0-4098-BEC5-12E6BC346F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49CAC543-1CA0-4098-BEC5-12E6BC346F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49CAC543-1CA0-4098-BEC5-12E6BC346F78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22B5ACFE-A586-405E-B169-D414C84E6A06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B5ACFE-A586-405E-B169-D414C84E6A06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B5ACFE-A586-405E-B169-D414C84E6A06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B5ACFE-A586-405E-B169-D414C84E6A06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B74557FC-CD18-4CA5-A075-ED6CD6F9BEF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B74557FC-CD18-4CA5-A075-ED6CD6F9BEF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B74557FC-CD18-4CA5-A075-ED6CD6F9BEF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B74557FC-CD18-4CA5-A075-ED6CD6F9BEF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6727BB83-B31B-4683-B326-89611314CC8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6727BB83-B31B-4683-B326-89611314CC8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6727BB83-B31B-4683-B326-89611314CC8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6727BB83-B31B-4683-B326-89611314CC8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCCBB18E-6C6A-4673-99AC-17456F40955A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCCBB18E-6C6A-4673-99AC-17456F40955A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCCBB18E-6C6A-4673-99AC-17456F40955A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCCBB18E-6C6A-4673-99AC-17456F40955A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5293DC1B-01FF-4D04-B78F-7A31AD2A0283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5293DC1B-01FF-4D04-B78F-7A31AD2A0283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5293DC1B-01FF-4D04-B78F-7A31AD2A0283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5293DC1B-01FF-4D04-B78F-7A31AD2A0283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5721A9E0-AF70-484A-B5B5-F1C285097049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5721A9E0-AF70-484A-B5B5-F1C285097049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5721A9E0-AF70-484A-B5B5-F1C285097049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5721A9E0-AF70-484A-B5B5-F1C285097049}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5293DC1B-01FF-4D04-B78F-7A31AD2A0283} = {A6392B4D-253C-4444-888C-8377E87D3E0A}
+		{5721A9E0-AF70-484A-B5B5-F1C285097049} = {A6392B4D-253C-4444-888C-8377E87D3E0A}
+	EndGlobalSection
+EndGlobal
