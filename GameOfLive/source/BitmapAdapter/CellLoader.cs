@@ -18,8 +18,7 @@ namespace GameOfLife.BitmapAdapter
 
         internal static Bitmap LoadBitmap(string path)
         {
-            // var fileContent = File.ReadAllBytes(path);
-            return new Bitmap(Bitmap.FromFile(path));
+            return new Bitmap(path);
         }
 
         internal static Cells CalculateInitalCells(Bitmap bitmap, Size mapSize)
