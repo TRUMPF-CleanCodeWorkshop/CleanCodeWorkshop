@@ -25,7 +25,27 @@ namespace GameOfLife.GameLogic
 
         internal static Cells DetectReborn(Cells previousGeneration)
         {
-            throw new NotImplementedException();
+            var reborns = new Cells();
+
+            foreach (var oldCell in previousGeneration)
+            {
+                var environment = GenerateEnvironment(oldCell);
+
+                foreach (var cell in environment)
+                {
+                    if (previousGeneration.Contains(cell))
+                    {
+                        continue;
+                    }
+
+                    if (CalculateNeighbors(cell, previousGeneration) == 3 && !reborns.Contains(cell))
+                    {
+                        reborns.Add(cell);
+                    }
+                }
+            }
+
+            return reborns;
         }
 
         internal static Cells DetectSurvivals(Cells previousGeneration)

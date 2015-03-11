@@ -80,5 +80,65 @@ namespace GameLogic.Tests
             Assert.That(count, Is.EqualTo(8));
         }
 
+        [Test]
+        public void DetectReborn_Population_with_no_reborns_returns_null()
+        {
+            var population = new Cells() { 
+                new Point(1, 1),
+                new Point(1, 4),
+                new Point(0, 2)
+            };
+
+            var reborns = GameOfLiveSimulation.DetectReborn(population);
+
+            Assert.That(reborns.Count(), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void DetectReborn_Population_with_one_reborns_returns_celllist_with_one_cell()
+        {
+            var population = new Cells() { 
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(1, 1)
+            };
+
+            var reborns = GameOfLiveSimulation.DetectReborn(population);
+
+            Assert.That(reborns.Count(), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void DetectReborn_Population_with_two_reborns_returns_celllist_with_two_cells()
+        {
+            var population = new Cells() { 
+                new Point(1, 0),
+                new Point(1, 1),
+                new Point(1, 2),
+                new Point(1, 4),
+                new Point(2, 0),
+                new Point(2, 1)
+            };
+
+            var reborns = GameOfLiveSimulation.DetectReborn(population);
+
+            Assert.That(reborns.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void DetectReborn_Population_with_one_reborn_returns_celllist_with_cell_at_1_0()
+        {
+            var population = new Cells() { 
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(1, 1)
+            };
+
+            var reborns = GameOfLiveSimulation.DetectReborn(population);
+
+            Assert.That(reborns.First().X, Is.EqualTo(1));
+            Assert.That(reborns.First().Y, Is.EqualTo(0));
+        }
+
     }
 }
