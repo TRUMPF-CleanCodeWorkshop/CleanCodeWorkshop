@@ -21,10 +21,12 @@ namespace GameOfLife.GameLogic
         internal static Cells GenerateNextPopulation(Cells survivals, Cells reborn, Cells previousGeneration)
         {
             var newGeneration = new Cells();
+
             newGeneration.AddRange(survivals);
             newGeneration.AddRange(reborn);
             newGeneration.Population = newGeneration.Count;
             newGeneration.Generation = previousGeneration.Generation + 1;
+
             return newGeneration;
             
         }
