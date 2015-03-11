@@ -15,12 +15,18 @@ namespace GameOfLife.GameLogic
             var survivals = DetectSurvivals(previousGeneration);
             var reborn = DetectReborn(previousGeneration);
 
-            return GenerateNextPopulation(survivals, reborn);
+            return GenerateNextPopulation(survivals, reborn, previousGeneration);
         }
 
-        internal static Cells GenerateNextPopulation(Cells survivals, Cells reborn)
+        internal static Cells GenerateNextPopulation(Cells survivals, Cells reborn, Cells previousGeneration)
         {
-            throw new NotImplementedException();
+            var newGeneration = new Cells();
+            newGeneration.AddRange(survivals);
+            newGeneration.AddRange(reborn);
+            newGeneration.Population = newGeneration.Count;
+            newGeneration.Generation = previousGeneration.Generation + 1;
+            return newGeneration;
+            
         }
 
         internal static Cells DetectReborn(Cells previousGeneration)
@@ -30,7 +36,10 @@ namespace GameOfLife.GameLogic
 
         internal static Cells DetectSurvivals(Cells previousGeneration)
         {
-            throw new NotImplementedException();
+            var newGeneration = new Cells();
+            newGeneration.AddRange(previousGeneration.Where(x => CalculateNeighbors(x, previousGeneration) == 2 || CalculateNeighbors(x, previousGeneration) == 3));
+            
+            return newGeneration;
         }
 
         internal static int CalculateNeighbors(Point cell, Cells generation)
