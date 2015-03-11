@@ -54,67 +54,32 @@ namespace Silbentrenner.Logik.Tests
         }
 
         [Test]
-        public void Text_Mit_Silben_Trennen()
+        public void Für_alle_Wörter_werden_die_Silben_ermittelt()
         {
-            var silbentrenner = new Hyphen("hyph_de_DE.dic");
+            var wörter = new List<Wort>()
+                             {
+                                 ErstelleWort("Mensch"),
+                                 ErstelleWort("Helga!"),
+                                 ErstelleWort("Lass"),
+                                 ErstelleWort("uns"),
+                                 ErstelleWort("auf"),
+                                 ErstelleWort("die"),
+                                 ErstelleWort("Kaffeefahrt.")
+                             };
 
-            var silbenqueueVon_Mensch = new Queue<string>();
-            silbenqueueVon_Mensch.Enqueue("Mensch");
+            var result = Logik.WoerterInSilbenTrennen(wörter).ToList();
 
-            var silbenqueueVon_Helga = new Queue<string>();
-            silbenqueueVon_Helga.Enqueue("Hel");
-            silbenqueueVon_Helga.Enqueue("ga!");
-
-            var silbenqueueVon_Lass = new Queue<string>();
-            silbenqueueVon_Lass.Enqueue("Lass");
-
-            var silbenqueueVon_Uns = new Queue<string>();
-            silbenqueueVon_Uns.Enqueue("uns");
-
-            var silbenqueueVon_Auf = new Queue<string>();
-            silbenqueueVon_Auf.Enqueue("auf");
-
-            var silbenqueueVon_Die = new Queue<string>();
-            silbenqueueVon_Die.Enqueue("die");
-
-
-            var eingabeTextMitSilben = new List<Wort>
-                {
-                    new Wort{ Text = "Mensch", Silben = null },
-                    new Wort{ Text = "Helga!", Silben = null },
-                    new Wort{ Text = "Lass", Silben = null },
-                    new Wort{ Text = "uns", Silben = null },
-                    new Wort{ Text = "auf", Silben = null },
-                    new Wort{ Text = "die", Silben = null },
-                    new Wort{ Text = "Kaffeefahrt.", Silben = null }
-                };
-
-            //var ausgabeWortMitSilben = new List<Wort>
-            //    {
-            //        new Wort { Text = "Kaffeefahrt.", Silben = silbenqueueVon_Kaffeefahrt }
-            //    };
-            //var ausgabeWortOhneSilben = new List<Wort>
-            //    {
-            //        new Wort { Text = "Mensch", Silben = silbenqueueVon_Mensch }
-            //    };
-            //var ausgabeTextMitSilben = new List<Wort>
-            //    {
-            //        new Wort{ Text = "Mensch", Silben = silbenqueueVon_Mensch },
-            //        new Wort{ Text = "Helga!", Silben = silbenqueueVon_Helga },
-            //        new Wort{ Text = "Lass", Silben = silbenqueueVon_Lass },
-            //        new Wort{ Text = "uns", Silben = silbenqueueVon_Uns },
-            //        new Wort{ Text = "auf", Silben = silbenqueueVon_Auf },
-            //        new Wort{ Text = "die", Silben = silbenqueueVon_Die },
-            //        new Wort{ Text = "Kaffeefahrt.", Silben = silbenqueueVon_Kaffeefahrt }
-            //    };
-
-            var ergebnis = silbentrenner.Hyphenate("Kaffeefahrt.");
-            Assert.That(silbentrenner.Hyphenate("Kaffeefahrt.").HyphenatedWord, Is.EqualTo("Kaf=fee=fahr=t."));
-            Assert.That(silbentrenner.Hyphenate("Mensch").HyphenatedWord, Is.EqualTo("Mensch"));
-
-            //Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortOhneSilben).First().Silben.First(), Is.EqualTo(ausgabeWortOhneSilben.First().Silben.First()));
-            //Assert.That(Logik.WoerterInSilbenTrennen(eingabeWortMitSilben), Is.EqualTo(ausgabeWortMitSilben));
-            //Assert.That(Logik.WoerterInSilbenTrennen(eingabeTextMitSilben), Is.EqualTo(ausgabeTextMitSilben));
+            Assert.That(result.First().Silben.First(), Is.EqualTo("Mensch"));
+            Assert.That(result.Skip(1).First().Silben.First(), Is.EqualTo("Hel"));
+            Assert.That(result.Skip(1).First().Silben.Skip(1).First(), Is.EqualTo("ga!"));
+            Assert.That(result.Skip(2).First().Silben.First(), Is.EqualTo("Lass"));
+            Assert.That(result.Skip(3).First().Silben.First(), Is.EqualTo("uns"));
+            Assert.That(result.Skip(4).First().Silben.First(), Is.EqualTo("auf"));
+            Assert.That(result.Skip(5).First().Silben.First(), Is.EqualTo("die"));
+            Assert.That(result.Skip(6).First().Silben.First(), Is.EqualTo("Kaf"));
+            Assert.That(result.Skip(6).First().Silben.Skip(1).First(), Is.EqualTo("fee"));
+            Assert.That(result.Skip(6).First().Silben.Skip(2).First(), Is.EqualTo("fahr"));
+            Assert.That(result.Skip(6).First().Silben.Skip(3).First(), Is.EqualTo("t."));
         }
 
         public void EinTextWirdInEineWoerterlisteUmgewandelt()
