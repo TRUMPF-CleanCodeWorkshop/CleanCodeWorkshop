@@ -18,7 +18,7 @@ namespace BitmapAdapter.Tests
         [Test]
         public void LoadBitmap_Load_file_is_successfull()
         {
-            var path = @"..\..\glider.gif";
+            var path = @"TestImages\glider.gif";
 
             var bitmap = CellLoader.LoadBitmap(path);
 
@@ -28,7 +28,7 @@ namespace BitmapAdapter.Tests
         [Test]
         public void LoadBitmap_3_x_3_File_returns_3_x_3_Bitmap_Object()
         {
-            var path = @"..\..\glider.gif";
+            var path = @"TestImages\glider.gif";
 
             var bitmap = CellLoader.LoadBitmap(path);
 
@@ -38,7 +38,7 @@ namespace BitmapAdapter.Tests
         [Test]
         public void CellLoader_glider_gives_correct_points()
         {
-            var path = @"..\..\glider.gif";
+            var path = @"TestImages\glider.gif";
 
             var bitmap = CellLoader.LoadBitmap(path);
 
@@ -51,7 +51,7 @@ namespace BitmapAdapter.Tests
         [Test]
         public void CellLoader_glider_is_placed_in_correct_position()
         {
-            var path = @"..\..\glider.gif";
+            var path = @"TestImages\glider.gif";
 
             var bitmap = CellLoader.LoadBitmap(path);
 
