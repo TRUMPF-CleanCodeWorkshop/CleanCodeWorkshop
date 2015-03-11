@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 
 namespace UI
 {
+    using GameOfLife.UI;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
