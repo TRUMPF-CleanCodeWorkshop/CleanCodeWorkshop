@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{49CAC543-1CA0-4098-BEC5-12E6BC346F78}"
 EndProject
@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitmapAdapter.Tests", "BitmapAdapter.Tests\BitmapAdapter.Tests.csproj", "{5721A9E0-AF70-484A-B5B5-F1C285097049}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.Tests", "UI.Tests\UI.Tests.csproj", "{551B73AD-992B-4D9B-84BC-C5E5E8D3A15C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{5721A9E0-AF70-484A-B5B5-F1C285097049}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5721A9E0-AF70-484A-B5B5-F1C285097049}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5721A9E0-AF70-484A-B5B5-F1C285097049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{551B73AD-992B-4D9B-84BC-C5E5E8D3A15C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{551B73AD-992B-4D9B-84BC-C5E5E8D3A15C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{551B73AD-992B-4D9B-84BC-C5E5E8D3A15C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{551B73AD-992B-4D9B-84BC-C5E5E8D3A15C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,5 +71,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5293DC1B-01FF-4D04-B78F-7A31AD2A0283} = {A6392B4D-253C-4444-888C-8377E87D3E0A}
 		{5721A9E0-AF70-484A-B5B5-F1C285097049} = {A6392B4D-253C-4444-888C-8377E87D3E0A}
+		{551B73AD-992B-4D9B-84BC-C5E5E8D3A15C} = {A6392B4D-253C-4444-888C-8377E87D3E0A}
 	EndGlobalSection
 EndGlobal

@@ -18,9 +18,11 @@
             {
                 drawer.Clear(Color.White);
 
-                foreach (var cell in cells)
+                foreach (var cell in cells.Where(cell => 
+                    cell.X >= 0 && cell.Y >= 0 && 
+                    cell.X < mapWidth && cell.Y < mapHeight))
                 {
-                    bitmap.SetPixel(cell.X,cell.Y,Color.Black);
+                    bitmap.SetPixel(cell.X, cell.Y, Color.Black);
                 }
             }
             return MapDrawer.ConvertBitmapToBitmapSource(bitmap);
