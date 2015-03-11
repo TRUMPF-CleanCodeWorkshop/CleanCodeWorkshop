@@ -47,6 +47,28 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BitmapAdapter\BitmapAdapter.csproj">
+      <Project>{bccbb18e-6c6a-4673-99ac-17456f40955a}</Project>
+      <Name>BitmapAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Contracts\Contracts.csproj">
+      <Project>{49cac543-1ca0-4098-bec5-12e6bc346f78}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameLogic.Tests\GameLogic.Tests.csproj">
+      <Project>{5293dc1b-01ff-4d04-b78f-7a31ad2a0283}</Project>
+      <Name>GameLogic.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logic\GameLogic.csproj">
+      <Project>{b74557fc-cd18-4ca5-a075-ed6cd6f9bef6}</Project>
+      <Name>GameLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UI\UI.csproj">
+      <Project>{6727bb83-b31b-4683-b326-89611314cc8d}</Project>
+      <Name>UI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
