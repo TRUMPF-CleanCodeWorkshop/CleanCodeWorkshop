@@ -81,7 +81,7 @@ namespace GameLogic.Tests
         }
 
         [Test]
-        public void DetectReborn_Population_with_no_reborns_returns_null()
+        public void DetectReborn_Population_with_no_reborns_returns_0()
         {
             var population = new Cells() { 
                 new Point(1, 1),

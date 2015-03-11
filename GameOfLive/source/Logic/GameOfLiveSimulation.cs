@@ -28,30 +28,19 @@ namespace GameOfLife.GameLogic
             newGeneration.Generation = previousGeneration.Generation + 1;
 
             return newGeneration;
-            
+
         }
 
         internal static Cells DetectReborn(Cells previousGeneration)
         {
             var reborns = new Cells();
 
-            foreach (var oldCell in previousGeneration)
-            {
-                var environment = GenerateEnvironment(oldCell);
+            var possibleRebornPlaces = previousGeneration.SelectMany(GenerateEnvironment).ToList();
+            var rebornCells = possibleRebornPlaces.Where(cell => CalculateNeighbors(cell, previousGeneration) == 3)
+                .Distinct()
+                .Except(previousGeneration).ToList();
 
-                foreach (var cell in environment)
-                {
-                    if (previousGeneration.Contains(cell))
-                    {
-                        continue;
-                    }
-
-                    if (CalculateNeighbors(cell, previousGeneration) == 3 && !reborns.Contains(cell))
-                    {
-                        reborns.Add(cell);
-                    }
-                }
-            }
+            reborns.AddRange(rebornCells);
 
             return reborns;
         }
@@ -59,8 +48,9 @@ namespace GameOfLife.GameLogic
         internal static Cells DetectSurvivals(Cells previousGeneration)
         {
             var newGeneration = new Cells();
-            newGeneration.AddRange(previousGeneration.Where(x => CalculateNeighbors(x, previousGeneration) == 2 || CalculateNeighbors(x, previousGeneration) == 3));
             
+            newGeneration.AddRange(previousGeneration.Where(cell => CalculateNeighbors(cell, previousGeneration) == 2 || CalculateNeighbors(cell, previousGeneration) == 3));
+
             return newGeneration;
         }
 
