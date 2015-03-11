@@ -20,18 +20,19 @@
 
         public MainViewModel()
         {
-            this.Cells = new Cells();
             this.LoadButtonCommand = new FlowCommand();
             this.gameTimer = new Timer(10);
             this.gameTimer.Elapsed += (sender, args) => this.OnCalculateNextGeneration();
             this.mapWidth  = 500;
             this.mapHeight = 500;
+            this.Cells = new Cells();
+            this.BitMapFilePath = @"C:\Data\Development\Katas\Trumpf CleanCodeWorkshop\GameOfLive\lib\Patterns\Images\glider.gif";
         }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            var handler = PropertyChanged;
             if (handler != null)
             {
 
@@ -70,7 +71,7 @@
             get { return this.bitMapFilePath; } 
             set
             {
-                if (this.bitMapFilePath != value)
+                if (this.bitMapFilePath == value)
                 {
                     return;
                 }

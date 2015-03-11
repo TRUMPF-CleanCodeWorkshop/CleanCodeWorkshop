@@ -1,4 +1,6 @@
-﻿namespace GameOfLife.UI
+﻿using System.Collections.Generic;
+
+namespace GameOfLife.UI
 {
     using System;
     using System.Drawing;
@@ -14,16 +16,16 @@
         public static BitmapSource DrawMap(int mapWidth, int mapHeight, Cells cells)
         {
             var bitmap = new Bitmap(mapWidth, mapHeight);
+
             using (var drawer = Graphics.FromImage(bitmap))
             {
                 drawer.Clear(Color.White);
 
-                foreach (var cell in cells.Where(cell => 
+                var cellsInVisibleRange = cells.Where(cell => 
                     cell.X >= 0 && cell.Y >= 0 && 
-                    cell.X < mapWidth && cell.Y < mapHeight))
-                {
-                    bitmap.SetPixel(cell.X, cell.Y, Color.Black);
-                }
+                    cell.X < mapWidth && cell.Y < mapHeight).ToList();
+
+                cellsInVisibleRange.ForEach(cell => bitmap.SetPixel(cell.X, cell.Y, Color.Black));
             }
             return MapDrawer.ConvertBitmapToBitmapSource(bitmap);
         }

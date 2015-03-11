@@ -1,32 +1,29 @@
-﻿<Window x:Class="UI.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+﻿<Window x:Class="UI.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="MainWindow" Height="769.403" Width="901.119">
     <Grid>
-       <Grid.ColumnDefinitions>
-           <ColumnDefinition Width="Auto"/>
-           <ColumnDefinition Width="Auto"/>
-           <ColumnDefinition Width="Auto"/>
-           <ColumnDefinition Width="*"/>
-           <ColumnDefinition Width="Auto"/>
-       </Grid.ColumnDefinitions> 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding BitMapFilePath}" Margin="5" MinWidth="200"/>
-        <Button Grid.Row="0" Grid.Column="1" Content="Load" Command="{Binding LoadButtonCommand}" Margin="5" Padding="5"/>
-        
-        <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Source="{Binding Map}" Stretch="Uniform"/>
-        
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Population" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Population}" VerticalAlignment="Center"/>
-        
-        <TextBlock Grid.Row="2" Grid.Column="2" Text="Generation" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding Generation}" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding BitMapFilePath}" Margin="5" MinWidth="200" />
+        <Button Grid.Row="0" Grid.Column="1" Content="Load" Command="{Binding LoadButtonCommand}" Margin="5" Padding="5" />
 
-        <Button Grid.Row="2" Grid.Column="4" Content="Start" Command="{Binding StartButtonCommand}" Margin="5" Padding="5"/>
+        <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Source="{Binding Map}" Stretch="UniformToFill" />
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Population" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Population}" VerticalAlignment="Center" />
+
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="Generation" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding Generation}" VerticalAlignment="Center" />
+
+        <Button Grid.Row="2" Grid.Column="4" Content="Start" Command="{Binding StartButtonCommand}" Margin="5" Padding="5" />
     </Grid>
 </Window>

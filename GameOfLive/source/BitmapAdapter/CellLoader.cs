@@ -9,7 +9,7 @@ namespace GameOfLife.BitmapAdapter
     using System.IO;
     using System.Runtime.InteropServices;
 
-    public class CellLoader
+    public static class CellLoader
     {
         public static Cells Load(string path, Size mapSize)
         {
