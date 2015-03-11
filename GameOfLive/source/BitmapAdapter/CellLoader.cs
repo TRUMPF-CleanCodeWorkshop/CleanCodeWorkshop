@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
+using System.Xml.Schema;
 using GameOfLife.Contracts;
 
 namespace GameOfLife.BitmapAdapter
@@ -32,7 +34,7 @@ namespace GameOfLife.BitmapAdapter
                 for (var heightCount = 0; heightCount < bitmapSize.Height; heightCount++)
                 {
                     var pixel = bitmap.GetPixel(widthCount, heightCount);
-                    if (pixel.R == 0 && pixel.G == 0 && pixel.B == 0)
+                    if (IsBlack(pixel))
                     {
                         cells.Add(new Point(startingPosition.X + widthCount, startingPosition.Y + heightCount));
                     }
@@ -40,6 +42,11 @@ namespace GameOfLife.BitmapAdapter
             }
 
             return cells;
+        }
+
+        private static bool IsBlack(Color pixel)
+        {
+            return pixel.R == 0 && pixel.G == 0 && pixel.B == 0;
         }
     }
 }
