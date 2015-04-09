@@ -10,6 +10,10 @@ namespace RobotEngine
     public class RobotEngine2 : IRobotEngine   
     {
         public string TeamName { get; private set; }
+        public IRobot GetNewRobot()
+        {
+            return new Robot2();
+        }
 
         public RobotEngine2()
         {

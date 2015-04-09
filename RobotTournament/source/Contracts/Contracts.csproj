@@ -45,6 +45,7 @@
     <Compile Include="IRobotEngine.cs" />
     <Compile Include="Model\Directions.cs" />
     <Compile Include="Model\GameConfiguration.cs" />
+    <Compile Include="Model\GameResults.cs" />
     <Compile Include="Model\GameState.cs" />
     <Compile Include="Model\PowerUp.cs" />
     <Compile Include="Model\Robot.cs" />

@@ -29,7 +29,7 @@ namespace GameEngine
             var robotEngineList = robotEngines.ToList();
             var positions = GetInitialRobotPositions(configuration.MapSize, robotEngineList.Count).ToList();
 
-            var robots = robotEngineList.Zip(positions, (engine, position) => new Robot(position, configuration.RobotStartLevel, engine.TeamName, engine)).ToList();
+            var robots = robotEngineList.Zip(positions, (engine, position) => new Robot(position, configuration.RobotStartLevel, engine.TeamName, engine.GetNewRobot())).ToList();
 
             result.Robots = robots;
 
@@ -58,9 +58,13 @@ namespace GameEngine
         {
             GeneratePowerUps(gameState);
             EvaluateRobots(gameState);
-            CheckGameFinishe();
 
             return gameState;
+        }
+
+        public GameResults GetGameResult(GameState gameState)
+        {
+            return new GameResults();
         }
 
         private void EvaluateRobots(GameState gameState)
@@ -79,12 +83,12 @@ namespace GameEngine
             FightRobots(gameState);
         }
 
-        private void FightRobots(GameState gameState)
+        internal void FightRobots(GameState gameState)
         {
             throw new NotImplementedException();
         }
 
-        private void JoinRobots(GameState gameState)
+        internal void JoinRobots(GameState gameState)
         {
             throw new NotImplementedException();
         }
@@ -99,17 +103,58 @@ namespace GameEngine
             throw new NotImplementedException();
         }
 
-        private void GetNextTurnsFromRobots(GameState gameState)
+        internal void GetNextTurnsFromRobots(GameState gameState)
         {
-            throw new NotImplementedException();
+            var readyRobots = gameState.Robots.Where(robot => robot.WaitTurns == 0).ToList();
+
+            foreach (var robot in readyRobots)
+            {
+                DoNextTurnForRobot(robot);
+            }
+
         }
 
-        private void DecreaseWaitCounter(GameState gameState)
+        private static void DoNextTurnForRobot(Robot robot)
         {
-            throw new NotImplementedException();
+            var surroundings = new Surroundings();
+
+            var result = robot.RobotImplementation.DoNextTurn(robot.Level, surroundings);
+
+            robot.CurrentAction = result.NextAction;
+            robot.CurrentDirection = result.NextDirection;
+
+            if (robot.CurrentAction == RobotActions.Splitting)
+            {
+                robot.WaitTurns = 2;
+            }
+            if (robot.CurrentAction == RobotActions.Upgrading)
+            {
+                robot.WaitTurns = 2;
+            }
         }
 
-        private void EvaluateSplitAndImrove(GameState gameState)
+        internal void DecreaseWaitCounter(GameState gameState)
+        {
+            gameState.Robots.Where(r => r.WaitTurns >= 1).ToList().ForEach(r => r.WaitTurns -= 1);
+        }
+
+        internal void EvaluateSplitAndImrove(GameState gameState)
+        {
+            var robots = gameState.Robots.Where(r => r.WaitTurns == 1).ToList();
+            
+            var splitRobots = robots.Where(r => r.CurrentAction.Equals(RobotActions.Splitting)).ToList();
+            var improveRobots = robots.Where(r => r.CurrentAction.Equals(RobotActions.Upgrading)).ToList();
+
+            splitRobots.ForEach(PerformSplit);
+            improveRobots.ForEach(PerformImprove);
+        }
+
+        internal void PerformImprove(Robot robot)
+        {
+            robot.Level += 2;
+        }
+
+        internal void PerformSplit(Robot robot)
         {
             throw new NotImplementedException();
         }
