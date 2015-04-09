@@ -44,6 +44,9 @@
     <Compile Include="IRobotEngine.cs" />
     <Compile Include="Model\GameConfiguration.cs" />
     <Compile Include="Model\GameState.cs" />
+    <Compile Include="Model\PoperUp.cs" />
+    <Compile Include="Model\Robot.cs" />
+    <Compile Include="Model\RobotActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
