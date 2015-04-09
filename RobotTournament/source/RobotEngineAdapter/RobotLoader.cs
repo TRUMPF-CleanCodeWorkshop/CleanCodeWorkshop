@@ -19,12 +19,16 @@ namespace RobotEngineAdapter
             var types = assemblies.SelectMany(assembly => assembly.GetTypes());
             var typesWithInterface = types.Where(t => t.GetInterfaces().Any(i => i.FullName == typeof(IRobotEngine).FullName)).ToList();
 
+
             if (typesWithInterface.Count == 0)
             {
                 throw new Exception("IRobotEngine in keiner DLL gefunden");
             }
 
-            List<IRobotEngine> robotInstances = new List<IRobotEngine>();
+            return typesWithInterface.Select(f => { var robot = (IRobotEngine)Assembly.LoadFrom(f.Assembly.CodeBase).CreateInstance(f.FullName); return robot; });
+
+            /*
+             List<IRobotEngine> robotInstances = new List<IRobotEngine>();
 
             foreach (var singleTypeWithInterface in typesWithInterface)
             {
@@ -32,7 +36,7 @@ namespace RobotEngineAdapter
                 robotInstances.Add(singleIRobotInstance);
             }
 
-            return robotInstances; 
+            return robotInstances; */
         }
     }
 }
