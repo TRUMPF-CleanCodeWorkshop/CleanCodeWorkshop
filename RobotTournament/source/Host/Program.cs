@@ -16,6 +16,8 @@ namespace Host
             var gameEnginePath =  Path.Combine(basePath , "engines");
 
             var gameEngine = GameEngineAdapter.EngineLoader.Load(gameEnginePath);
+            
+
         }
 
         private static string GetBasePath()
