@@ -90,7 +90,26 @@ namespace GameEngine
 
         internal void JoinRobots(GameState gameState)
         {
-            throw new NotImplementedException();
+            var groupedByPos = gameState.Robots.ToList().GroupBy(r => r.Position);
+            foreach (var group in groupedByPos.Where(g => g.Count() > 1))
+            {
+                this.JoinRobotsOnSameField(gameState, group.Key, group);
+            }
+        }
+
+        internal void JoinRobotsOnSameField(GameState state, Point pos, IEnumerable<Robot> robots)
+        {
+            var groupedByTeam = robots.GroupBy(r => r.TeamName);
+            foreach (var team in groupedByTeam.Where(g => g.Count() > 1))
+            {
+                var joinedBot = new Robot(
+                    pos,
+                    team.Sum(r => r.Level),
+                    team.Key,
+                    team.First().RobotEngine);
+                team.ToList().ForEach(r => state.Robots.Remove(r));
+                state.Robots.Add(joinedBot);
+            }
         }
 
         private void DoPowerUps(GameState gameState)
