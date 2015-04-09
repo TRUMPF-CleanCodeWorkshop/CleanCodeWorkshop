@@ -11,6 +11,7 @@
         public List<Robot> Robots { get; set; }
 
         public List<PowerUp> PowerUps { get; set; }
+
         public bool Finished { get; set; }
 
         public GameState()

@@ -10,6 +10,8 @@ using RobotEngineAdapter;
 
 namespace Host
 {
+    using System.Linq;
+
     public static class Program
     {
         public static void Main(string[] args)
@@ -30,7 +32,6 @@ namespace Host
             while (!gameState.Finished)
             {
                 gameState = gameEngine.CreateNextTurn(gameState);
-
                 GameUI.ShowGameState(gameState);
                 Console.ReadLine();
             }

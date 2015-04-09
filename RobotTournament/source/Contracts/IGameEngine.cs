@@ -8,6 +8,7 @@
     public interface IGameEngine
     {
         GameState CreateInitializeGameState(GameConfiguration configuration, IEnumerable<IRobotEngine> robotEngines);
+
         GameState CreateNextTurn(GameState gameState);
     }
 }
