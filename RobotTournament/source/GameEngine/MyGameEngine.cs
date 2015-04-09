@@ -1,26 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Contracts;
 using Contracts.Model;
 
 namespace GameEngine
 {
-    using System.Collections;
-    using System.Drawing;
-
     public class MyGameEngine : IGameEngine
     {
         private static readonly Random Randomizer = new Random();
 
-        public GameState CreateNextTurn(GameState gameState)
+        public GameState CreateInitializeGameState(GameConfiguration configuration, IEnumerable<IRobotEngine> robotEngines)
         {
-            throw new NotImplementedException();
+            if (configuration == null)
+            {
+                throw new ArgumentNullException("configuration");
+            }
+
+            var result = new GameState
+            {
+                Configuration = configuration,
+                Turn = 0,
+                PowerUps = new List<PowerUp>(),
+                Robots = new List<Robot>()
+            };
+
+            var robotEngineList = robotEngines.ToList();
+            var positions = GetInitialRobotPositions(configuration.MapSize, robotEngineList.Count).ToList();
+
+            var robots = robotEngineList.Zip(positions, (engine, position) => new Robot(position, configuration.RobotStartLevel, engine.TeamName)).ToList();
+
+            result.Robots = robots;
+
+            return result;
         }
 
-        public IEnumerable<Point> GetInitialRobotPositions(Size mapSize, int count)
+        private static IEnumerable<Point> GetInitialRobotPositions(Size mapSize, int count)
         {
             var results = new List<Point>();
 
@@ -36,6 +52,11 @@ namespace GameEngine
             }
 
             return results;
+        }
+
+        public GameState CreateNextTurn(GameState gameState)
+        {
+            throw new NotImplementedException();
         }
     }
 }

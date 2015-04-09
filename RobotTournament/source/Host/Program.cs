@@ -26,6 +26,13 @@ namespace Host
             GameUI.ShowGameState(gameState);
 
             Console.ReadLine();
+
+            while (!gameState.Finished)
+            {
+                gameState = Framework.CreateNextTurn(gameState, gameEngine, robotEngines);
+                GameUI.ShowGameState(gameState);
+                Console.ReadLine();
+            }
         }
 
         private static string GetBasePath()
