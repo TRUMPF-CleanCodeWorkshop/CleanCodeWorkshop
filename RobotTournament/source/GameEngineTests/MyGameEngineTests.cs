@@ -1,32 +1,31 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using Contracts;
-using Contracts.Model;
-using Core;
-using NSubstitute;
-using NUnit.Framework;
-
-namespace CoreTests
+﻿namespace GameEngineTests
 {
-    public class FrameworkTests
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+
+    using Contracts;
+    using Contracts.Model;
+
+    using GameEngine;
+
+    using NSubstitute;
+
+    using NUnit.Framework;
+
+    public class MyGameEngineTests
     {
-        [Test]
         public void CreateInitializeGameStateCreatesAValidGameState()
         {
-            var gameEngine = Substitute.For<IGameEngine>();
-            gameEngine
-                .GetInitialRobotPositions(Arg.Any<Size>(), Arg.Any<int>())
-                .Returns(info => new List<Point>() { new Point(1, 1) });
+            var gameEngine = new MyGameEngine();
 
             var robot = Substitute.For<IRobotEngine>();
             robot.TeamName.Returns(info => "Team Rocket");
 
             var config = CreateTestConfiguration();
 
-            var state = Framework.CreateInitializeGameState(
+            var state = gameEngine.CreateInitializeGameState(
                 config,
-                gameEngine,
                 new List<IRobotEngine>() { robot });
 
             Assert.NotNull(state);
@@ -48,6 +47,5 @@ namespace CoreTests
                 RobotStartLevel = 1
             };
         }
-
     }
 }

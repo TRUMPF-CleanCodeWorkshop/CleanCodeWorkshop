@@ -10,6 +10,8 @@ using RobotEngineAdapter;
 
 namespace Host
 {
+    using System.Linq;
+
     public static class Program
     {
         public static void Main(string[] args)
@@ -20,8 +22,8 @@ namespace Host
 
             var configuration = new GameConfiguration() {MapSize = Settings.Default.MapSize, PowerupPropability = Settings.Default.PowerUpPropability, RobotStartLevel = Settings.Default.RobotStartLevel};
             var gameEngine = EngineLoader.Load(gameEnginePath);
-            var robotEngines = RobotLoader.Load(robotEnginePath);
-            var gameState = Framework.CreateInitializeGameState(configuration, gameEngine, robotEngines);
+            var robotEngines = RobotLoader.Load(robotEnginePath).ToList();
+            var gameState = gameEngine.CreateInitializeGameState(configuration, robotEngines);
             
             GameUI.ShowGameState(gameState);
 
@@ -29,7 +31,7 @@ namespace Host
 
             while (!gameState.Finished)
             {
-                gameState = Framework.CreateNextTurn(gameState, gameEngine, robotEngines);
+                gameState = gameEngine.CreateNextTurn(gameState);
                 GameUI.ShowGameState(gameState);
                 Console.ReadLine();
             }
