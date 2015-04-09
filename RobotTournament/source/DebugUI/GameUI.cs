@@ -13,5 +13,12 @@ namespace DebugUI
         {
             
         }
+
+        public static string GetRowForLevelAndId(Robot robot)
+        {
+            var levelString = robot.Level.ToString().PadRight(5);
+            var idString = robot.Id.PadLeft(5);
+            return string.Format("|{0} {1}|", levelString, idString);
+        }
     }
 }
