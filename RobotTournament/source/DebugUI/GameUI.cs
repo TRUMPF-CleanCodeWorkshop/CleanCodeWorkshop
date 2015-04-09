@@ -64,14 +64,14 @@ namespace DebugUI
         {
             var levelString = robot.Level.ToString().PadRight(5);
             var idString = robot.Id.PadLeft(5);
-            return string.Format("|{0} {1}|", levelString, idString);
+            return string.Format("|{0} {1} ", levelString, idString);
         }
 
         public static string GetRowForName(Robot robot)
         {
             var nameString = robot.TeamName.PadRight(11);
 
-            return string.Format("|{0}|", nameString.Substring(0, 11));
+            return string.Format("|{0} ", nameString.Substring(0, 11));
         }
     }
 }

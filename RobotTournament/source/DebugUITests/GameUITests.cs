@@ -21,7 +21,7 @@ namespace DebugUITests
         {
             var robot = new Robot(new Point(0, 0), 42, "SuperTeam");
 
-            var expectedOutput = string.Format("|42        {0}|", robot.Id);
+            var expectedOutput = string.Format("|42        {0} ", robot.Id);
             var actualOutput = GameUI.GetRowForLevelAndId(robot);
 
             Assert.That(actualOutput, Is.EqualTo(expectedOutput));
@@ -32,7 +32,7 @@ namespace DebugUITests
         {
             var robot = new Robot(new Point(0, 0), 42, "SuperTeam");
 
-            var expectedOutput = "|SuperTeam  |";
+            var expectedOutput = "|SuperTeam   ";
             var actualOutput = GameUI.GetRowForName(robot);
 
             Assert.That(actualOutput, Is.EqualTo(expectedOutput));
@@ -43,7 +43,7 @@ namespace DebugUITests
         {
             var robot = new Robot(new Point(0, 0), 42, "DasSuperTeamMitVielenZeichenUndSo");
 
-            var expectedOutput = "|DasSuperTea|";
+            var expectedOutput = "|DasSuperTea ";
             var actualOutput = GameUI.GetRowForName(robot);
 
             Assert.That(actualOutput, Is.EqualTo(expectedOutput));
