@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyGameEngineJoinTests.cs" />
+    <Compile Include="GetNextTurnFromRobotsTests.cs" />
     <Compile Include="MyGameEngineTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
