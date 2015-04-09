@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using Contracts;
     using Contracts.Model;
@@ -23,7 +24,13 @@
                 Robots = new List<Robot>()
             };
 
+            var positions = engine.GetInitialRobotPositions(
+                configuration.MapSize, 
+                robotEngines.Count());
+            
+           
+
             return result;
-        } 
+        }
     }
 }
