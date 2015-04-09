@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{01C0ABA4-9A1D-461C-850F-68D1D335123F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotEngineAdapter", "RobotEngineAdapter\RobotEngineAdapter.csproj", "{6C5AED0E-8736-49A1-9E0F-E81D3D57166C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngineAdapter", "GameEngineAdapte\GameEngineAdapter.csproj", "{B33A9170-A73E-4F1F-9B36-607DE35F5CF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngineAdaperTests", "GameEngineAdaperTests\GameEngineAdaperTests.csproj", "{1F822359-B424-4011-BB4A-00CC2C939C42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{65F6F5FF-075E-49E1-B5FF-F80F5093406A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine", "GameEngine\GameEngine.csproj", "{C76DB989-0747-4411-B9F7-198D736D126F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engines", "Engines", "{8F9D0DD8-A43A-4F16-B403-D63940D7AD23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotEngine", "RobotEngine\RobotEngine.csproj", "{EE1AD60B-1F31-442C-B699-1C2F2F841F60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01C0ABA4-9A1D-461C-850F-68D1D335123F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01C0ABA4-9A1D-461C-850F-68D1D335123F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01C0ABA4-9A1D-461C-850F-68D1D335123F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01C0ABA4-9A1D-461C-850F-68D1D335123F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C5AED0E-8736-49A1-9E0F-E81D3D57166C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C5AED0E-8736-49A1-9E0F-E81D3D57166C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C5AED0E-8736-49A1-9E0F-E81D3D57166C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C5AED0E-8736-49A1-9E0F-E81D3D57166C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B33A9170-A73E-4F1F-9B36-607DE35F5CF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B33A9170-A73E-4F1F-9B36-607DE35F5CF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B33A9170-A73E-4F1F-9B36-607DE35F5CF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B33A9170-A73E-4F1F-9B36-607DE35F5CF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F822359-B424-4011-BB4A-00CC2C939C42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F822359-B424-4011-BB4A-00CC2C939C42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F822359-B424-4011-BB4A-00CC2C939C42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F822359-B424-4011-BB4A-00CC2C939C42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C76DB989-0747-4411-B9F7-198D736D126F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C76DB989-0747-4411-B9F7-198D736D126F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C76DB989-0747-4411-B9F7-198D736D126F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C76DB989-0747-4411-B9F7-198D736D126F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1AD60B-1F31-442C-B699-1C2F2F841F60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1AD60B-1F31-442C-B699-1C2F2F841F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1AD60B-1F31-442C-B699-1C2F2F841F60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1AD60B-1F31-442C-B699-1C2F2F841F60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1F822359-B424-4011-BB4A-00CC2C939C42} = {65F6F5FF-075E-49E1-B5FF-F80F5093406A}
+		{C76DB989-0747-4411-B9F7-198D736D126F} = {8F9D0DD8-A43A-4F16-B403-D63940D7AD23}
+		{EE1AD60B-1F31-442C-B699-1C2F2F841F60} = {8F9D0DD8-A43A-4F16-B403-D63940D7AD23}
+	EndGlobalSection
+EndGlobal

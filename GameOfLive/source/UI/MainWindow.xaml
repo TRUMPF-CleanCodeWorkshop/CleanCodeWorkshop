@@ -16,7 +16,7 @@
         <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding BitMapFilePath}" Margin="5" MinWidth="200" />
         <Button Grid.Row="0" Grid.Column="1" Content="Load" Command="{Binding LoadButtonCommand}" Margin="5" Padding="5" />
 
-        <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Source="{Binding Map}" Stretch="UniformToFill" />
+        <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Source="{Binding Map}" Stretch="Fill" />
 
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Population" VerticalAlignment="Center" />
         <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Population}" VerticalAlignment="Center" />
