@@ -182,7 +182,7 @@ namespace GameEngine
             var splitRobots = robots.Where(r => r.CurrentAction.Equals(RobotActions.Splitting)).ToList();
             var improveRobots = robots.Where(r => r.CurrentAction.Equals(RobotActions.Upgrading)).ToList();
 
-            splitRobots.ForEach(PerformSplit);
+            splitRobots.ForEach(r => PerformSplit(r, gameState));
             improveRobots.ForEach(PerformImprove);
         }
 
@@ -191,9 +191,11 @@ namespace GameEngine
             robot.Level += 2;
         }
 
-        internal void PerformSplit(Robot robot)
+        internal void PerformSplit(Robot robot, GameState gameState)
         {
-            throw new NotImplementedException();
+            // TODO Copy robot to given position
+
+            // TODO Decrease strength of both robots (half)
         }
 
         private void GeneratePowerUps(GameState gameState)
