@@ -83,12 +83,12 @@ namespace GameEngine
             FightRobots(gameState);
         }
 
-        private void FightRobots(GameState gameState)
+        internal void FightRobots(GameState gameState)
         {
             throw new NotImplementedException();
         }
 
-        private void JoinRobots(GameState gameState)
+        internal void JoinRobots(GameState gameState)
         {
             throw new NotImplementedException();
         }

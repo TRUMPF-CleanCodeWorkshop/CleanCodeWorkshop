@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Robot1.cs" />
+    <Compile Include="Robot2.cs" />
     <Compile Include="RobotEngine2.cs" />
     <Compile Include="RobotEngine1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
