@@ -14,6 +14,7 @@ namespace Host
         {
             var basePath = GetBasePath();
             var gameEnginePath =  Path.Combine(basePath , "engines");
+            var robotEnginePath = Path.Combine(basePath, "robots");
 
             var gameEngine = GameEngineAdapter.EngineLoader.Load(gameEnginePath);
             
