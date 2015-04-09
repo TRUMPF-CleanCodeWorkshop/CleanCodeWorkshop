@@ -115,6 +115,22 @@ namespace GameEngine
 
         private void EvaluateSplitAndImrove(GameState gameState)
         {
+            var robots = gameState.Robots.Where(r => r.WaitTurns == 1).ToList();
+            
+            var splitRobots = robots.Where(r => r.CurrentAction.Equals(RobotActions.Splitting)).ToList();
+            var improveRobots = robots.Where(r => r.CurrentAction.Equals(RobotActions.Upgrading)).ToList();
+
+            splitRobots.ForEach(PerformSplit);
+            improveRobots.ForEach(PerformImprove);
+        }
+
+        private void PerformImprove(Robot robot)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PerformSplit(Robot robot)
+        {
             throw new NotImplementedException();
         }
 
