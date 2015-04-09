@@ -18,7 +18,7 @@ namespace Host
             var gameEnginePath =  Path.Combine(basePath , "engines");
             var robotEnginePath = Path.Combine(basePath, "robots");
 
-            var configuration = new GameConfiguration() {MapSize = Settings.Default.MapSize, PowerupPropability = Settings.Default.PowerUpPropability};
+            var configuration = new GameConfiguration() {MapSize = Settings.Default.MapSize, PowerupPropability = Settings.Default.PowerUpPropability, RobotStartLevel = Settings.Default.RobotStartLevel};
             var gameEngine = EngineLoader.Load(gameEnginePath);
             var robotEngines = RobotLoader.Load(robotEnginePath);
             var gameState = Framework.CreateInitializeGameState(configuration, gameEngine, robotEngines);
