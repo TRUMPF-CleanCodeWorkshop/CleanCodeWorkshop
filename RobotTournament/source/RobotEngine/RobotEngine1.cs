@@ -9,5 +9,6 @@ namespace RobotEngine
 {
     public class RobotEngine1 : IRobotEngine   
     {
+        public string TeamName { get; private set; }
     }
 }
