@@ -24,7 +24,6 @@ namespace Host
             var gameState = Framework.CreateInitializeGameState(configuration, gameEngine, robotEngines);
             
             GameUI.ShowGameState(gameState);
-            GameUI.ShowGameState(gameState);
 
             Console.ReadLine();
         }
