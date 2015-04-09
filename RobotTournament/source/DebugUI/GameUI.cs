@@ -11,22 +11,28 @@ namespace DebugUI
 
     public static class GameUI
     {
-        private const string EmptyRow = "|            ";
+        private const string EmptyRow = "           |";
+        private const string UnderlineRow = "___________|";
 
         public static void ShowGameState(GameState gameState)
         {
             var numberOfColumns = gameState.Configuration.MapSize.Width;
-            Console.WindowWidth = numberOfColumns * 13 + 5;
+            var numberOfRows = gameState.Configuration.MapSize.Height;
+            Console.WindowWidth = numberOfColumns * 12 + 5;
+            Console.WindowHeight = numberOfRows * 3 + 5;
 
             var firstRow = new StringBuilder("  |");
+            var secondRow = new StringBuilder("__|");
             
             for (var columnCounter = 0; columnCounter < numberOfColumns; columnCounter++)
             {
-                firstRow.Append(columnCounter.ToString().PadRight(13));
+                firstRow.Append(string.Format("{0}|", columnCounter.ToString().PadRight(11)));
+                secondRow.Append(UnderlineRow);
             }
             Console.WriteLine(firstRow);
+            Console.WriteLine(secondRow);
 
-            for (var rowCounter = 0; rowCounter < gameState.Configuration.MapSize.Height; rowCounter++)
+            for (var rowCounter = 0; rowCounter < numberOfRows; rowCounter++)
             {
                 PrintRowWithRobots(rowCounter, numberOfColumns, gameState.Robots);
             }
@@ -52,7 +58,7 @@ namespace DebugUI
                     firstRow.Append(EmptyRow);
                     secondRow.Append(EmptyRow);
                 }
-                thirdRow.Append(EmptyRow);
+                thirdRow.Append(UnderlineRow);
             }
 
             Console.WriteLine(firstRow);
@@ -64,14 +70,14 @@ namespace DebugUI
         {
             var levelString = robot.Level.ToString().PadRight(5);
             var idString = robot.Id.PadLeft(5);
-            return string.Format("|{0} {1} ", levelString, idString);
+            return string.Format("{0} {1}|", levelString, idString);
         }
 
         public static string GetRowForName(Robot robot)
         {
             var nameString = robot.TeamName.PadRight(11);
 
-            return string.Format("|{0} ", nameString.Substring(0, 11));
+            return string.Format("{0}|", nameString.Substring(0, 11));
         }
     }
 }
