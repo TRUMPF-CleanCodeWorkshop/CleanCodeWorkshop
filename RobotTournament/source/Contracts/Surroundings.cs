@@ -4,7 +4,7 @@ namespace Contracts
 {
     public class Surroundings   
     {
-        public IEnumerable<SurroundingRobot> Type { get; set; }
+        public IEnumerable<SurroundingRobot> Robots { get; set; }
         public IEnumerable<SurroundingPowerUp> PowerUps { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using Contracts;
 using Contracts.Model;
 
@@ -109,14 +110,15 @@ namespace GameEngine
 
             foreach (var robot in readyRobots)
             {
-                DoNextTurnForRobot(robot);
+                DoNextTurnForRobot(gameState, robot);
             }
 
         }
 
-        private static void DoNextTurnForRobot(Robot robot)
+        private static void DoNextTurnForRobot(GameState gameState, Robot robot)
         {
             var surroundings = new Surroundings();
+            surroundings.Robots = GetSurroundingRobots(gameState, robot);
 
             var result = robot.RobotImplementation.DoNextTurn(robot.Level, surroundings);
 
@@ -141,7 +143,7 @@ namespace GameEngine
         internal void EvaluateSplitAndImrove(GameState gameState)
         {
             var robots = gameState.Robots.Where(r => r.WaitTurns == 1).ToList();
-            
+
             var splitRobots = robots.Where(r => r.CurrentAction.Equals(RobotActions.Splitting)).ToList();
             var improveRobots = robots.Where(r => r.CurrentAction.Equals(RobotActions.Upgrading)).ToList();
 
@@ -162,6 +164,28 @@ namespace GameEngine
         private void GeneratePowerUps(GameState gameState)
         {
             throw new NotImplementedException();
+        }
+
+        private static IEnumerable<SurroundingRobot> GetSurroundingRobots(GameState gameState, Robot robot)
+        {
+            var surroundingPositions = GetSurroundingPositions(robot.Position);
+
+            var robots = gameState.Robots.Where(r => surroundingPositions.Contains(r.Position));
+
+            return robots.Select(r => new SurroundingRobot() { Level = r.Level, IsEnemy = r.TeamName != robot.TeamName, Direction = Directions.N }).ToList();
+        }
+
+
+        private static IEnumerable<Point> GetSurroundingPositions(Point position)
+        {
+            yield return new Point(position.X - 1, position.Y - 1);
+            yield return new Point(position.X, position.Y - 1);
+            yield return new Point(position.X + 1, position.Y - 1);
+            yield return new Point(position.X - 1, position.Y);
+            yield return new Point(position.X + 1, position.Y);
+            yield return new Point(position.X - 1, position.Y + 1);
+            yield return new Point(position.X, position.Y + 1);
+            yield return new Point(position.X + 1, position.Y + 1);
         }
     }
 }
