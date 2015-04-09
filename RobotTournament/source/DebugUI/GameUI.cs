@@ -71,7 +71,7 @@ namespace DebugUI
         {
             var nameString = robot.TeamName.PadRight(11);
 
-            return nameString.Substring(0, 11);
+            return string.Format("|{0}|", nameString.Substring(0, 11));
         }
     }
 }
