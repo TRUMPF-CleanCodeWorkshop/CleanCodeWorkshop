@@ -11,9 +11,11 @@ namespace RobotEngineAdapter
 {
     public class RobotLoader
     {
-         public static IEnumerable<IRobotEngine> Load(string path)
+        public static IEnumerable<IRobotEngine> Load(string path)
         {
             var files = Directory.GetFiles(path, "*.dll");
+
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += CurrentDomain_ReflectionOnlyAssemblyResolve;
 
             var assemblies = files.Select(Assembly.ReflectionOnlyLoadFrom);
             var types = assemblies.SelectMany(assembly => assembly.GetTypes());
@@ -25,18 +27,12 @@ namespace RobotEngineAdapter
                 throw new Exception("IRobotEngine in keiner DLL gefunden");
             }
 
-            return typesWithInterface.Select(f => { var robot = (IRobotEngine)Assembly.LoadFrom(f.Assembly.CodeBase).CreateInstance(f.FullName); return robot; });
+            return typesWithInterface.Select(f => (IRobotEngine)Assembly.LoadFrom(f.Assembly.CodeBase).CreateInstance(f.FullName)).ToList();
+        }
 
-            /*
-             List<IRobotEngine> robotInstances = new List<IRobotEngine>();
-
-            foreach (var singleTypeWithInterface in typesWithInterface)
-            {
-                var singleIRobotInstance = (IRobotEngine)Assembly.LoadFrom(singleTypeWithInterface.Assembly.CodeBase).CreateInstance(singleTypeWithInterface.FullName);
-                robotInstances.Add(singleIRobotInstance);
-            }
-
-            return robotInstances; */
+        private static Assembly CurrentDomain_ReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            return Assembly.ReflectionOnlyLoad(args.Name);
         }
     }
 }
