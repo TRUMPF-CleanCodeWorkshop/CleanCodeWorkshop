@@ -13,7 +13,7 @@ namespace RobotEngineAdapterTests
         [Test]
         public void Load_lädt_alle_RobotEngines_aus_mehreren_DLL()
         {
-            var path = @"C:\Data\Development\Katas\Trumpf CleanCodeWorkshop\RobotTournament\bin\robots";
+            var path = @"..\..\..\..\bin\robots";
 
             var robots = RobotLoader.Load(path);
 
