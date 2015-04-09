@@ -85,7 +85,25 @@ namespace GameEngine
 
         internal void FightRobots(GameState gameState)
         {
-            throw new NotImplementedException();
+            var groupedByPos = gameState.Robots.ToList().GroupBy(r => r.Position);
+            foreach (var group in groupedByPos.Where(g => g.Count() > 1))
+            {
+                this.FightRobotsOnSameField(gameState, group);
+            }
+        }
+
+        internal void FightRobotsOnSameField(GameState state, IEnumerable<Robot> robots)
+        {
+            var robotList = robots.ToList();
+            var sortedRobotList = robotList.OrderByDescending(r => r.Level).ToList();
+            var winner = sortedRobotList.First();
+           
+            robotList.ToList().ForEach(r => state.Robots.Remove(r));
+
+            if (winner.Level != sortedRobotList[1].Level)
+            {
+                state.Robots.Add(winner);
+            }   
         }
 
         internal void JoinRobots(GameState gameState)
