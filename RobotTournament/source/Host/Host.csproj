@@ -56,10 +56,6 @@
       <Project>{01c0aba4-9a1d-461c-850f-68d1d335123f}</Project>
       <Name>Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{3ef215e6-941f-49f0-8447-d0c5797aca92}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DebugUI\DebugUI.csproj">
       <Project>{5d7366cf-6419-47de-8023-b6d993dff87f}</Project>
       <Name>DebugUI</Name>
