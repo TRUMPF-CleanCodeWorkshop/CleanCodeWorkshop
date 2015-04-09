@@ -58,9 +58,13 @@ namespace GameEngine
         {
             GeneratePowerUps(gameState);
             EvaluateRobots(gameState);
-            CheckGameFinishe();
 
             return gameState;
+        }
+
+        public GameResults GetGameResult(GameState gameState)
+        {
+            return new GameResults();
         }
 
         private void EvaluateRobots(GameState gameState)
