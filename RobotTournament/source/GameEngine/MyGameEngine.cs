@@ -56,6 +56,65 @@ namespace GameEngine
 
         public GameState CreateNextTurn(GameState gameState)
         {
+            GeneratePowerUps(gameState);
+            EvaluateRobots(gameState);
+
+            return gameState;
+        }
+
+        private void EvaluateRobots(GameState gameState)
+        {
+            EvaluateSplitAndImrove(gameState);
+            DecreaseWaitCounter(gameState);
+            GetNextTurnsFromRobots(gameState);
+            DoRobotMovements(gameState);
+            ResolveFieldConflicts(gameState);
+            DoPowerUps(gameState);
+        }
+
+        private void ResolveFieldConflicts(GameState gameState)
+        {
+            JoinRobots(gameState);
+            FightRobots(gameState);
+        }
+
+        private void FightRobots(GameState gameState)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void JoinRobots(GameState gameState)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DoPowerUps(GameState gameState)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DoRobotMovements(GameState gameState)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void GetNextTurnsFromRobots(GameState gameState)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DecreaseWaitCounter(GameState gameState)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void EvaluateSplitAndImrove(GameState gameState)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void GeneratePowerUps(GameState gameState)
+        {
             throw new NotImplementedException();
         }
     }
