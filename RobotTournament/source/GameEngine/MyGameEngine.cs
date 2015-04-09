@@ -58,6 +58,7 @@ namespace GameEngine
         {
             GeneratePowerUps(gameState);
             EvaluateRobots(gameState);
+            CheckGameFinishe();
 
             return gameState;
         }

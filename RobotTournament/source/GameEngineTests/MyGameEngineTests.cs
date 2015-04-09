@@ -15,6 +15,7 @@
 
     public class MyGameEngineTests
     {
+         [Test]
         public void CreateInitializeGameStateCreatesAValidGameState()
         {
             var gameEngine = new MyGameEngine();
