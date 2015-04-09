@@ -29,7 +29,7 @@ namespace GameEngine
             var robotEngineList = robotEngines.ToList();
             var positions = GetInitialRobotPositions(configuration.MapSize, robotEngineList.Count).ToList();
 
-            var robots = robotEngineList.Zip(positions, (engine, position) => new Robot(position, configuration.RobotStartLevel, engine.TeamName, engine)).ToList();
+            var robots = robotEngineList.Zip(positions, (engine, position) => new Robot(position, configuration.RobotStartLevel, engine.TeamName, engine.GetNewRobot())).ToList();
 
             result.Robots = robots;
 
@@ -103,9 +103,34 @@ namespace GameEngine
             throw new NotImplementedException();
         }
 
-        private void GetNextTurnsFromRobots(GameState gameState)
+        internal void GetNextTurnsFromRobots(GameState gameState)
         {
-            throw new NotImplementedException();
+            var readyRobots = gameState.Robots.Where(robot => robot.WaitTurns == 0).ToList();
+
+            foreach (var robot in readyRobots)
+            {
+                DoNextTurnForRobot(robot);
+            }
+
+        }
+
+        private static void DoNextTurnForRobot(Robot robot)
+        {
+            var surroundings = new Surroundings();
+
+            var result = robot.RobotImplementation.DoNextTurn(robot.Level, surroundings);
+
+            robot.CurrentAction = result.NextAction;
+            robot.CurrentDirection = result.NextDirection;
+
+            if (robot.CurrentAction == RobotActions.Splitting)
+            {
+                robot.WaitTurns = 2;
+            }
+            if (robot.CurrentAction == RobotActions.Upgrading)
+            {
+                robot.WaitTurns = 2;
+            }
         }
 
         private void DecreaseWaitCounter(GameState gameState)
