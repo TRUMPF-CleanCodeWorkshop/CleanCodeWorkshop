@@ -46,5 +46,17 @@ namespace Host.Properties {
                 this["PowerUpPropability"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int RobotStartLevel {
+            get {
+                return ((int)(this["RobotStartLevel"]));
+            }
+            set {
+                this["RobotStartLevel"] = value;
+            }
+        }
     }
 }

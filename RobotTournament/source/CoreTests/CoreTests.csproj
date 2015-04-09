@@ -62,10 +62,6 @@
       <Project>{3ef215e6-941f-49f0-8447-d0c5797aca92}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mockups\Mockups.csproj">
-      <Project>{E8E337A8-7D1C-431A-A0A5-F81C1056BB8A}</Project>
-      <Name>Mockups</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
