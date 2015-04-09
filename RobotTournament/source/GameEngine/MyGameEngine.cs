@@ -86,12 +86,49 @@ namespace GameEngine
 
         internal void FightRobots(GameState gameState)
         {
-            throw new NotImplementedException();
+            var groupedByPos = gameState.Robots.ToList().GroupBy(r => r.Position);
+            foreach (var group in groupedByPos.Where(g => g.Count() > 1))
+            {
+                this.FightRobotsOnSameField(gameState, group);
+            }
+        }
+
+        internal void FightRobotsOnSameField(GameState state, IEnumerable<Robot> robots)
+        {
+            var robotList = robots.ToList();
+            var sortedRobotList = robotList.OrderByDescending(r => r.Level).ToList();
+            var winner = sortedRobotList.First();
+           
+            robotList.ToList().ForEach(r => state.Robots.Remove(r));
+
+            if (winner.Level != sortedRobotList[1].Level)
+            {
+                state.Robots.Add(winner);
+            }   
         }
 
         internal void JoinRobots(GameState gameState)
         {
-            throw new NotImplementedException();
+            var groupedByPos = gameState.Robots.ToList().GroupBy(r => r.Position);
+            foreach (var group in groupedByPos.Where(g => g.Count() > 1))
+            {
+                this.JoinRobotsOnSameField(gameState, group.Key, group);
+            }
+        }
+
+        internal void JoinRobotsOnSameField(GameState state, Point pos, IEnumerable<Robot> robots)
+        {
+            var groupedByTeam = robots.GroupBy(r => r.TeamName);
+            foreach (var team in groupedByTeam.Where(g => g.Count() > 1))
+            {
+                var joinedBot = new Robot(
+                    pos,
+                    team.Sum(r => r.Level),
+                    team.Key,
+                    team.First().RobotImplementation);
+                team.ToList().ForEach(r => state.Robots.Remove(r));
+                state.Robots.Add(joinedBot);
+            }
         }
 
         private void DoPowerUps(GameState gameState)
@@ -135,9 +172,9 @@ namespace GameEngine
             }
         }
 
-        private void DecreaseWaitCounter(GameState gameState)
+        internal void DecreaseWaitCounter(GameState gameState)
         {
-            throw new NotImplementedException();
+            gameState.Robots.Where(r => r.WaitTurns >= 1).ToList().ForEach(r => r.WaitTurns -= 1);
         }
 
         internal void EvaluateSplitAndImrove(GameState gameState)
@@ -147,23 +184,43 @@ namespace GameEngine
             var splitRobots = robots.Where(r => r.CurrentAction.Equals(RobotActions.Splitting)).ToList();
             var improveRobots = robots.Where(r => r.CurrentAction.Equals(RobotActions.Upgrading)).ToList();
 
-            splitRobots.ForEach(PerformSplit);
+            splitRobots.ForEach(r => PerformSplit(r, gameState));
             improveRobots.ForEach(PerformImprove);
         }
 
         internal void PerformImprove(Robot robot)
         {
-            throw new NotImplementedException();
+            robot.Level += 2;
         }
 
-        internal void PerformSplit(Robot robot)
+        internal void PerformSplit(Robot robot, GameState gameState)
         {
-            throw new NotImplementedException();
+            // TODO Copy robot to given position
+
+            // TODO Decrease strength of both robots (half)
         }
 
         private void GeneratePowerUps(GameState gameState)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            PowerUp powerup = new PowerUp();
+            var propability = gameState.Configuration.PowerupPropability;
+            var mapSize = gameState.Configuration.MapSize;
+            var powerups = new List<PowerUp>();
+            var count = Math.Round(mapSize.Width*mapSize.Height*propability,0);
+
+            for (var i = 0; i < count; i++)
+            {
+                Point nextPoint;
+                do
+                {
+                    nextPoint = new Point(Randomizer.Next(mapSize.Width), Randomizer.Next(mapSize.Height));
+                }
+                while (powerups.Select(p => p.Position).Contains(nextPoint));
+                powerup.Position = nextPoint;
+
+                powerups.Add(powerup);
+            }
         }
 
         private static IEnumerable<SurroundingRobot> GetSurroundingRobots(GameState gameState, Robot robot)

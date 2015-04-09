@@ -10,11 +10,14 @@
 
     using NUnit.Framework;
 
-    public class MyGameEngineJoinTests
+    public class MyGameEngineFightTests
     {
         [Test]
-        public void MultipleAlliedRobotsOnTheSameFieldAreCorrectlyJoined()
+        public void BothDead()
         {
+            var redOne = new Robot(new Point(1, 1), 10, "Red", null);
+            var blueOne = new Robot(new Point(1, 1), 10, "Blue", null);
+
             var state = new GameState()
             {
                 Configuration = null,
@@ -22,24 +25,19 @@
                 PowerUps = new List<PowerUp>(),
                 Robots = new List<Robot>()
                 {
-                    new Robot(new Point(1, 1), 5, "Red", null),
-                    new Robot(new Point(1, 1), 10, "Red", null)
+                    redOne,
+                    blueOne
                 }
             };
 
             var sut = new MyGameEngine();
-            sut.JoinRobots(state);
+            sut.FightRobots(state);
 
-            Assert.AreEqual(1, state.Robots.Count);
-            
-            var survivor = state.Robots.Single();
-            Assert.AreEqual(15, survivor.Level);
-            Assert.AreEqual(new Point(1, 1), survivor.Position);
-            Assert.AreEqual("Red", survivor.TeamName);
+            Assert.AreEqual(0, state.Robots.Count);
         }
 
         [Test]
-        public void HostileRobotsOnTheSameFieldAreNotJoined()
+        public void HostileRobotsOnTheSameFieldFightEachOther()
         {
             var redOne = new Robot(new Point(1, 1), 5, "Red", null);
             var blueOne = new Robot(new Point(1, 1), 10, "Blue", null);
@@ -57,18 +55,16 @@
             };
 
             var sut = new MyGameEngine();
-            sut.JoinRobots(state);
+            sut.FightRobots(state);
 
-            Assert.AreEqual(2, state.Robots.Count);
+            Assert.AreEqual(1, state.Robots.Count);
 
-            var red = state.Robots.Single(r => r.TeamName == "Red");
             var blue = state.Robots.Single(r => r.TeamName == "Blue");
-            Assert.AreEqual(redOne, red);
             Assert.AreEqual(blueOne, blue);
         }
 
         [Test]
-        public void JoinDoesNotAffectFieldIfNoRobotsAreOnSameField()
+        public void FightDoesNotAffectFieldIfNoRobotsAreOnSameField()
         {
             var redOne = new Robot(new Point(1, 1), 5, "Red", null);
             var redTwo = new Robot(new Point(2, 2), 10, "Red", null);
@@ -86,7 +82,7 @@
             };
 
             var sut = new MyGameEngine();
-            sut.JoinRobots(state);
+            sut.FightRobots(state);
 
             Assert.AreEqual(2, state.Robots.Count);
 
