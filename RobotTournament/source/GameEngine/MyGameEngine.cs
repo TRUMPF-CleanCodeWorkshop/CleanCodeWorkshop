@@ -152,9 +152,9 @@ namespace GameEngine
             }
         }
 
-        private void DecreaseWaitCounter(GameState gameState)
+        internal void DecreaseWaitCounter(GameState gameState)
         {
-            throw new NotImplementedException();
+            gameState.Robots.Where(r => r.WaitTurns >= 1).ToList().ForEach(r => r.WaitTurns -= 1);
         }
 
         internal void EvaluateSplitAndImrove(GameState gameState)
@@ -170,7 +170,7 @@ namespace GameEngine
 
         internal void PerformImprove(Robot robot)
         {
-            throw new NotImplementedException();
+            robot.Level += 2;
         }
 
         internal void PerformSplit(Robot robot)
@@ -180,7 +180,25 @@ namespace GameEngine
 
         private void GeneratePowerUps(GameState gameState)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            PowerUp powerup = new PowerUp();
+            var propability = gameState.Configuration.PowerupPropability;
+            var mapSize = gameState.Configuration.MapSize;
+            var powerups = new List<PowerUp>();
+            var count = Math.Round(mapSize.Width*mapSize.Height*propability,0);
+
+            for (var i = 0; i < count; i++)
+            {
+                Point nextPoint;
+                do
+                {
+                    nextPoint = new Point(Randomizer.Next(mapSize.Width), Randomizer.Next(mapSize.Height));
+                }
+                while (powerups.Select(p => p.Position).Contains(nextPoint));
+                powerup.Position = nextPoint;
+
+                powerups.Add(powerup);
+            }
         }
     }
 }
