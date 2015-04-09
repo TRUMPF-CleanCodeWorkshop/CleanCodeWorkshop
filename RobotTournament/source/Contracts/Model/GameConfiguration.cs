@@ -7,5 +7,7 @@
         public Size MapSize{ get; set; }
 
         public double PowerupPropability { get; set; }
+
+        public int RobotStartLevel { get; set; }
     }
 }

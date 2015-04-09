@@ -24,11 +24,20 @@
                 Robots = new List<Robot>()
             };
 
+            var robotEngineList = robotEngines.ToList();
+
             var positions = engine.GetInitialRobotPositions(
                 configuration.MapSize, 
-                robotEngines.Count());
-            
-           
+                robotEngineList.Count()).ToList();
+
+            for (var i = 0; i < robotEngineList.Count; i++)
+            {
+                var nextRobot = new Robot(
+                    positions[i],
+                    configuration.RobotStartLevel, 
+                    robotEngineList[i].TeamName);
+                result.Robots.Add(nextRobot);
+            }
 
             return result;
         }
