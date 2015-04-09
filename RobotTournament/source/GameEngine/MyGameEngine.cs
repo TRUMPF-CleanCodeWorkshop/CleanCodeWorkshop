@@ -29,7 +29,7 @@ namespace GameEngine
             var robotEngineList = robotEngines.ToList();
             var positions = GetInitialRobotPositions(configuration.MapSize, robotEngineList.Count).ToList();
 
-            var robots = robotEngineList.Zip(positions, (engine, position) => new Robot(position, configuration.RobotStartLevel, engine.TeamName, engine)).ToList();
+            var robots = robotEngineList.Zip(positions, (engine, position) => new Robot(position, configuration.RobotStartLevel, engine.TeamName, engine.GetNewRobot())).ToList();
 
             result.Robots = robots;
 
