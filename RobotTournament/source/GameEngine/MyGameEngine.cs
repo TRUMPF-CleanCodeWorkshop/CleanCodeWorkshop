@@ -113,7 +113,7 @@ namespace GameEngine
             throw new NotImplementedException();
         }
 
-        private void EvaluateSplitAndImrove(GameState gameState)
+        internal void EvaluateSplitAndImrove(GameState gameState)
         {
             var robots = gameState.Robots.Where(r => r.WaitTurns == 1).ToList();
             
@@ -124,12 +124,12 @@ namespace GameEngine
             improveRobots.ForEach(PerformImprove);
         }
 
-        private void PerformImprove(Robot robot)
+        internal void PerformImprove(Robot robot)
         {
             throw new NotImplementedException();
         }
 
-        private void PerformSplit(Robot robot)
+        internal void PerformSplit(Robot robot)
         {
             throw new NotImplementedException();
         }
