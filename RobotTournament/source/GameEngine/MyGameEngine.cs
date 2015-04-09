@@ -103,7 +103,7 @@ namespace GameEngine
             throw new NotImplementedException();
         }
 
-        private void GetNextTurnsFromRobots(GameState gameState)
+        internal void GetNextTurnsFromRobots(GameState gameState)
         {
             throw new NotImplementedException();
         }

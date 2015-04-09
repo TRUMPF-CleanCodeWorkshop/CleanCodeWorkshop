@@ -29,7 +29,10 @@ namespace GameEngineTests
                 }
             };
 
-            //gameEngine.
+            gameEngine.GetNextTurnsFromRobots(gameState);
+
+
+
         } 
 
     }
