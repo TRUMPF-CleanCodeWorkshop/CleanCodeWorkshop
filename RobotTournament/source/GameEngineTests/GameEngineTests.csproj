@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EvaluateSplitAndImproveTests.cs" />
     <Compile Include="MyGameEngineJoinTests.cs" />
     <Compile Include="GetNextTurnFromRobotsTests.cs" />
     <Compile Include="MyGameEngineTests.cs" />

@@ -17,18 +17,22 @@ namespace GameEngineTests
         [Test]
         public void GetNextTurnsFromRobots_()
         {
-            var engineToCheck = Substitute.For<IRobotEngine>();
+            var engineToCheck = Substitute.For<IRobot>();
             var gameEngine = new MyGameEngine();
             var gameState = new GameState()
             {
                 Robots = new List<Robot>()
                 {
-                    new Robot(new Point(1, 1), 1 ,"feindlich", Substitute.For<IRobotEngine>()),
+                    new Robot(new Point(1, 1), 1 ,"feindlich", Substitute.For<IRobot>()),
                     new Robot(new Point(2, 1), 1 ,"freund", engineToCheck),
-                    new Robot(new Point(3, 1), 1 ,"freund", Substitute.For<IRobotEngine>())
+                    new Robot(new Point(3, 1), 1 ,"freund", Substitute.For<IRobot>())
                 }
-
             };
+
+            gameEngine.GetNextTurnsFromRobots(gameState);
+
+
+
         } 
 
     }
