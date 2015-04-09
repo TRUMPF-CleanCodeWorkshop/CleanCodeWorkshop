@@ -133,7 +133,7 @@ namespace GameEngine
             }
         }
 
-        private void DecreaseWaitCounter(GameState gameState)
+        internal void DecreaseWaitCounter(GameState gameState)
         {
             gameState.Robots.Where(r => r.WaitTurns >= 1).ToList().ForEach(r => r.WaitTurns -= 1);
         }
