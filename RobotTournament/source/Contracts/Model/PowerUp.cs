@@ -1,10 +1,11 @@
-﻿using System.Drawing;
-
-namespace Contracts.Model
+﻿namespace Contracts.Model
 {
-    public class PoperUp
+    using System.Drawing;
+
+    public class PowerUp
     {
         public int Level { get; set; }
+
         public Point Position { get; set; }
     }
 }
