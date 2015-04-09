@@ -2,7 +2,6 @@
 using System.IO;
 using System.Reflection;
 using Contracts.Model;
-using Core;
 using DebugUI;
 using GameEngineAdapter;
 using Host.Properties;
