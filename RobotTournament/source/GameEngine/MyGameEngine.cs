@@ -106,7 +106,7 @@ namespace GameEngine
                     pos,
                     team.Sum(r => r.Level),
                     team.Key,
-                    team.First().RobotEngine);
+                    team.First().RobotImplementation);
                 team.ToList().ForEach(r => state.Robots.Remove(r));
                 state.Robots.Add(joinedBot);
             }
