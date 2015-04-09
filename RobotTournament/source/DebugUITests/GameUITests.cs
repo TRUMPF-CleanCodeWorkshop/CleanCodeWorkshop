@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace DebugUITests
 {
+    using System.Drawing;
+
     using Contracts.Model;
 
     using DebugUI;
@@ -17,12 +19,18 @@ namespace DebugUITests
         [Test]
         public void RowForIdAndLevelIsGivenForARobot()
         {
-            var robot = new Robot() { Id = "123", Level = 42, TeamName = "SuperTeam" };
+            var robot = new Robot(new Point(0, 0), 42, "SuperTeam", "123");
 
             var expectedOutput = "|42      123|";
             var actualOutput = GameUI.GetRowForLevelAndId(robot);
 
             Assert.That(actualOutput, Is.EqualTo(expectedOutput));
+        }
+
+        [Test]
+        public void RowForRobotTeamNameisValid()
+        {
+            var 
         }
     }
 }

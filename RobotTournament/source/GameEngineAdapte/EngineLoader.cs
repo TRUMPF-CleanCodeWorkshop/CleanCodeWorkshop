@@ -16,6 +16,8 @@ namespace GameEngineAdapter
         {
             var files = Directory.GetFiles(path, "*.dll");
 
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve +=CurrentDomain_ReflectionOnlyAssemblyResolve;
+
             var assemblies = files.Select(Assembly.ReflectionOnlyLoadFrom);
             var types = assemblies.SelectMany(assembly => assembly.GetTypes());
             var typesWithInterface = types.Where(t => t.GetInterfaces().Any(i => i.FullName == typeof (IGameEngine).FullName)).ToList();
@@ -30,5 +32,9 @@ namespace GameEngineAdapter
             return (IGameEngine)Assembly.LoadFrom(typeToLoad.Assembly.CodeBase).CreateInstance(typeToLoad.FullName);
         }
 
+        private static Assembly CurrentDomain_ReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            return Assembly.ReflectionOnlyLoad(args.Name);
+        }
     }
 }
