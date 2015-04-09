@@ -9,7 +9,7 @@
 
     public class Framework
     {
-        public static GameState CreateInitializeGameState(GameConfiguration configuration, IGameEngine engine, IEnumerable<IRobotEngine> robotEngines)
+        public static GameState CreateInitializeGameState(GameConfiguration configuration, IGameEngine gameEngine, IEnumerable<IRobotEngine> robotEngines)
         {
             if (configuration == null)
             {
@@ -25,14 +25,11 @@
             };
 
             var robotEngineList = robotEngines.ToList();
+            var positions = gameEngine.GetInitialRobotPositions(configuration.MapSize, robotEngineList.Count).ToList();
 
-            var positions = engine.GetInitialRobotPositions(configuration.MapSize, robotEngineList.Count()).ToList();
+            var robots = robotEngineList.Zip(positions, (engine, position) => new Robot(position, configuration.RobotStartLevel, engine.TeamName)).ToList();
 
-            for (var i = 0; i < robotEngineList.Count; i++)
-            {
-                var nextRobot = new Robot(positions[i], configuration.RobotStartLevel, robotEngineList[i].TeamName);
-                result.Robots.Add(nextRobot);
-            }
+            result.Robots = robots;
 
             return result;
         }

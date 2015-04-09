@@ -1,19 +1,14 @@
-﻿namespace CoreTests
+﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using Contracts;
+using Contracts.Model;
+using Core;
+using NSubstitute;
+using NUnit.Framework;
+
+namespace CoreTests
 {
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.Linq;
-
-    using Contracts;
-
-    using Core;
-
-    using Mockups;
-
-    using NSubstitute;
-
-    using NUnit.Framework;
-
     public class FrameworkTests
     {
         [Test]
@@ -27,11 +22,11 @@
             var robot = Substitute.For<IRobotEngine>();
             robot.TeamName.Returns(info => "Team Rocket");
 
-            var config = TestGameConfiguration.TestConfiguration();
+            var config = CreateTestConfiguration();
 
             var state = Framework.CreateInitializeGameState(
-                config, 
-                gameEngine, 
+                config,
+                gameEngine,
                 new List<IRobotEngine>() { robot });
 
             Assert.NotNull(state);
@@ -42,5 +37,17 @@
             var bot = state.Robots.Single();
             Assert.AreEqual("Team Rocket", bot.TeamName);
         }
+
+
+        private static GameConfiguration CreateTestConfiguration()
+        {
+            return new GameConfiguration()
+            {
+                MapSize = new Size(5, 5),
+                PowerupPropability = 1 / 2,
+                RobotStartLevel = 1
+            };
+        }
+
     }
 }
