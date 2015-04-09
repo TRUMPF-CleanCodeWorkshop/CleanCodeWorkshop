@@ -27,8 +27,9 @@ namespace GameEngineTests
                     new Robot(new Point(2, 1), 1 ,"freund", engineToCheck),
                     new Robot(new Point(3, 1), 1 ,"freund", Substitute.For<IRobotEngine>())
                 }
-
             };
+
+            gameEngine.
         } 
 
     }
