@@ -20,7 +20,9 @@
 
         public int Age { get; set; }
 
-        public Robot(int level, string teamName)
+        public IRobotEngine RobotEngine { get; set; }
+
+        public Robot(Point position, int level, string teamName, IRobotEngine engine)
         {
             this.CurrentAction = RobotActions.Idle;
             this.WaitTurns = 0;
@@ -28,13 +30,8 @@
             this.Level = level;
             this.TeamName = teamName;
             this.Id = (idCounter++).ToString();
-        }
-
-        public IRobotEngine  RobotEngine { get; set; }
-
-        public Robot(Point pos, int level, string teamName) : this(level, teamName)
-        {
-            this.Position = pos;
+            this.Position = position;
+            this.RobotEngine = engine;
         }
     }
 }

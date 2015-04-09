@@ -19,7 +19,7 @@ namespace DebugUITests
         [Test]
         public void RowForIdAndLevelIsGivenForARobot()
         {
-            var robot = new Robot(new Point(0, 0), 42, "SuperTeam");
+            var robot = new Robot(new Point(0, 0), 42, "SuperTeam", null);
 
             var expectedOutput = string.Format("|42        {0}", robot.Id);
             var actualOutput = GameUI.GetRowForLevelAndId(robot);
@@ -30,7 +30,7 @@ namespace DebugUITests
         [Test]
         public void RowForRobotTeamNameisValid()
         {
-            var robot = new Robot(new Point(0, 0), 42, "SuperTeam");
+            var robot = new Robot(new Point(0, 0), 42, "SuperTeam", null);
 
             var expectedOutput = "|SuperTeam  ";
             var actualOutput = GameUI.GetRowForName(robot);
@@ -41,7 +41,7 @@ namespace DebugUITests
         [Test]
         public void RobotTeamNameWithMoreThanElevenCharactersIsHandledCorrectly()
         {
-            var robot = new Robot(new Point(0, 0), 42, "DasSuperTeamMitVielenZeichenUndSo");
+            var robot = new Robot(new Point(0, 0), 42, "DasSuperTeamMitVielenZeichenUndSo", null);
 
             var expectedOutput = "|DasSuperTea";
             var actualOutput = GameUI.GetRowForName(robot);
