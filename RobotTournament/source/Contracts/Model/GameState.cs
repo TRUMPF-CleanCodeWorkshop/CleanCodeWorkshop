@@ -16,6 +16,7 @@ namespace Contracts.Model
         public GameState()
         {
             Robots = new List<Robot>();
+            PoperUps = new List<PoperUp>();
         }
     }
 }
