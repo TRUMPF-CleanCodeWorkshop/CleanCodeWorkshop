@@ -73,10 +73,5 @@ namespace DebugUI
 
             return nameString.Substring(0, 11);
         }
-
-        public static string GetBorderRowForRobot()
-        {
-            return ""
-        }
     }
 }
