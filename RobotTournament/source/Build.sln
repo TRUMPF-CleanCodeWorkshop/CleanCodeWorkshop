@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{01C0ABA4-9A1D-461C-850F-68D1D335123F}"
 EndProject
@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugUI", "DebugUI\DebugUI.csproj", "{5D7366CF-6419-47DE-8023-B6D993DFF87F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{3EF215E6-941F-49F0-8447-D0C5797ACA92}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{12D7ACB2-996A-48CF-BF08-708EAFD32624}"
 EndProject
@@ -70,6 +72,10 @@ Global
 		{5D7366CF-6419-47DE-8023-B6D993DFF87F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D7366CF-6419-47DE-8023-B6D993DFF87F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D7366CF-6419-47DE-8023-B6D993DFF87F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EF215E6-941F-49F0-8447-D0C5797ACA92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EF215E6-941F-49F0-8447-D0C5797ACA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EF215E6-941F-49F0-8447-D0C5797ACA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EF215E6-941F-49F0-8447-D0C5797ACA92}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12D7ACB2-996A-48CF-BF08-708EAFD32624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{12D7ACB2-996A-48CF-BF08-708EAFD32624}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12D7ACB2-996A-48CF-BF08-708EAFD32624}.Release|Any CPU.ActiveCfg = Release|Any CPU
