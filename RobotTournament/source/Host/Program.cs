@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Contracts.Model;
 using Core;
 using DebugUI;
+using GameEngineAdapter;
 using Host.Properties;
 using RobotEngineAdapter;
 
@@ -22,11 +19,13 @@ namespace Host
             var robotEnginePath = Path.Combine(basePath, "robots");
 
             var configuration = new GameConfiguration() {MapSize = Settings.Default.MapSize, PowerupPropability = Settings.Default.PowerUpPropability};
-            var gameEngine = GameEngineAdapter.EngineLoader.Load(gameEnginePath);
+            var gameEngine = EngineLoader.Load(gameEnginePath);
             var robotEngines = RobotLoader.Load(robotEnginePath);
             var gameState = Framework.CreateInitializeGameState(configuration, gameEngine, robotEngines);
             
             GameUI.ShowGameState(gameState);
+            GameUI.ShowGameState(gameState);
+
             Console.ReadLine();
         }
 
