@@ -14,6 +14,8 @@
 
         public RobotActions CurrentAction { get; set; }
 
+        public Directions CurrentDirection { get; set; }
+
         public int WaitTurns { get; set; }
 
         public int Level { get; set; }

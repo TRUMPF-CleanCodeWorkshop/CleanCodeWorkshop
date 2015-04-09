@@ -4,7 +4,7 @@ namespace Contracts
 {
     public class NextRobotTurn
     {
-        RobotActions NextAction { get; set; }
-        Directions NextDirection { get; set; }
+        public RobotActions NextAction { get; set; }
+        public Directions NextDirection { get; set; }
     }
 }
