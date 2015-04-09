@@ -9,7 +9,7 @@ namespace DebugUI
 {
     public static class GameUI
     {
-        static void ShowGameState(GameState gameState)
+        public static void ShowGameState(GameState gameState)
         {
             
         }
