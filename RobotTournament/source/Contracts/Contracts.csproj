@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IGameEngine.cs" />
+    <Compile Include="IRobot.cs" />
     <Compile Include="IRobotEngine.cs" />
     <Compile Include="Model\Directions.cs" />
     <Compile Include="Model\GameConfiguration.cs" />
@@ -48,7 +49,11 @@
     <Compile Include="Model\PowerUp.cs" />
     <Compile Include="Model\Robot.cs" />
     <Compile Include="Model\RobotActions.cs" />
+    <Compile Include="NextRobotTurn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SurroundingPowerUp.cs" />
+    <Compile Include="SurroundingRobot.cs" />
+    <Compile Include="Surroundings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

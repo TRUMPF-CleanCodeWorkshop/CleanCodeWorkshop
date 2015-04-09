@@ -7,8 +7,7 @@
 
     public interface IGameEngine
     {
+        GameState CreateInitializeGameState(GameConfiguration configuration, IEnumerable<IRobotEngine> robotEngines);
         GameState CreateNextTurn(GameState gameState);
-
-        IEnumerable<Point> GetInitialRobotPositions(Size mapSize, int count); 
     }
 }
