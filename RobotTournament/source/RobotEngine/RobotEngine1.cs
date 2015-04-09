@@ -10,5 +10,10 @@ namespace RobotEngine
     public class RobotEngine1 : IRobotEngine   
     {
         public string TeamName { get; private set; }
+
+        public RobotEngine1()
+        {
+            TeamName = "Team 1";
+        }
     }
 }
