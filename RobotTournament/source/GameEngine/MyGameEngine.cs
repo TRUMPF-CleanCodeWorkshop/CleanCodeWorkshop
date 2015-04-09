@@ -135,7 +135,7 @@ namespace GameEngine
 
         private void DecreaseWaitCounter(GameState gameState)
         {
-            throw new NotImplementedException();
+            gameState.Robots.Where(r => r.WaitTurns >= 1).ToList().ForEach(r => r.WaitTurns -= 1);
         }
 
         internal void EvaluateSplitAndImrove(GameState gameState)
@@ -151,7 +151,7 @@ namespace GameEngine
 
         internal void PerformImprove(Robot robot)
         {
-            throw new NotImplementedException();
+            robot.Level += 2;
         }
 
         internal void PerformSplit(Robot robot)
