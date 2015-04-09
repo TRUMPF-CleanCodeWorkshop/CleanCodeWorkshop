@@ -47,6 +47,7 @@
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{01c0aba4-9a1d-461c-850f-68d1d335123f}</Project>
       <Name>Contracts</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,6 +5,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Contracts.Model;
+using Core;
+using DebugUI;
+using Host.Properties;
+using RobotEngineAdapter;
 
 namespace Host
 {
@@ -14,8 +19,15 @@ namespace Host
         {
             var basePath = GetBasePath();
             var gameEnginePath =  Path.Combine(basePath , "engines");
+            var robotEnginePath = Path.Combine(basePath, "robots");
 
+            var configuration = new GameConfiguration() {MapSize = Settings.Default.MapSize, PowerupPropability = Settings.Default.PowerUpPropability};
             var gameEngine = GameEngineAdapter.EngineLoader.Load(gameEnginePath);
+            var robotEngines = RobotLoader.Load(robotEnginePath);
+            var gameState = Framework.CreateInitializeGameState(configuration, gameEngine, robotEngines);
+            
+            GameUI.ShowGameState(gameState);
+            Console.ReadLine();
         }
 
         private static string GetBasePath()

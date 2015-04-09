@@ -8,7 +8,7 @@ namespace GameEngineAdaperTests
         [Test]
         public void Load_lädt_eine_GameEngine_aus_einer_DLL()
         {
-            var path = @"C:\Data\Development\Katas\Trumpf CleanCodeWorkshop\RobotTournament\bin\engines";
+            var path = @"..\..\..\..\bin\engines";
 
             var engine = EngineLoader.Load(path);
 
