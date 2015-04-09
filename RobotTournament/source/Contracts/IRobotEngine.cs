@@ -2,5 +2,6 @@
 {
     public interface IRobotEngine
     {
+        string TeamName { get; }
     }
 }

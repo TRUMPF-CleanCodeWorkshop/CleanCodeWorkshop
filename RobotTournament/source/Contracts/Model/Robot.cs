@@ -30,7 +30,7 @@
             this.Id = (idCounter++).ToString();
         }
 
-        public Robot(Point pos, int level, string teamName, string id) : this(level, teamName)
+        public Robot(Point pos, int level, string teamName) : this(level, teamName)
         {
             this.Position = pos;
         }
