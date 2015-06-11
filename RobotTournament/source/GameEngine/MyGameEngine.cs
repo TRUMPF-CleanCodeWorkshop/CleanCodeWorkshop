@@ -78,7 +78,7 @@ namespace GameEngine
 
         internal void IncreaseTurnOrEndGame(GameState gameState)
         {
-            if (GetTeamsAlive(gameState).Count > 1)
+            if (GetTeamsAlive(gameState).Count > 1 && gameState.Turn < gameState.Configuration.MaxTurns)
             {
                 IncreaseTurn(gameState);
             }
@@ -95,10 +95,9 @@ namespace GameEngine
 
         private void FinalizeGame(GameState gameState)
         {
-
             var remainingRobots = gameState.Robots.ToList();
 
-            if (remainingRobots.Count > 0)
+            if (remainingRobots.Count > 0 && gameState.Turn < gameState.Configuration.MaxTurns)
             {
                 gameState.GameResults.Winner = remainingRobots.First().TeamName;
                 foreach (var remainingRobot in remainingRobots)
