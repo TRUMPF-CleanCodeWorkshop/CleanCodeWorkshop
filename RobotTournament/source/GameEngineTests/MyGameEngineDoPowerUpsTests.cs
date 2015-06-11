@@ -69,12 +69,6 @@
         }
 
         [Test]
-        public void TestRemovingPowerUpAfterDistribution()
-        {
-            
-        }
-
-        [Test]
         public void Tbd()
         {
             
