@@ -82,10 +82,10 @@ namespace GameEngine
 
         internal void FightRobots(GameState gameState)
         {
-            var groupedByPos = gameState.Robots.ToList().GroupBy(r => r.Position);
-            foreach (var group in groupedByPos.Where(g => g.Count() > 1))
+            var fightingPlaces = gameState.Robots.GroupBy(r => r.Position).Where(g => g.Count() > 1).ToList();
+            foreach (var robotGroup in fightingPlaces)
             {
-                this.FightRobotsOnSameField(gameState, group);
+                FightRobotsOnSameField(gameState, robotGroup);
             }
         }
 
@@ -149,7 +149,7 @@ namespace GameEngine
 
         internal void DoRobotMovements(GameState gameState)
         {
-            foreach (Robot robot in gameState.Robots)
+            foreach (var robot in gameState.Robots)
             {
                 var newPosition = GetPositionFromMovement(robot.Position, robot.CurrentDirection, gameState.Configuration.MapSize);
                 robot.Position = newPosition;
@@ -164,7 +164,6 @@ namespace GameEngine
             {
                 DoNextTurnForRobot(gameState, robot);
             }
-
         }
 
         private static void DoNextTurnForRobot(GameState gameState, Robot robot)
