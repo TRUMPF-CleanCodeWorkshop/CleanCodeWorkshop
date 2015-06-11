@@ -8,22 +8,22 @@ using Contracts;
 
 namespace RobotEngine
 {
-    public class RobotEngine1 : IRobotEngine   
+    public class RobotEngine3: IRobotEngine
     {
-        public string TeamName { get; private set; }
+         public string TeamName { get; private set; }
         public IRobot GetNewRobot()
         {
-            return new Robot1();
+            return new Robot3();
         }
 
         public Color GetTeamColor()
         {
-            return Color.Red;
+            return Color.Green;
         }
 
-        public RobotEngine1()
+        public RobotEngine3()
         {
-            TeamName = "Team 1";
+            TeamName = "Team 3";
         }
     }
 }

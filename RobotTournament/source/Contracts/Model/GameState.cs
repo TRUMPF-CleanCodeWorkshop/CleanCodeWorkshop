@@ -1,4 +1,6 @@
-﻿namespace Contracts.Model
+﻿using System.Drawing;
+
+namespace Contracts.Model
 {
     using System.Collections.Generic;
 
@@ -13,6 +15,8 @@
         public List<PowerUp> PowerUps { get; set; }
 
         public bool Finished { get; set; }
+
+        public Dictionary<string, Color> TeamColors { get; set; }
 
         public GameState()
         {

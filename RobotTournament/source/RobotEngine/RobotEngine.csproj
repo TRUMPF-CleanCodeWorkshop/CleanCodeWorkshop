@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,9 +42,11 @@
   <ItemGroup>
     <Compile Include="Robot1.cs" />
     <Compile Include="Robot2.cs" />
+    <Compile Include="Robot3.cs" />
     <Compile Include="RobotEngine2.cs" />
     <Compile Include="RobotEngine1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RobotEngine3.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
