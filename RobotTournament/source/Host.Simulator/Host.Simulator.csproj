@@ -47,6 +47,24 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\Contracts.csproj">
+      <Project>{01C0ABA4-9A1D-461C-850F-68D1D335123F}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameEngineAdapte\GameEngineAdapter.csproj">
+      <Project>{B33A9170-A73E-4F1F-9B36-607DE35F5CF7}</Project>
+      <Name>GameEngineAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RobotEngineAdapter\RobotEngineAdapter.csproj">
+      <Project>{6C5AED0E-8736-49A1-9E0F-E81D3D57166C}</Project>
+      <Name>RobotEngineAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Simulation\Simulation.csproj">
+      <Project>{1B894EF3-AEEE-4F99-801E-FB5881E73971}</Project>
+      <Name>Simulation</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

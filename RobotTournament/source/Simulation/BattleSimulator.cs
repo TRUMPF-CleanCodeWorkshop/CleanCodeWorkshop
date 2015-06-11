@@ -10,9 +10,27 @@ namespace Simulation
 {
     public class BattleSimulator
     {
-        public SimulationResult Simulate(IGameEngine gameEngine, IEnumerable<IRobotEngine> robotEngines)
+        public SimulationResult Simulate(GameConfiguration configuration, IGameEngine gameEngine, IEnumerable<IRobotEngine> robotEngines)
         {
-            return new SimulationResult();
+            var gameState = gameEngine.CreateInitializeGameState(configuration, robotEngines);
+
+            while (!gameState.Finished)
+            {
+                gameState = gameEngine.CreateNextTurn(gameState);
+            }
+
+            var teamWins = new Dictionary<string, int>();
+
+            if (gameState.Robots.Count == 0)
+            {
+                teamWins.Add("None",1);
+            }
+            else
+            {
+                teamWins.Add(gameState.Robots.First().TeamName, 1);    
+            }
+
+            return new SimulationResult() {TeamWins = teamWins};
         }
     }
 }
