@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
 using Contracts;
 using Contracts.Model;
@@ -93,13 +94,13 @@ namespace GameEngine
             var robotList = robots.ToList();
             var sortedRobotList = robotList.OrderByDescending(r => r.Level).ToList();
             var winner = sortedRobotList.First();
-           
+
             robotList.ToList().ForEach(r => state.Robots.Remove(r));
 
             if (winner.Level != sortedRobotList[1].Level)
             {
                 state.Robots.Add(winner);
-            }   
+            }
         }
 
         internal void JoinRobots(GameState gameState)
@@ -197,7 +198,7 @@ namespace GameEngine
             var propability = gameState.Configuration.PowerupPropability;
             var mapSize = gameState.Configuration.MapSize;
             var powerups = new List<PowerUp>();
-            var count = Math.Round(mapSize.Width*mapSize.Height*propability,0);
+            var count = Math.Round(mapSize.Width * mapSize.Height * propability, 0);
 
             for (var i = 0; i < count; i++)
             {
@@ -222,6 +223,16 @@ namespace GameEngine
             return robots.Select(r => new SurroundingRobot() { Level = r.Level, IsEnemy = r.TeamName != robot.TeamName, Direction = Directions.N }).ToList();
         }
 
+        internal static Directions GetDirectionFromRelativePositions(Point currentRobotPosition, Point surroundRobotPosition)
+        {
+            var relativePosition = surroundRobotPosition.Substract(currentRobotPosition);
+
+            if (relativePosition.Equals(new Point(-1, -1))) { return Directions.NW; }
+            if (relativePosition.Equals(new Point(0, -1))) { return Directions.N; }
+            if (relativePosition.Equals(new Point(0, -1))) { return Directions.NE; }
+
+            return Directions.S;
+        }
 
         private static IEnumerable<Point> GetSurroundingPositions(Point position)
         {
