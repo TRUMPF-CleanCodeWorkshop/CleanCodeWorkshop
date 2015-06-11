@@ -28,7 +28,7 @@ namespace Host.Simulator
 
             var result = BattleSimulator.Simulate(configuration, gameEngine, robotEngines, 50);
 
-            foreach (var team in result.TeamWins.Keys)
+            foreach (var team in result.TeamWins.Keys.OrderBy(key => key))
             {
                 Console.WriteLine("{0} - {1}", team, result.TeamWins[team]);
             }
