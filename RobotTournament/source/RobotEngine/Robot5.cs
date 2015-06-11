@@ -24,8 +24,6 @@
                 return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = maxPowerUp.Direction };
             }
 
-
-
             var enemies = surroundingRobots.Where(r => r.IsEnemy).ToList();
 
             if (!enemies.Any())
@@ -45,19 +43,12 @@
             }
 
             var strongerEnemies = enemies.Where(e => e.Level >= myLevel).ToList();
-            var weakerEnemies = enemies.Where(e => e.Level < myLevel).ToList();
-
-            //if (weakerEnemies.Any())
-            //{
-            //    var strongestWeakerEnemy = weakerEnemies.OrderByDescending(we => we.Level).First();
-            //    var enemiesDirection = strongestWeakerEnemy.Direction;
-            //    return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = enemiesDirection };
-            //}
 
             if (strongerEnemies.Any())
             {
                 var randomDirection = this.GetRandomDirections();
-                while (strongerEnemies.Where(se => se.Direction == randomDirection).ToList().Any())
+                var counter = 0;
+                while (strongerEnemies.Where(se => se.Direction == randomDirection).ToList().Any() && counter++ < 20)
                 {
                     randomDirection = this.GetRandomDirections();
                 }
