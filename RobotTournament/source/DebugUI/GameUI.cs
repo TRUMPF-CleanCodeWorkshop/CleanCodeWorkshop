@@ -15,7 +15,7 @@ namespace DebugUI
         private const string UnderlineRow = "___________|";
 
         public static void ShowGameState(GameState gameState)
-        {
+        {            
             var numberOfColumns = gameState.Configuration.MapSize.Width;
             var numberOfRows = gameState.Configuration.MapSize.Height;
             Console.WindowWidth = numberOfColumns * 12 + 5;
@@ -60,6 +60,7 @@ namespace DebugUI
                 {
                     firstRow.Append(string.Format("{0}|", "PowerUp".PadRight(11)));
                     secondRow.Append(string.Format("{0}|", powerUp.Level.ToString().PadRight(11)));
+                    thirdRow.Append(EmptyRow);
                 }
                 else
                 {
