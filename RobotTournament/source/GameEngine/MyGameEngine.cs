@@ -72,12 +72,29 @@ namespace GameEngine
             DoRobotMovements(gameState);
             ResolveFieldConflicts(gameState);
             DoPowerUps(gameState);
-            IncreaseTurn(gameState);
+            IncreaseTurnOrEndGame(gameState);
+        }
+
+        internal void IncreaseTurnOrEndGame(GameState gameState)
+        {
+            var numberOfTeamsWithAliveRobots = gameState.Robots.Select(r => r.TeamName).Distinct().Count();
+            if (numberOfTeamsWithAliveRobots > 1)
+            {
+                IncreaseTurn(gameState);
+            }
+            else {
+                FinalizeGame(gameState);
+            }
         }
 
         private void IncreaseTurn(GameState gameState)
         {
             gameState.Turn += 1;
+        }
+
+        private void FinalizeGame(GameState gameState)
+        {
+            gameState.Finished = true;
         }
 
         private void ResolveFieldConflicts(GameState gameState)
