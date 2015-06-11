@@ -72,6 +72,12 @@ namespace GameEngine
             DoRobotMovements(gameState);
             ResolveFieldConflicts(gameState);
             DoPowerUps(gameState);
+            IncreaseTurn(gameState);
+        }
+
+        private void IncreaseTurn(GameState gameState)
+        {
+            gameState.Turn += 1;
         }
 
         private void ResolveFieldConflicts(GameState gameState)
@@ -177,7 +183,7 @@ namespace GameEngine
 
             if (robot.CurrentAction == RobotActions.Splitting || robot.CurrentAction == RobotActions.Upgrading)
             {
-                robot.WaitTurns = 1;
+                robot.WaitTurns = 2;
             }
         }
 
