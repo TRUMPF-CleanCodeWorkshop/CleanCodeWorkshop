@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +26,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,9 +44,18 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
@@ -56,9 +66,17 @@
       <Project>{B33A9170-A73E-4F1F-9B36-607DE35F5CF7}</Project>
       <Name>GameEngineAdapter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GameEngine\GameEngine.csproj">
+      <Project>{c76db989-0747-4411-b9f7-198d736d126f}</Project>
+      <Name>GameEngine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RobotEngineAdapter\RobotEngineAdapter.csproj">
       <Project>{6C5AED0E-8736-49A1-9E0F-E81D3D57166C}</Project>
       <Name>RobotEngineAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RobotEngine\RobotEngine.csproj">
+      <Project>{ee1ad60b-1f31-442c-b699-1c2f2f841f60}</Project>
+      <Name>RobotEngine</Name>
     </ProjectReference>
     <ProjectReference Include="..\Simulation\Simulation.csproj">
       <Project>{1B894EF3-AEEE-4F99-801E-FB5881E73971}</Project>

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Contracts.Model;
 using GameEngineAdapter;
+using Host.Simulator.Properties;
 using RobotEngineAdapter;
 using Simulation;
 
@@ -24,9 +25,14 @@ namespace Host.Simulator
             var gameEngine = EngineLoader.Load(gameEnginePath);
             var robotEngines = RobotLoader.Load(robotEnginePath).ToList();
 
-            var simulator = new BattleSimulator();
 
-            var result = simulator.Simulate(configuration, gameEngine, robotEngines);
+            var result = BattleSimulator.Simulate(configuration, gameEngine, robotEngines, 50);
+
+            foreach (var team in result.TeamWins.Keys)
+            {
+                Console.WriteLine("{0} - {1}", team, result.TeamWins[team]);
+            }
+            Console.ReadLine();
 
         }
 
