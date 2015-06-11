@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using GameEngine;
 
 namespace Contracts.Model
 {
@@ -7,6 +8,8 @@ namespace Contracts.Model
     public class GameState
     {
         public GameConfiguration Configuration { get; set; }
+
+        public GameResults GameResults { get; set; }
 
         public int Turn { get; set; }
 
@@ -22,6 +25,7 @@ namespace Contracts.Model
         {
             this.Robots = new List<Robot>();
             this.PowerUps = new List<PowerUp>();
+            this.GameResults = new GameResults();
             Finished = false;
         }
     }
