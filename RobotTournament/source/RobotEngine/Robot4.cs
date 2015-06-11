@@ -14,7 +14,7 @@
         {
             var enemies = environment.Robots.Where(r => r.IsEnemy).ToList();
             var friends = environment.Robots.Where(r => !r.IsEnemy).ToList();
-
+             
             var decisionDirection = (Directions)random.Next(0, 7);
             if (currentTurn == 0)
             {
