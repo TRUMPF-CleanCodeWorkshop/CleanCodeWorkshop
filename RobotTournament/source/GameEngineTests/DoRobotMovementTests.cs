@@ -1,6 +1,5 @@
 ﻿namespace GameEngineTests
 {
-    using System;
     using System.Collections.Generic;
     using System.Drawing;
     using Contracts;
@@ -24,10 +23,20 @@
             {
                 Robots = new List<Robot>()
                 {
-                    new Robot(new Point(0, 0), 1 ,"feindlich", Substitute.For<IRobot>()),
-                    new Robot(new Point(2, 1), 1 ,"freund", engineToCheck) { WaitTurns = 1, CurrentAction = RobotActions.Upgrading},
-                    new Robot(new Point(3, 1), 1 ,"freund", Substitute.For<IRobot>()) {WaitTurns = 1, CurrentAction = RobotActions.Upgrading}
-                },
+                    new Robot(new Point(0, 0), 1, "feindlich", Substitute.For<IRobot>())
+                    {
+                        WaitTurns = 0
+                    },
+                    new Robot(new Point(2, 1), 1, "freund", engineToCheck)
+                    {
+                        WaitTurns = 0
+                    },
+                    new Robot(new Point(3, 1), 1, "freund", Substitute.For<IRobot>())
+                    {
+                        WaitTurns = 1,
+                        CurrentAction = RobotActions.Upgrading
+                    }
+                }, 
                 Configuration = configuration
             };
 
@@ -37,10 +46,10 @@
 
             gameEngine.DoRobotMovements(gameState);
             Assert.That(
-                gameState.Robots[0].Position,
+                gameState.Robots[0].Position, 
                 Is.EqualTo(new Point(1, gameState.Configuration.MapSize.Height - 1)));
             Assert.That(gameState.Robots[1].Position, Is.EqualTo(new Point(2, 0)));
-            Assert.That(gameState.Robots[2].Position, Is.EqualTo(new Point(3, 2)));
+            Assert.That(gameState.Robots[2].Position, Is.EqualTo(new Point(3, 1)));
         }
 
 
