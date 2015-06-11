@@ -15,7 +15,7 @@ namespace Simulation
             var result = new SimulationResult() { TeamWins = new Dictionary<string, int>() };
             var options = new ParallelOptions() { MaxDegreeOfParallelism = 20 };
 
-            Parallel.For(0, 100, options, (counter) =>
+            Parallel.For(0, count, options, (counter) =>
             {
                 var winningTeam = SimulateOne(configuration, gameEngine, robotEngines);
                 ApplyWinngTeam(result, winningTeam);
