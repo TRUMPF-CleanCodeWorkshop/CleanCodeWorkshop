@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EvaluateSplitAndImproveTests.cs" />
+    <Compile Include="MyGameEngineDoPowerUpsTests.cs" />
     <Compile Include="MyGameEngineFightTests.cs" />
     <Compile Include="MyGameEngineJoinTests.cs" />
     <Compile Include="GetNextTurnFromRobotsTests.cs" />
