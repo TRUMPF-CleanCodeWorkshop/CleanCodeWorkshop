@@ -8,6 +8,7 @@ namespace GameEngineTests
 {
     using System.Drawing;
     using System.Runtime;
+    using System.Security.Cryptography;
 
     using Contracts.Model;
 
@@ -60,6 +61,18 @@ namespace GameEngineTests
 
             // Assert
             Assert.AreEqual(new Point(6, 5), newPosition);
+        }
+
+        [Test]
+        public void NewPositionIsDeterminedCorrectlyIfCurrentPositionIsOnBorder()
+        {
+            var position = new Point(4, 4);
+            var mapSize = new Size(5, 5);
+            var direction = Directions.SE;
+
+            var newPosition = MyGameEngine.GetPositionFromMovement(position, direction, mapSize);
+
+            Assert.AreEqual(new Point(0, 0), newPosition);
         }
     }
 }
