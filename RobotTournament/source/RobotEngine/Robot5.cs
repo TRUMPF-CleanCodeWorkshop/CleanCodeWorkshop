@@ -56,6 +56,17 @@
                 return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = randomDirection };
             }
 
+            var weakerEnemies = enemies.Where(e => e.Level < myLevel).ToList();
+            if (weakerEnemies.Any())
+            {
+                var strongestWeakerEnemy = weakerEnemies.OrderByDescending(s => s.Level).First();
+                return new NextRobotTurn()
+                           {
+                               NextAction = RobotActions.Splitting,
+                               NextDirection = strongestWeakerEnemy.Direction
+                           };
+            }
+
             return new NextRobotTurn() { NextAction = RobotActions.Upgrading };
         }
 

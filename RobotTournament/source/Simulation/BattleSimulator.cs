@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Contracts;
 using Contracts.Model;
@@ -49,7 +47,7 @@ namespace Simulation
                 gameState = gameEngine.CreateNextTurn(gameState);
             }
 
-            return gameState.Robots.Count == 0 ? "None" : gameState.Robots.First().TeamName;
+            return gameState.GameResults.Winner;
         }
     }
 }
