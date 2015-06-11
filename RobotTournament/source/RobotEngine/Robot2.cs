@@ -24,12 +24,12 @@
 
             var decisionDirection = currentTurn % 23 == 0 ? Directions.NW : Directions.SW;
 
-            if (currentTurn % 13 == 0)
+            if (currentTurn % 3 == 0)
             {
                 return new NextRobotTurn() { NextAction = RobotActions.Upgrading, NextDirection = decisionDirection };
             }
 
-            return currentTurn % 51 == 0 ? new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = decisionDirection } : new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = decisionDirection };
+            return currentTurn % 7 == 0 ? new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = decisionDirection } : new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = decisionDirection };
         }
     }
 }
