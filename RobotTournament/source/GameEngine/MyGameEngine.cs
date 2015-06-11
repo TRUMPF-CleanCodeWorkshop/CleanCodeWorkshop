@@ -157,11 +157,7 @@ namespace GameEngine
             robot.CurrentAction = result.NextAction;
             robot.CurrentDirection = result.NextDirection;
 
-            if (robot.CurrentAction == RobotActions.Splitting)
-            {
-                robot.WaitTurns = 2;
-            }
-            if (robot.CurrentAction == RobotActions.Upgrading)
+            if (robot.CurrentAction == RobotActions.Splitting || robot.CurrentAction == RobotActions.Upgrading)
             {
                 robot.WaitTurns = 2;
             }
@@ -197,8 +193,7 @@ namespace GameEngine
 
         private void GeneratePowerUps(GameState gameState)
         {
-            //throw new NotImplementedException();
-            PowerUp powerup = new PowerUp();
+            var powerup = new PowerUp();
             var propability = gameState.Configuration.PowerupPropability;
             var mapSize = gameState.Configuration.MapSize;
             var powerups = new List<PowerUp>();
