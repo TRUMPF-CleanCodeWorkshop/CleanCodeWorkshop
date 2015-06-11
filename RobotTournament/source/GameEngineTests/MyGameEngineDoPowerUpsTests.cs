@@ -37,6 +37,23 @@
             Assert.That(1, Is.EqualTo(gameState.Robots.Skip(2).Take(1).First().Level));
         }
 
+        [Test]
+        public void TestPowerUpWasDeteled()
+        {
+            var gameState = SetupGameState();
+            var sut = new MyGameEngine();
+
+            sut.DoPowerUps(gameState);
+
+            Assert.That(1, Is.EqualTo(gameState.PowerUps.Count()));
+        }
+
+        [Test]
+        public void Tbd()
+        {
+            
+        }
+
         private static GameState SetupGameState()
         {
             var robots = new List<Robot>
@@ -55,23 +72,6 @@
 
             var gameState = new GameState() { Robots = robots, PowerUps = powerUps };
             return gameState;
-        }
-
-        [Test]
-        public void TestPowerUpWasDeteled()
-        {
-            var gameState = SetupGameState();
-            var sut = new MyGameEngine();
-
-            sut.DoPowerUps(gameState);
-
-            Assert.That(1, Is.EqualTo(gameState.PowerUps.Count()));
-        }
-
-        [Test]
-        public void Tbd()
-        {
-            
         }
     }
 }
