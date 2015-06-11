@@ -149,7 +149,7 @@ namespace GameEngine
 
         internal void DoRobotMovements(GameState gameState)
         {
-            foreach (Robot robot in gameState.Robots)
+            foreach (var robot in gameState.Robots)
             {
                 var newPosition = GetPositionFromMovement(robot.Position, robot.CurrentDirection, gameState.Configuration.MapSize);
                 robot.Position = newPosition;
@@ -164,7 +164,6 @@ namespace GameEngine
             {
                 DoNextTurnForRobot(gameState, robot);
             }
-
         }
 
         private static void DoNextTurnForRobot(GameState gameState, Robot robot)
