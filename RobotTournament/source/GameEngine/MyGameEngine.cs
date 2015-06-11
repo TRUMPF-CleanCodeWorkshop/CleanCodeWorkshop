@@ -95,7 +95,7 @@ namespace GameEngine
 
         private void FinalizeGame(GameState gameState)
         {
-            
+
             var remainingRobots = gameState.Robots.ToList();
 
             if (remainingRobots.Count > 0)
@@ -198,7 +198,7 @@ namespace GameEngine
 
         internal void GetNextTurnsFromRobots(GameState gameState)
         {
-            var map =  CreateRobotMap(gameState);
+            var map = CreateRobotMap(gameState);
 
             var readyRobots = gameState.Robots.Where(robot => robot.WaitTurns == 0).ToList();
 
@@ -208,12 +208,23 @@ namespace GameEngine
             }
         }
 
-        private static Dictionary<Point, Robot> CreateRobotMap(GameState gameState)
+        private static Dictionary<Point, List<Robot>> CreateRobotMap(GameState gameState)
         {
-            return gameState.Robots.ToDictionary(r => r.Position, r => r);
+            var result = new Dictionary<Point, List<Robot>>();
+
+            gameState.Robots.ForEach(robot =>
+            {
+                if (!result.ContainsKey(robot.Position))
+                {
+                    result[robot.Position] = new List<Robot>();
+                }
+                result[robot.Position].Add(robot);
+            });
+
+            return result;
         }
 
-        private static void DoNextTurnForRobot(GameState gameState, Robot robot, Dictionary<Point, Robot> map)
+        private static void DoNextTurnForRobot(GameState gameState, Robot robot, Dictionary<Point, List<Robot>> map)
         {
             var surroundings = new Surroundings();
             surroundings.Robots = GetSurroundingRobots(gameState, robot, map);
@@ -295,12 +306,12 @@ namespace GameEngine
             }
         }
 
-        internal static IEnumerable<SurroundingRobot> GetSurroundingRobots(GameState gameState, Robot robot, Dictionary<Point, Robot> map)
+        internal static IEnumerable<SurroundingRobot> GetSurroundingRobots(GameState gameState, Robot robot, Dictionary<Point, List<Robot>> map)
         {
             var surroundingPositions = GetSurroundingPositions(robot.Position);
 
-            var surroundingrobots = surroundingPositions.Select(pos => map.ContainsKey(pos) ? map[pos] : null).Where(r => r != null);
-
+            var surroundingrobots = surroundingPositions.SelectMany(pos => map.ContainsKey(pos) ? map[pos] : new List<Robot>());
+            
             return surroundingrobots.Select(r => new SurroundingRobot() { Level = r.Level, IsEnemy = r.TeamName != robot.TeamName, Direction = GetDirectionFromRelativePositions(robot.Position, r.Position) }).ToList();
         }
 
@@ -407,6 +418,6 @@ namespace GameEngine
             return gameState.Robots.Select(r => r.TeamName).Distinct().ToList();
         }
     }
-    
-    
+
+
 }

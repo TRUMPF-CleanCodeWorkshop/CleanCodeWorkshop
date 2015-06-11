@@ -95,7 +95,7 @@ namespace GameEngineTests
                 }
             };
 
-            var robots = MyGameEngine.GetSurroundingRobots(gameState, robot, new Dictionary<Point, Robot>()).ToList();
+            var robots = MyGameEngine.GetSurroundingRobots(gameState, robot, new Dictionary<Point, List<Robot>>()).ToList();
 
             Assert.That(robots.Count(), Is.EqualTo(2));
             Assert.That(robots.First().Direction , Is.EqualTo(Directions.NW));
@@ -118,7 +118,7 @@ namespace GameEngineTests
                 }
             };
 
-            var robots = MyGameEngine.GetSurroundingRobots(gameState, robot, new Dictionary<Point, Robot>()).ToList();
+            var robots = MyGameEngine.GetSurroundingRobots(gameState, robot, new Dictionary<Point, List<Robot>>()).ToList();
 
             Assert.That(robots.Count(), Is.EqualTo(0));
            

@@ -42,7 +42,8 @@
             if (gameState.Finished)
             {
                 Console.WriteLine("Game Over!");
-                Console.WriteLine("The winner is Team {0}.", "[Winnner Team]");
+                Console.WriteLine("The winner is Team {0}, with a total force of {1}.", "[" + gameState.GameResults.Winner + "]", gameState.GameResults.WinnersTotalForce);
+                Console.WriteLine("The game took {0} rounds.", gameState.GameResults.RoundsTaken);
             }
         }
 

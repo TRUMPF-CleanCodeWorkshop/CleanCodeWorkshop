@@ -24,15 +24,17 @@
                 return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = maxPowerUp.Direction };
             }
 
-            if (!surroundingRobots.Any())
+            var enemies = surroundingRobots.Where(r => r.IsEnemy).ToList();
+
+            if (!enemies.Any())
             {
-                if (myLevel > 20 || myLevel % 2 == 1)
+                if (myLevel > 5 || myLevel % 2 == 1)
                 {
                     return new NextRobotTurn()
-                               {
-                                   NextAction = RobotActions.Splitting,
-                                   NextDirection = this.GetRandomDirections()
-                               };
+                    {
+                        NextAction = RobotActions.Splitting,
+                        NextDirection = this.GetRandomDirections()
+                    };
                 }
                 if (myLevel % 2 == 0)
                 {
@@ -40,21 +42,13 @@
                 }
             }
 
-            var enemies = surroundingRobots.Where(r => r.IsEnemy).ToList();
             var strongerEnemies = enemies.Where(e => e.Level >= myLevel).ToList();
-            var weakerEnemies = enemies.Where(e => e.Level < myLevel).ToList();
-
-            if (weakerEnemies.Any())
-            {
-                var strongestWeakerEnemy = weakerEnemies.OrderByDescending(we => we.Level).First();
-                var enemiesDirection = strongestWeakerEnemy.Direction;
-                return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = enemiesDirection };
-            }
 
             if (strongerEnemies.Any())
             {
                 var randomDirection = this.GetRandomDirections();
-                while (strongerEnemies.Where(se => se.Direction == randomDirection).ToList().Any())
+                var counter = 0;
+                while (strongerEnemies.Where(se => se.Direction == randomDirection).ToList().Any() && counter++ < 20)
                 {
                     randomDirection = this.GetRandomDirections();
                 }
