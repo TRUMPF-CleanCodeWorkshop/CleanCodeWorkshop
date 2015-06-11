@@ -12,7 +12,7 @@
         {
             if (currentTurn == 0)
             {
-                return new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = Directions.NE };
+                return new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = this.GetRandomDirections() };
             }
 
             var surroundingRobots = environment.Robots;
