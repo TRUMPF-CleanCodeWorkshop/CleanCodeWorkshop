@@ -49,14 +49,17 @@ namespace DebugUI
             var fourthRow = new StringBuilder("  |");
             for (var columnCounter = 0; columnCounter < mapWidth; columnCounter++)
             {
-
-
+                var powerUp = powerUps.FirstOrDefault(p => p.Position == new Point(columnCounter, rowNumber));
                 var robot = robots.FirstOrDefault(r => r.Position == new Point(columnCounter, rowNumber));
                 if (robot != null)
                 {
                     firstRow.Append(GetRowForLevelAndId(robot));
                     secondRow.Append(GetRowForName(robot));
                     thirdRow.Append(GetRowForAction(robot));
+                } else if (powerUp != null)
+                {
+                    firstRow.Append(string.Format("{0}|", "PowerUp".PadRight(11)));
+                    secondRow.Append(string.Format("{0}|", powerUp.Level.ToString().PadRight(11)));
                 }
                 else
                 {
