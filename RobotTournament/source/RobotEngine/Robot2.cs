@@ -13,27 +13,27 @@
 
         public NextRobotTurn DoNextTurn(int currentTurn, int myLevel, Surroundings environment)
         {
-            // first round just upgrading
-            if (currentTurn == 0)
+            // Next random direction
+            var decisionDirection = (Directions)this.random.Next(0, 7);
+
+            // Socializing
+            if (!environment.Robots.Any(r => r.IsEnemy))
             {
-                return new NextRobotTurn() { NextAction = RobotActions.Upgrading, NextDirection = Directions.N };
+                return new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = decisionDirection };
             }
 
-            // yes I'm a pussy! fleee!!!!
-            if (environment.Robots.Any(r => r.IsEnemy && r.Level >= myLevel))
-            {
-                var escapePlan = CalculateEscapePlan(environment.Robots.Where(r => r.IsEnemy).ToList());
-                if (escapePlan.Exists)
-                {
-                    return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = escapePlan.Direction };
-                }
-            }
-           
             // Nimmersatt
             if (environment.PowerUps.Any())
             {
                 var firstPowerUpDirection = environment.PowerUps.First().Direction;
                 return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = firstPowerUpDirection };
+            }
+
+            // Hercules
+            if (environment.Robots.Any(r => r.IsEnemy && r.Level < myLevel))
+            {
+                var strongestCatchableEnemyDirection = environment.Robots.Where(r => r.IsEnemy && r.Level < myLevel).OrderByDescending(r => r.Level).First().Direction;
+                return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = strongestCatchableEnemyDirection };
             }
 
             // Darwin!
@@ -52,25 +52,23 @@
                 }
             }
 
-            // Hercules
-            if (environment.Robots.Any(r => r.IsEnemy && r.Level < myLevel))
+            // yes I'm a pussy! fleee!!!!
+            if (environment.Robots.Any(r => r.IsEnemy && r.Level >= myLevel))
             {
-                var firstPussyBot = environment.Robots.First(r => r.IsEnemy && r.Level < myLevel).Direction;
-                return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = firstPussyBot };
+                var escapePlan = CalculateEscapePlan(environment.Robots.Where(r => r.IsEnemy).ToList());
+                if (escapePlan.Exists)
+                {
+                    return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = escapePlan.Direction };
+                }
             }
 
-            // Fitness
-            var decisionDirection = (Directions)this.random.Next(0, 7);
-
-            // Socializing
-            if (currentTurn % this.random.Next(3, 4) == 0)
+            // prepare for fight
+            if (!environment.Robots.Any(r => r.IsEnemy && r.Level > myLevel))
             {
-                return new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = decisionDirection };
+                return new NextRobotTurn() { NextAction = RobotActions.Upgrading, NextDirection = decisionDirection };
             }
 
-            return currentTurn % this.random.Next(1, 7) == 0
-                       ? new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = decisionDirection }
-                       : new NextRobotTurn() { NextAction = RobotActions.Upgrading, NextDirection = decisionDirection };
+            return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = decisionDirection };
         }
 
         private static EscapePlan CalculateEscapePlan(List<SurroundingRobot> enemies)
@@ -85,9 +83,27 @@
                                Exists = true
                            };
             }
+            var allFieldsAround = new List<Directions>()
+                                      {
+                                          Directions.N,
+                                          Directions.NE,
+                                          Directions.E,
+                                          Directions.SE,
+                                          Directions.S,
+                                          Directions.SW,
+                                          Directions.W,
+                                          Directions.NW
+                                      };
 
-            //var anyPlaceToHide = enemies.Where(r => r.Direction)
-
+            var anyPlaceToHide = allFieldsAround.Except(enemies.Select(r => r.Direction)).ToList();
+            if (anyPlaceToHide.Any())
+            {
+                return new EscapePlan()
+                           {
+                               Exists = true,
+                               Direction = anyPlaceToHide.First()
+                           };
+            }
             return new EscapePlan(){Exists = false};
         }
 
