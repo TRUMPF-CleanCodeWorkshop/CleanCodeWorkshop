@@ -127,12 +127,27 @@ namespace GameEngine
             }
         }
 
-        private void DoPowerUps(GameState gameState)
+        internal void DoPowerUps(GameState gameState)
         {
-            throw new NotImplementedException();
+            var removeCandidates = new List<PowerUp>();
+
+            foreach (var powerUp in gameState.PowerUps)
+            {
+                var robotOnPowerup = gameState.Robots.FirstOrDefault(r => r.Position == powerUp.Position);
+                if (robotOnPowerup == null)
+                {
+                    continue;
+                }
+
+                robotOnPowerup.Level += powerUp.Level;
+                removeCandidates.Add(powerUp);
+            }
+
+            gameState.PowerUps = gameState.PowerUps.Except(removeCandidates).ToList();
         }
 
-        public void DoRobotMovements(GameState gameState)
+
+        private void DoRobotMovements(GameState gameState)
         {
             throw new NotImplementedException();
         }
@@ -152,6 +167,7 @@ namespace GameEngine
         {
             var surroundings = new Surroundings();
             surroundings.Robots = GetSurroundingRobots(gameState, robot);
+            surroundings.PowerUps = GetSurroundingPowerUps(gameState, robot);
 
             var result = robot.RobotImplementation.DoNextTurn(gameState.Turn, robot.Level, surroundings);
 
@@ -214,18 +230,27 @@ namespace GameEngine
             }
         }
 
-        private static IEnumerable<SurroundingRobot> GetSurroundingRobots(GameState gameState, Robot robot)
+        internal static IEnumerable<SurroundingRobot> GetSurroundingRobots(GameState gameState, Robot robot)
         {
             var surroundingPositions = GetSurroundingPositions(robot.Position);
 
             var robots = gameState.Robots.Where(r => surroundingPositions.Contains(r.Position));
 
-            return robots.Select(r => new SurroundingRobot() { Level = r.Level, IsEnemy = r.TeamName != robot.TeamName, Direction = Directions.N }).ToList();
+            return robots.Select(r => new SurroundingRobot() { Level = r.Level, IsEnemy = r.TeamName != robot.TeamName, Direction = GetDirectionFromRelativePositions(robot.Position, r.Position) }).ToList();
         }
 
-        internal static Directions GetDirectionFromRelativePositions(Point currentRobotPosition, Point surroundRobotPosition)
+        internal static IEnumerable<SurroundingPowerUp> GetSurroundingPowerUps(GameState gameState, Robot robot)
         {
-            var relativePosition = surroundRobotPosition.Substract(currentRobotPosition);
+            var surroundingPositions = GetSurroundingPositions(robot.Position);
+
+            var powerUps = gameState.PowerUps.Where(r => surroundingPositions.Contains(r.Position));
+
+            return powerUps.Select(p => new SurroundingPowerUp() { Level = p.Level, Direction = GetDirectionFromRelativePositions(robot.Position, p.Position) }).ToList();
+        }
+
+        internal static Directions GetDirectionFromRelativePositions(Point position1, Point position2)
+        {
+            var relativePosition = position2.Substract(position1);
 
             if (relativePosition.Equals(new Point(-1, -1))) { return Directions.NW; }
             if (relativePosition.Equals(new Point(0, -1))) { return Directions.N; }
@@ -236,7 +261,7 @@ namespace GameEngine
             if (relativePosition.Equals(new Point(0, 1))) { return Directions.S; }
             if (relativePosition.Equals(new Point(1, 1))) { return Directions.SE; }
 
-            throw new Exception(string.Format("Invalid direction with robot {0} and surrounding robot {1}", currentRobotPosition, surroundRobotPosition));
+            throw new Exception(string.Format("Invalid direction with robot {0} and surrounding robot {1}", position1, position2));
         }
 
         private static IEnumerable<Point> GetSurroundingPositions(Point position)
@@ -250,5 +275,24 @@ namespace GameEngine
             yield return new Point(position.X, position.Y + 1);
             yield return new Point(position.X + 1, position.Y + 1);
         }
+
+        private static Point getPositionAfterSplit(Point robotPosition, Directions direction, Size mapSize)
+        {
+
+
+            return new Point();
+        }
+
+        internal static Tuple<int, int> GetMovement(Directions direction)
+        {
+            var x = 0;
+            var y = 0;
+
+            if (direction == Directions.E || direction == Directions.NE || direction == Directions.SE)
+            {
+                
+            }
+            return new Tuple<int, int>(x, y);
+        } 
     }
 }
