@@ -152,6 +152,7 @@ namespace GameEngine
         {
             var surroundings = new Surroundings();
             surroundings.Robots = GetSurroundingRobots(gameState, robot);
+            surroundings.PowerUps = GetSurroundingPowerUps(gameState, robot);
 
             var result = robot.RobotImplementation.DoNextTurn(gameState.Turn, robot.Level, surroundings);
 
@@ -214,24 +215,38 @@ namespace GameEngine
             }
         }
 
-        private static IEnumerable<SurroundingRobot> GetSurroundingRobots(GameState gameState, Robot robot)
+        internal static IEnumerable<SurroundingRobot> GetSurroundingRobots(GameState gameState, Robot robot)
         {
             var surroundingPositions = GetSurroundingPositions(robot.Position);
 
             var robots = gameState.Robots.Where(r => surroundingPositions.Contains(r.Position));
 
-            return robots.Select(r => new SurroundingRobot() { Level = r.Level, IsEnemy = r.TeamName != robot.TeamName, Direction = Directions.N }).ToList();
+            return robots.Select(r => new SurroundingRobot() { Level = r.Level, IsEnemy = r.TeamName != robot.TeamName, Direction = GetDirectionFromRelativePositions(robot.Position, r.Position) }).ToList();
         }
 
-        internal static Directions GetDirectionFromRelativePositions(Point currentRobotPosition, Point surroundRobotPosition)
+        internal static IEnumerable<SurroundingPowerUp> GetSurroundingPowerUps(GameState gameState, Robot robot)
         {
-            var relativePosition = surroundRobotPosition.Substract(currentRobotPosition);
+            var surroundingPositions = GetSurroundingPositions(robot.Position);
+
+            var powerUps = gameState.PowerUps.Where(r => surroundingPositions.Contains(r.Position));
+
+            return powerUps.Select(p => new SurroundingPowerUp() { Level = p.Level, Direction = GetDirectionFromRelativePositions(robot.Position, p.Position) }).ToList();
+        }
+
+        internal static Directions GetDirectionFromRelativePositions(Point position1, Point position2)
+        {
+            var relativePosition = position2.Substract(position1);
 
             if (relativePosition.Equals(new Point(-1, -1))) { return Directions.NW; }
             if (relativePosition.Equals(new Point(0, -1))) { return Directions.N; }
-            if (relativePosition.Equals(new Point(0, -1))) { return Directions.NE; }
+            if (relativePosition.Equals(new Point(1, -1))) { return Directions.NE; }
+            if (relativePosition.Equals(new Point(-1, 0))) { return Directions.W; }
+            if (relativePosition.Equals(new Point(1, 0))) { return Directions.E; }
+            if (relativePosition.Equals(new Point(-1, 1))) { return Directions.SW; }
+            if (relativePosition.Equals(new Point(0, 1))) { return Directions.S; }
+            if (relativePosition.Equals(new Point(1, 1))) { return Directions.SE; }
 
-            return Directions.S;
+            throw new Exception(string.Format("Invalid direction with robot {0} and surrounding robot {1}", position1, position2));
         }
 
         private static IEnumerable<Point> GetSurroundingPositions(Point position)
