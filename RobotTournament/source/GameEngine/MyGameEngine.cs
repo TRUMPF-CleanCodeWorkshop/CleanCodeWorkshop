@@ -78,8 +78,7 @@ namespace GameEngine
 
         internal void IncreaseTurnOrEndGame(GameState gameState)
         {
-            var numberOfTeamsWithAliveRobots = gameState.Robots.Select(r => r.TeamName).Distinct().Count();
-            if (numberOfTeamsWithAliveRobots > 1)
+            if (GetTeamsAlive(gameState).Count > 1)
             {
                 IncreaseTurn(gameState);
             }
@@ -96,6 +95,24 @@ namespace GameEngine
 
         private void FinalizeGame(GameState gameState)
         {
+            
+            var remainingRobots = gameState.Robots.ToList();
+
+            if (remainingRobots.Count > 0)
+            {
+                gameState.GameResults.Winner = remainingRobots.First().TeamName;
+                foreach (var remainingRobot in remainingRobots)
+                {
+                    gameState.GameResults.WinnersTotalForce += remainingRobot.Level;
+                }
+            }
+            else
+            {
+                gameState.GameResults.Winner = "No winner";
+                gameState.GameResults.WinnersTotalForce = 0;
+            }
+
+            gameState.GameResults.RoundsTaken = gameState.Turn + 1;
             gameState.Finished = true;
         }
 
@@ -384,5 +401,12 @@ namespace GameEngine
 
             return new Point(x, y);
         }
+
+        internal static List<string> GetTeamsAlive(GameState gameState)
+        {
+            return gameState.Robots.Select(r => r.TeamName).Distinct().ToList();
+        }
     }
+    
+    
 }
