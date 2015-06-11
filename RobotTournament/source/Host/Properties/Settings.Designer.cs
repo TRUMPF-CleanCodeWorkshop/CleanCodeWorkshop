@@ -25,7 +25,7 @@ namespace Host.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10, 10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("15, 15")]
         public global::System.Drawing.Size MapSize {
             get {
                 return ((global::System.Drawing.Size)(this["MapSize"]));

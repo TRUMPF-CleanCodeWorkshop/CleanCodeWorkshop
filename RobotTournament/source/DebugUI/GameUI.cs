@@ -33,6 +33,7 @@
             Console.WriteLine(firstRow);
             Console.WriteLine(secondRow);
 
+            Console.Clear();
             for (var rowCounter = 0; rowCounter < numberOfRows; rowCounter++)
             {
                 PrintRowWithRobots(rowCounter, numberOfColumns, gameState.Robots, gameState.PowerUps);
