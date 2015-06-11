@@ -118,6 +118,10 @@
                 {
                     Console.ForegroundColor = GetConsoleColorForTeamName(teams[3], gameState);
                 }
+                else if (teams.Count > 4 && secondRowString.Contains(teams[4]))
+                {
+                    Console.ForegroundColor = GetConsoleColorForTeamName(teams[4], gameState);
+                }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.White;

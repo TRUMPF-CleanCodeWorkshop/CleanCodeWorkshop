@@ -13,7 +13,7 @@ namespace Simulation
         public static SimulationResult Simulate(GameConfiguration configuration, IGameEngine gameEngine, IEnumerable<IRobotEngine> robotEngines, int count)
         {
             var result = new SimulationResult() { TeamWins = new Dictionary<string, int>() };
-            var options = new ParallelOptions() { MaxDegreeOfParallelism = 10 };
+            var options = new ParallelOptions() { MaxDegreeOfParallelism = 20 };
 
             Parallel.For(0, 100, options, (counter) =>
             {
