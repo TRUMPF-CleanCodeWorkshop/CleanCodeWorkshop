@@ -6,7 +6,7 @@
       <Value Profile="(Default)">10, 10</Value>
     </Setting>
     <Setting Name="PowerUpPropability" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.02</Value>
+      <Value Profile="(Default)">0.01</Value>
     </Setting>
     <Setting Name="RobotStartLevel" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
