@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace GameEngine
                 Turn = 0,
                 PowerUps = new List<PowerUp>(),
                 Robots = new List<Robot>(),
-                TeamColors = robotEngines.ToDictionary(engine=> engine.TeamName, engine => engine.GetTeamColor() )
+                TeamColors = robotEngines.ToDictionary(engine => engine.TeamName, engine => engine.GetTeamColor())
             };
 
             var robotEngineList = robotEngines.ToList();
@@ -81,7 +82,8 @@ namespace GameEngine
             {
                 IncreaseTurn(gameState);
             }
-            else {
+            else
+            {
                 FinalizeGame(gameState);
             }
         }
@@ -196,18 +198,25 @@ namespace GameEngine
 
         internal void GetNextTurnsFromRobots(GameState gameState)
         {
+            var map =  CreateRobotMap(gameState);
+
             var readyRobots = gameState.Robots.Where(robot => robot.WaitTurns == 0).ToList();
 
             foreach (var robot in readyRobots)
             {
-                DoNextTurnForRobot(gameState, robot);
+                DoNextTurnForRobot(gameState, robot, map);
             }
         }
 
-        private static void DoNextTurnForRobot(GameState gameState, Robot robot)
+        private static Dictionary<Point, Robot> CreateRobotMap(GameState gameState)
+        {
+            return gameState.Robots.ToDictionary(r => r.Position, r => r);
+        }
+
+        private static void DoNextTurnForRobot(GameState gameState, Robot robot, Dictionary<Point, Robot> map)
         {
             var surroundings = new Surroundings();
-            surroundings.Robots = GetSurroundingRobots(gameState, robot);
+            surroundings.Robots = GetSurroundingRobots(gameState, robot, map);
             surroundings.PowerUps = GetSurroundingPowerUps(gameState, robot);
 
             var nextTurn = new NextRobotTurn();
@@ -279,20 +288,20 @@ namespace GameEngine
                     var randomValue = random.Next(1, 100);
                     if (randomValue >= (100 - propability * 100) && gameState.PowerUps.All(p => p.Position != new Point(x, y)))
                     {
-                        var level = Math.Max(gameState.Turn/2, 1);
+                        var level = Math.Max(gameState.Turn / 2, 1);
                         gameState.PowerUps.Add(new PowerUp() { Level = level, Position = new Point(x, y) });
                     }
                 }
             }
         }
 
-        internal static IEnumerable<SurroundingRobot> GetSurroundingRobots(GameState gameState, Robot robot)
+        internal static IEnumerable<SurroundingRobot> GetSurroundingRobots(GameState gameState, Robot robot, Dictionary<Point, Robot> map)
         {
             var surroundingPositions = GetSurroundingPositions(robot.Position);
 
-            var robots = gameState.Robots.Where(r => surroundingPositions.Contains(r.Position));
+            var surroundingrobots = surroundingPositions.Select(pos => map.ContainsKey(pos) ? map[pos] : null).Where(r => r != null);
 
-            return robots.Select(r => new SurroundingRobot() { Level = r.Level, IsEnemy = r.TeamName != robot.TeamName, Direction = GetDirectionFromRelativePositions(robot.Position, r.Position) }).ToList();
+            return surroundingrobots.Select(r => new SurroundingRobot() { Level = r.Level, IsEnemy = r.TeamName != robot.TeamName, Direction = GetDirectionFromRelativePositions(robot.Position, r.Position) }).ToList();
         }
 
         internal static IEnumerable<SurroundingPowerUp> GetSurroundingPowerUps(GameState gameState, Robot robot)
@@ -320,16 +329,20 @@ namespace GameEngine
             throw new Exception(string.Format("Invalid direction with robot {0} and surrounding robot {1}", position1, position2));
         }
 
-        private static IEnumerable<Point> GetSurroundingPositions(Point position)
+        private static HashSet<Point> GetSurroundingPositions(Point position)
         {
-            yield return new Point(position.X - 1, position.Y - 1);
-            yield return new Point(position.X, position.Y - 1);
-            yield return new Point(position.X + 1, position.Y - 1);
-            yield return new Point(position.X - 1, position.Y);
-            yield return new Point(position.X + 1, position.Y);
-            yield return new Point(position.X - 1, position.Y + 1);
-            yield return new Point(position.X, position.Y + 1);
-            yield return new Point(position.X + 1, position.Y + 1);
+            var result = new HashSet<Point>();
+
+            result.Add(new Point(position.X - 1, position.Y - 1));
+            result.Add(new Point(position.X, position.Y - 1));
+            result.Add(new Point(position.X + 1, position.Y - 1));
+            result.Add(new Point(position.X - 1, position.Y));
+            result.Add(new Point(position.X + 1, position.Y));
+            result.Add(new Point(position.X - 1, position.Y + 1));
+            result.Add(new Point(position.X, position.Y + 1));
+            result.Add(new Point(position.X + 1, position.Y + 1));
+
+            return result;
         }
 
         internal static Point GetPositionFromMovement(Point robotPosition, Directions direction, Size mapSize)
