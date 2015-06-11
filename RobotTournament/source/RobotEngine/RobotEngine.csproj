@@ -49,6 +49,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobotEngine4.cs" />
     <Compile Include="RobotEngine3.cs" />
+    <Compile Include="RobotEngine5.cs" />
+    <Compile Include="Robot5.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
