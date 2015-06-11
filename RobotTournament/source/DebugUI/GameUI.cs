@@ -38,6 +38,12 @@
             {
                 PrintRowWithRobots(rowCounter, numberOfColumns, gameState, gameState.PowerUps);
             }
+
+            if (gameState.Finished)
+            {
+                Console.WriteLine("Game Over!");
+                Console.WriteLine("The winner is Team {0}.", "[Winnner Team]");
+            }
         }
 
         public static void PrintRowWithRobots(int rowNumber, int mapWidth, GameState gameState, IEnumerable<PowerUp> powerUps)
@@ -107,6 +113,10 @@
                 {
                     Console.ForegroundColor = GetConsoleColorForTeamName(teams[2], gameState);
                 } 
+                else if (teams.Count > 3 && secondRowString.Contains(teams[3]))
+                {
+                    Console.ForegroundColor = GetConsoleColorForTeamName(teams[3], gameState);
+                }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.White;

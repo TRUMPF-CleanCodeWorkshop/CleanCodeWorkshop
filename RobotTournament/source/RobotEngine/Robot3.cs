@@ -1,36 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Contracts;
-using Contracts.Model;
-namespace RobotEngine
+﻿namespace RobotEngine
 {
-    class Robot3: IRobot
+    using System;
+    using System.Linq;
+    using Contracts;
+    using Contracts.Model;
+
+    internal class Robot3 : IRobot
     {
         public NextRobotTurn DoNextTurn(int currentTurn, int myLevel, Surroundings environment)
         {
-            var random = new Random();
-            var randomNumber = random.Next(1, 3);
-
-
-            var decisionDirection = currentTurn % 23 == 0 ? Directions.NW : Directions.SW;
-            
-            if (environment.PowerUps.Any())
+            if (!environment.Robots.Any(r => r.Level >= myLevel && r.IsEnemy) && environment.PowerUps.Any())
             {
                 var firstPowerUpDirection = environment.PowerUps.First().Direction;
-                return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = firstPowerUpDirection };
+                return new NextRobotTurn {NextAction = RobotActions.Moving, NextDirection = firstPowerUpDirection};
             }
 
-            if (randomNumber == 1)
+            if (currentTurn <= 6 && !environment.Robots.Any(r => r.Level > myLevel && r.IsEnemy))
             {
-                return new NextRobotTurn() {NextAction = RobotActions.Upgrading, NextDirection = decisionDirection};
+                return new NextRobotTurn
+                {
+                    NextAction = RobotActions.Upgrading, 
+                    NextDirection = Directions.W
+                };
             }
 
+            if ((environment.Robots.Any(r => r.IsEnemy && r.Level >= Math.Round(myLevel / 2.0, MidpointRounding.AwayFromZero)) || !environment.Robots.Any()) && myLevel > currentTurn)
+            {
+                return new NextRobotTurn
+                {
+                    NextAction = RobotActions.Splitting,
+                    NextDirection = Directions.W
+                };
+            }
+
+            if (!environment.Robots.Any(r => r.IsEnemy))
+            {
+                var random = new Random();
+                var randomDirection = (Directions)random.Next(0, 8);
+                return new NextRobotTurn
+                {
+                    NextAction = RobotActions.Moving, 
+                    NextDirection = randomDirection
+                };
+            }
+
+            // Schwacher Robot in Reichweite
             if (environment.Robots.Any(r => r.IsEnemy && r.Level < myLevel))
             {
-                return new NextRobotTurn()
+                return new NextRobotTurn
                 {
                     NextAction = RobotActions.Moving, 
                     NextDirection = environment.Robots.First(r => r.IsEnemy && r.Level < myLevel).Direction
@@ -39,19 +56,24 @@ namespace RobotEngine
 
             if (environment.Robots.Any(r => r.IsEnemy && r.Level > myLevel))
             {
-                var directionOfFirstDangerousBot =
+                Directions directionOfFirstDangerousBot =
                     environment.Robots.First(r => r.IsEnemy && r.Level > myLevel).Direction;
-                var directionToMove = directionOfFirstDangerousBot + 4;
-                if ((int)directionToMove > 7)
+                Directions directionToMove = directionOfFirstDangerousBot + 4;
+                if ((int) directionToMove > 7)
                 {
                     directionToMove -= 7;
                 }
-                return new NextRobotTurn() {NextAction = RobotActions.Moving, NextDirection = directionToMove};
+
+                return new NextRobotTurn {NextAction = RobotActions.Moving, NextDirection = directionToMove};
             }
 
-            return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = Directions.W };
-        }
-
-
+            var random2 = new Random();
+            var randomDirection2 = (Directions)random2.Next(0, 8);
+            return new NextRobotTurn
+            {
+                NextAction = RobotActions.Moving, 
+                NextDirection = randomDirection2
+            };
         }
     }
+}

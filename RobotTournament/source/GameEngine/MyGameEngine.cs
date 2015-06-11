@@ -257,7 +257,7 @@ namespace GameEngine
             var robotDirection = robot.CurrentDirection;
             var mapSize = gameState.Configuration.MapSize;
 
-            var newLevel = (int)Math.Round(robot.Level / 2.0, MidpointRounding.AwayFromZero);
+            var newLevel = (int)Math.Ceiling(robot.Level / 2.0);
 
             var newPosition = GetPositionFromMovement(currentRobotPosition, robotDirection, mapSize);
             var newRobot = new Robot(newPosition, newLevel, robot.TeamName, robot.RobotImplementation);

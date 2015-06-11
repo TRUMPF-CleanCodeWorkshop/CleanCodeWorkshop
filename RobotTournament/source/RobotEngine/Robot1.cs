@@ -22,7 +22,7 @@ namespace RobotEngine
             if (currentTurn == 15) EarlyGameSettings();
             if (currentTurn == 60) MidGameSettings();
             if (currentTurn == 100) MidLateGameSettings();
-            if (currentTurn == 200) LateGameSettings();
+            if (currentTurn == 10000) LateGameSettings();
 
 
             if (environment.PowerUps.Any())
@@ -79,7 +79,7 @@ namespace RobotEngine
         private void LateGameSettings()
         {
             upgrade = 100;
-            split = 90;
+            split = 30;
             move = 0;
         }
     }
