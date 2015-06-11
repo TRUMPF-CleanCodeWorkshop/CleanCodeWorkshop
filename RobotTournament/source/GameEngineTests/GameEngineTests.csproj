@@ -48,11 +48,13 @@
   <ItemGroup>
     <Compile Include="DirectionsTests.cs" />
     <Compile Include="EvaluateSplitAndImproveTests.cs" />
+    <Compile Include="MyGameEngineDoPowerUpsTests.cs" />
     <Compile Include="MyGameEngineFightTests.cs" />
     <Compile Include="MyGameEngineJoinTests.cs" />
     <Compile Include="GetNextTurnFromRobotsTests.cs" />
     <Compile Include="MyGameEngineTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplitRobotTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">

@@ -127,10 +127,25 @@ namespace GameEngine
             }
         }
 
-        private void DoPowerUps(GameState gameState)
+        internal void DoPowerUps(GameState gameState)
         {
-            throw new NotImplementedException();
+            var removeCandidates = new List<PowerUp>();
+
+            foreach (var powerUp in gameState.PowerUps)
+            {
+                var robotOnPowerup = gameState.Robots.FirstOrDefault(r => r.Position == powerUp.Position);
+                if (robotOnPowerup == null)
+                {
+                    continue;
+                }
+
+                robotOnPowerup.Level += powerUp.Level;
+                removeCandidates.Add(powerUp);
+            }
+
+            gameState.PowerUps = gameState.PowerUps.Except(removeCandidates).ToList();
         }
+
 
         private void DoRobotMovements(GameState gameState)
         {
@@ -260,5 +275,24 @@ namespace GameEngine
             yield return new Point(position.X, position.Y + 1);
             yield return new Point(position.X + 1, position.Y + 1);
         }
+
+        private static Point getPositionAfterSplit(Point robotPosition, Directions direction, Size mapSize)
+        {
+
+
+            return new Point();
+        }
+
+        internal static Tuple<int, int> GetMovement(Directions direction)
+        {
+            var x = 0;
+            var y = 0;
+
+            if (direction == Directions.E || direction == Directions.NE || direction == Directions.SE)
+            {
+                
+            }
+            return new Tuple<int, int>(x, y);
+        } 
     }
 }
