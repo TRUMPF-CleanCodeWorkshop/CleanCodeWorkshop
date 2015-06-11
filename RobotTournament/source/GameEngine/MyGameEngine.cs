@@ -66,8 +66,8 @@ namespace GameEngine
 
         private void EvaluateRobots(GameState gameState)
         {
-            EvaluateSplitAndImprove(gameState);
             DecreaseWaitCounter(gameState);
+            EvaluateSplitAndImprove(gameState);
             GetNextTurnsFromRobots(gameState);
             DoRobotMovements(gameState);
             ResolveFieldConflicts(gameState);
@@ -179,7 +179,7 @@ namespace GameEngine
 
             if (robot.CurrentAction == RobotActions.Splitting || robot.CurrentAction == RobotActions.Upgrading)
             {
-                robot.WaitTurns = 2;
+                robot.WaitTurns = 1;
             }
         }
 
@@ -206,7 +206,6 @@ namespace GameEngine
 
         internal void PerformSplit(Robot robot, GameState gameState)
         {
-            // TODO Copy robot to given position
             var currentRobotPosition = robot.Position;
             var robotDirection = robot.CurrentDirection;
             var mapSize = gameState.Configuration.MapSize;
@@ -218,29 +217,24 @@ namespace GameEngine
             gameState.Robots.Add(newRobot);
 
             robot.Level = newLevel;
-
-            // TODO Decrease strength of both robots (half)
         }
 
         private void GeneratePowerUps(GameState gameState)
         {
-            var powerup = new PowerUp();
             var propability = gameState.Configuration.PowerupPropability;
             var mapSize = gameState.Configuration.MapSize;
-            var powerups = new List<PowerUp>();
-            var count = Math.Round(mapSize.Width * mapSize.Height * propability, 0);
+            var random = new Random();
 
-            for (var i = 0; i < count; i++)
+            for (var x = 0; x < mapSize.Width; x++)
             {
-                Point nextPoint;
-                do
+                for (var y = 0; y < mapSize.Height; y++)
                 {
-                    nextPoint = new Point(Randomizer.Next(mapSize.Width), Randomizer.Next(mapSize.Height));
+                    var randomValue = random.Next(1, 100);
+                    if (randomValue > (100 - propability) && gameState.PowerUps.All(p => p.Position != new Point(x, y)))
+                    {
+                        gameState.PowerUps.Add(new PowerUp() { Level = gameState.Turn / 2, Position = new Point(x, y) });
+                    }
                 }
-                while (powerups.Select(p => p.Position).Contains(nextPoint));
-                powerup.Position = nextPoint;
-
-                powerups.Add(powerup);
             }
         }
 
@@ -345,6 +339,6 @@ namespace GameEngine
             }
 
             return new Point(x, y);
-        } 
+        }
     }
 }
