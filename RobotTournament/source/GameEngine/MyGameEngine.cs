@@ -280,23 +280,39 @@ namespace GameEngine
             yield return new Point(position.X + 1, position.Y + 1);
         }
 
-        private static Point getPositionAfterSplit(Point robotPosition, Directions direction, Size mapSize)
+        private static Point GetPositionFromMovement(Point robotPosition, Directions direction, Size mapSize)
         {
 
 
             return new Point();
         }
 
-        internal static Tuple<int, int> GetMovement(Directions direction)
+        internal static Point GetMovement(Directions direction)
         {
             var x = 0;
             var y = 0;
 
             if (direction == Directions.E || direction == Directions.NE || direction == Directions.SE)
             {
-                
+                x++;
             }
-            return new Tuple<int, int>(x, y);
+
+            if (direction == Directions.W || direction == Directions.NW || direction == Directions.SW)
+            {
+                x--;
+            }
+
+            if (direction == Directions.N || direction == Directions.NE || direction == Directions.NW)
+            {
+                y--;
+            }
+
+            if (direction == Directions.S || direction == Directions.SW || direction == Directions.SE)
+            {
+                y++;
+            }
+
+            return new Point(x, y);
         } 
     }
 }
