@@ -65,6 +65,10 @@
       <Project>{C76DB989-0747-4411-B9F7-198D736D126F}</Project>
       <Name>GameEngine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RobotEngine\RobotEngine.csproj">
+      <Project>{EE1AD60B-1F31-442C-B699-1C2F2F841F60}</Project>
+      <Name>RobotEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
