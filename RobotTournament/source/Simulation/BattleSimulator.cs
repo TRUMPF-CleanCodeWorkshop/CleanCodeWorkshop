@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Contracts;
 using Contracts.Model;
+using GameEngine;
 
 namespace Simulation
 {
@@ -22,23 +23,23 @@ namespace Simulation
             return result;
         }
 
-        private static void ApplyWinngTeam(SimulationResult result, string winningTeam)
+        private static void ApplyWinngTeam(SimulationResult result, GameResults gameResults)
         {
-            Console.WriteLine("Finished: " + winningTeam);
+            Console.WriteLine("Finished: {0} after {1} turns" , gameResults.Winner, gameResults.RoundsTaken);
             lock (result)
             {
-                if (result.TeamWins.ContainsKey(winningTeam))
+                if (result.TeamWins.ContainsKey(gameResults.Winner))
                 {
-                    result.TeamWins[winningTeam] += 1;
+                    result.TeamWins[gameResults.Winner] += 1;
                 }
                 else
                 {
-                    result.TeamWins.Add(winningTeam, 1);
+                    result.TeamWins.Add(gameResults.Winner, 1);
                 }
             }
         }
 
-        private static string SimulateOne(GameConfiguration configuration, IGameEngine gameEngine, IEnumerable<IRobotEngine> robotEngines)
+        private static GameResults SimulateOne(GameConfiguration configuration, IGameEngine gameEngine, IEnumerable<IRobotEngine> robotEngines)
         {
             var gameState = gameEngine.CreateInitializeGameState(configuration, robotEngines);
 
@@ -47,7 +48,7 @@ namespace Simulation
                 gameState = gameEngine.CreateNextTurn(gameState);
             }
 
-            return gameState.GameResults.Winner;
+            return gameState.GameResults;
         }
     }
 }
