@@ -29,7 +29,7 @@
                 return new NextRobotTurn() { NextAction = RobotActions.Upgrading, NextDirection = decisionDirection };
             }
 
-            return currentTurn % 7 == 0 ? new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = decisionDirection } : new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = decisionDirection };
+            return currentTurn % 5 == 0 ? new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = decisionDirection } : new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = decisionDirection };
         }
     }
 }
