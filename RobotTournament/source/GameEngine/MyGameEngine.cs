@@ -176,10 +176,19 @@ namespace GameEngine
             surroundings.Robots = GetSurroundingRobots(gameState, robot);
             surroundings.PowerUps = GetSurroundingPowerUps(gameState, robot);
 
-            var result = robot.RobotImplementation.DoNextTurn(gameState.Turn, robot.Level, surroundings);
+            var nextTurn = new NextRobotTurn();
+            try
+            {
+                nextTurn = robot.RobotImplementation.DoNextTurn(gameState.Turn, robot.Level, surroundings);
+            }
+            catch (Exception)
+            {
+                nextTurn.NextAction = RobotActions.Idle;
+            }
 
-            robot.CurrentAction = result.NextAction;
-            robot.CurrentDirection = result.NextDirection;
+
+            robot.CurrentAction = nextTurn.NextAction;
+            robot.CurrentDirection = nextTurn.NextDirection;
 
             if (robot.CurrentAction == RobotActions.Splitting || robot.CurrentAction == RobotActions.Upgrading)
             {
