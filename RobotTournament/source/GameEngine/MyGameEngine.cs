@@ -151,9 +151,9 @@ namespace GameEngine
         {
             foreach (Robot robot in gameState.Robots)
             {
-                //Aufruf getPositionsFromMovement
+                var newPosition = GetPositionFromMovement(robot.Position, robot.CurrentDirection, gameState.Configuration.MapSize);
+                robot.Position = newPosition;
             }
-            throw new NotImplementedException;
         }
 
         internal void GetNextTurnsFromRobots(GameState gameState)
