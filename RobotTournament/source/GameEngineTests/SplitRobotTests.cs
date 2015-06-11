@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace GameEngineTests
 {
     using System.Drawing;
+    using System.Runtime;
 
     using Contracts.Model;
 
@@ -55,8 +56,10 @@ namespace GameEngineTests
             var direction = Directions.E;
 
             // Act
+            var newPosition = MyGameEngine.GetPositionFromMovement(currentPosition, direction, size);
 
             // Assert
+            Assert.AreEqual(new Point(6, 5), newPosition);
         }
     }
 }

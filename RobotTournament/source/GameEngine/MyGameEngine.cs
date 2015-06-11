@@ -151,7 +151,8 @@ namespace GameEngine
         {
             foreach (Robot robot in gameState.Robots)
             {
-                //Aufruf getPositionsFromMovement
+                var newPosition = GetPositionFromMovement(robot.Position, robot.CurrentDirection, gameState.Configuration.MapSize);
+                robot.Position = newPosition;
             }
         }
 
@@ -279,11 +280,33 @@ namespace GameEngine
             yield return new Point(position.X + 1, position.Y + 1);
         }
 
-        private static Point GetPositionFromMovement(Point robotPosition, Directions direction, Size mapSize)
+        internal static Point GetPositionFromMovement(Point robotPosition, Directions direction, Size mapSize)
         {
+            var coordinatesChange = GetMovement(direction);
 
+            var newPosition = new Point(robotPosition.X + coordinatesChange.X, robotPosition.Y + coordinatesChange.Y);
 
-            return new Point();
+            if (newPosition.X < 0)
+            {
+                newPosition.X = mapSize.Width + newPosition.X;
+            }
+
+            if (newPosition.X >= mapSize.Width)
+            {
+                newPosition.X = newPosition.X - mapSize.Width;
+            }
+
+            if (newPosition.Y < 0)
+            {
+                newPosition.Y = mapSize.Height + newPosition.Y;
+            }
+
+            if (newPosition.Y >= mapSize.Height)
+            {
+                newPosition.Y = newPosition.Y - mapSize.Height;
+            }
+
+            return newPosition;
         }
 
         internal static Point GetMovement(Directions direction)
