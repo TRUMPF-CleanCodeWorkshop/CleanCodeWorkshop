@@ -19,7 +19,7 @@ namespace DebugUI
             var numberOfColumns = gameState.Configuration.MapSize.Width;
             var numberOfRows = gameState.Configuration.MapSize.Height;
             Console.WindowWidth = numberOfColumns * 12 + 5;
-            Console.WindowHeight = numberOfRows * 3 + 5;
+            Console.WindowHeight = numberOfRows * 4 + 5;
 
             var firstRow = new StringBuilder("  |");
             var secondRow = new StringBuilder("__|");
@@ -34,36 +34,44 @@ namespace DebugUI
 
             for (var rowCounter = 0; rowCounter < numberOfRows; rowCounter++)
             {
-                PrintRowWithRobots(rowCounter, numberOfColumns, gameState.Robots);
+                PrintRowWithRobots(rowCounter, numberOfColumns, gameState.Robots, gameState.PowerUps);
             }
         }
 
-        public static void PrintRowWithRobots(int rowNumber, int mapWidth, IEnumerable<Robot> robots)
+        public static void PrintRowWithRobots(int rowNumber, int mapWidth, IEnumerable<Robot> robots, IEnumerable<PowerUp> powerUps)
         {
             var firstRow = new StringBuilder("  |");
 
             var secondRow = new StringBuilder(string.Format("{0} |", rowNumber));
 
             var thirdRow = new StringBuilder("  |");
+
+            var fourthRow = new StringBuilder("  |");
             for (var columnCounter = 0; columnCounter < mapWidth; columnCounter++)
             {
+
+
                 var robot = robots.FirstOrDefault(r => r.Position == new Point(columnCounter, rowNumber));
                 if (robot != null)
                 {
                     firstRow.Append(GetRowForLevelAndId(robot));
                     secondRow.Append(GetRowForName(robot));
+                    thirdRow.Append(GetRowForAction(robot));
                 }
                 else
                 {
                     firstRow.Append(EmptyRow);
                     secondRow.Append(EmptyRow);
+                    thirdRow.Append(EmptyRow);
                 }
-                thirdRow.Append(UnderlineRow);
+
+                fourthRow.Append(UnderlineRow);
             }
 
             Console.WriteLine(firstRow);
             Console.WriteLine(secondRow);
             Console.WriteLine(thirdRow);
+            Console.WriteLine(fourthRow);
         }
 
         public static string GetRowForLevelAndId(Robot robot)
@@ -78,6 +86,12 @@ namespace DebugUI
             var nameString = robot.TeamName.PadRight(11);
 
             return string.Format("{0}|", nameString.Substring(0, 11));
+        }
+
+        public static string GetRowForAction(Robot robot)
+        {
+            var actionString = robot.CurrentAction.ToString().PadRight(11);
+            return string.Format("{0}|", actionString.Substring(0, 11));
         }
     }
 }
