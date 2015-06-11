@@ -7,9 +7,9 @@ namespace RobotEngine
 {
     public class Robot1 : IRobot
     {
-        private int upgrade = 10;
-        private int split = 9;
-        private int move = 8;
+        private int upgrade = 85;
+        private int split = 20;
+        private int move = 0;
 
         private Random random = new Random();
 
@@ -65,7 +65,7 @@ namespace RobotEngine
         private void MidGameSettings()
         {
             upgrade = 90;
-            split = 70;
+            split = 50;
             move = 0;
         }
 
