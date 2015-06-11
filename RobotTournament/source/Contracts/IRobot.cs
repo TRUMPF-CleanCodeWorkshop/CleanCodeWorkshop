@@ -7,6 +7,6 @@ namespace Contracts
 {
     public interface IRobot
     {
-        NextRobotTurn DoNextTurn(int myLevel, Surroundings environment);
+        NextRobotTurn DoNextTurn(int currentTurn, int myLevel, Surroundings environment);
     }
 }

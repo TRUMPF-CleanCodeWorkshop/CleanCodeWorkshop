@@ -10,9 +10,9 @@ namespace Contracts.Model
     public enum Directions
     {
         N,
-        NO,
-        O,
-        SO,
+        NE,
+        E,
+        SE,
         S,
         SW,
         W,

@@ -9,7 +9,7 @@ namespace RobotEngine
 {
     public class Robot2:IRobot
     {
-        public NextRobotTurn DoNextTurn(int myLevel, Surroundings environment)
+        public NextRobotTurn DoNextTurn(int currentTurn, int myLevel, Surroundings environment)
         {
             throw new NotImplementedException();
         }
