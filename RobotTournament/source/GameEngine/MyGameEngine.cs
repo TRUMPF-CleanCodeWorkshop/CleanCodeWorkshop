@@ -66,8 +66,8 @@ namespace GameEngine
 
         private void EvaluateRobots(GameState gameState)
         {
-            EvaluateSplitAndImprove(gameState);
             DecreaseWaitCounter(gameState);
+            EvaluateSplitAndImprove(gameState);
             GetNextTurnsFromRobots(gameState);
             DoRobotMovements(gameState);
             ResolveFieldConflicts(gameState);
@@ -179,7 +179,7 @@ namespace GameEngine
 
             if (robot.CurrentAction == RobotActions.Splitting || robot.CurrentAction == RobotActions.Upgrading)
             {
-                robot.WaitTurns = 2;
+                robot.WaitTurns = 1;
             }
         }
 
