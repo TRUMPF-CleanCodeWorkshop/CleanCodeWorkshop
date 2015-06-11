@@ -50,6 +50,7 @@
     <Compile Include="Model\PowerUp.cs" />
     <Compile Include="Model\Robot.cs" />
     <Compile Include="Model\RobotActions.cs" />
+    <Compile Include="Model\SimulationResult.cs" />
     <Compile Include="NextRobotTurn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SurroundingPowerUp.cs" />

@@ -15,22 +15,22 @@ namespace GameEngine
 
         public GameState CreateInitializeGameState(GameConfiguration configuration, IEnumerable<IRobotEngine> robotEngines)
         {
-            var result = new GameState
+            var gameState = new GameState
             {
                 Configuration = configuration,
                 Turn = 0,
                 PowerUps = new List<PowerUp>(),
-                Robots = new List<Robot>()
+                Robots = new List<Robot>(),
+                TeamColors = robotEngines.ToDictionary(engine=> engine.TeamName, engine => engine.GetTeamColor() )
             };
 
             var robotEngineList = robotEngines.ToList();
             var positions = GetInitialRobotPositions(configuration.MapSize, robotEngineList.Count).ToList();
-
             var robots = robotEngineList.Zip(positions, (engine, position) => new Robot(position, configuration.RobotStartLevel, engine.TeamName, engine.GetNewRobot())).ToList();
 
-            result.Robots = robots;
+            gameState.Robots = robots;
 
-            return result;
+            return gameState;
         }
 
         private static IEnumerable<Point> GetInitialRobotPositions(Size mapSize, int count)
@@ -72,12 +72,29 @@ namespace GameEngine
             DoRobotMovements(gameState);
             ResolveFieldConflicts(gameState);
             DoPowerUps(gameState);
-            IncreaseTurn(gameState);
+            IncreaseTurnOrEndGame(gameState);
+        }
+
+        internal void IncreaseTurnOrEndGame(GameState gameState)
+        {
+            var numberOfTeamsWithAliveRobots = gameState.Robots.Select(r => r.TeamName).Distinct().Count();
+            if (numberOfTeamsWithAliveRobots > 1)
+            {
+                IncreaseTurn(gameState);
+            }
+            else {
+                FinalizeGame(gameState);
+            }
         }
 
         private void IncreaseTurn(GameState gameState)
         {
             gameState.Turn += 1;
+        }
+
+        private void FinalizeGame(GameState gameState)
+        {
+            gameState.Finished = true;
         }
 
         private void ResolveFieldConflicts(GameState gameState)
@@ -223,7 +240,7 @@ namespace GameEngine
             var robotDirection = robot.CurrentDirection;
             var mapSize = gameState.Configuration.MapSize;
 
-            var newLevel = (int)Math.Round(robot.Level / 2.0, MidpointRounding.AwayFromZero);
+            var newLevel = (int)Math.Ceiling(robot.Level / 2.0);
 
             var newPosition = GetPositionFromMovement(currentRobotPosition, robotDirection, mapSize);
             var newRobot = new Robot(newPosition, newLevel, robot.TeamName, robot.RobotImplementation);

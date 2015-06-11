@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CoreTests")]
+[assembly: AssemblyTitle("Simulation")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CoreTests")]
+[assembly: AssemblyProduct("Simulation")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("838b0e0c-d66b-4e8c-ba83-becf7505b1de")]
+[assembly: Guid("fcb3cda8-4253-41f2-9bf9-5aefe6146338")]
 
 // Version information for an assembly consists of the following four values:
 //

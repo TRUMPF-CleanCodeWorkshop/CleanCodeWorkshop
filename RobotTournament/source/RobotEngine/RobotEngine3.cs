@@ -18,7 +18,7 @@ namespace RobotEngine
 
         public Color GetTeamColor()
         {
-            return Color.Purple;
+            return Color.Green;
         }
 
         public RobotEngine3()

@@ -36,13 +36,22 @@
 
             for (var rowCounter = 0; rowCounter < numberOfRows; rowCounter++)
             {
-                PrintRowWithRobots(rowCounter, numberOfColumns, gameState.Robots, gameState.PowerUps);
+                PrintRowWithRobots(rowCounter, numberOfColumns, gameState, gameState.PowerUps);
+            }
+
+            if (gameState.Finished)
+            {
+                Console.WriteLine("Game Over!");
+
+                Console.WriteLine("The winner is Team XXXXX.");
+                Console.WriteLine("Press any key to exit.");
+                Console.ReadLine();
             }
         }
 
-        public static void PrintRowWithRobots(int rowNumber, int mapWidth, IEnumerable<Robot> robots, IEnumerable<PowerUp> powerUps)
+        public static void PrintRowWithRobots(int rowNumber, int mapWidth, GameState gameState, IEnumerable<PowerUp> powerUps)
         {
-            var teams = robots.OrderBy(r => r.TeamName).GroupBy(r => r.TeamName).Select(t => t.First().TeamName).ToList();
+            var teams = gameState.Robots.OrderBy(r => r.TeamName).GroupBy(r => r.TeamName).Select(t => t.First().TeamName).ToList();
 
             var firstRowStrings = new List<string>() { "  |" };
             var secondRowStrings = new List<string>() { string.Format("{0}|", rowNumber.ToString().PadRight(2).Substring(0, 2)) };
@@ -53,7 +62,7 @@
             for (var columnCounter = 0; columnCounter < mapWidth; columnCounter++)
             {
                 var powerUp = powerUps.FirstOrDefault(p => p.Position == new Point(columnCounter, rowNumber));
-                var robot = robots.FirstOrDefault(r => r.Position == new Point(columnCounter, rowNumber));
+                var robot = gameState.Robots.FirstOrDefault(r => r.Position == new Point(columnCounter, rowNumber));
                 if (robot != null)
                 {
                     firstRowStrings.Add(GetRowForLevelAndId(robot));
@@ -97,15 +106,15 @@
             {
                 if (secondRowString.Contains(teams[0]))
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = GetConsoleColorForTeamName(teams[0], gameState);
                 }
                 else if (teams.Count > 1 && secondRowString.Contains(teams[1]))
                 {
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = GetConsoleColorForTeamName(teams[1], gameState);
                 }
                 else if (teams.Count > 2 && secondRowString.Contains(teams[2]))
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = GetConsoleColorForTeamName(teams[2], gameState);
                 } 
                 else
                 {
@@ -139,6 +148,26 @@
         {
             var actionString = robot.CurrentAction.ToString().PadRight(11);
             return string.Format("{0}|", actionString.Substring(0, 11));
+        }
+
+        internal static ConsoleColor GetConsoleColorForTeamName(string teamName, GameState gameState)
+        {
+            var colorDictionary = gameState.TeamColors;
+            if (colorDictionary.ContainsKey(teamName))
+            {
+                try
+                {
+
+                }
+                catch (ArgumentException)
+                {
+                    var color = new ConsoleColor();
+                    return new ConsoleColor();
+                }
+                return (ConsoleColor)Enum.Parse(typeof(ConsoleColor), colorDictionary[teamName].Name);
+            }
+
+            return ConsoleColor.White;
         }
     }
 }
