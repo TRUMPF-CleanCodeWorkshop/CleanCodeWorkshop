@@ -82,10 +82,10 @@ namespace GameEngine
 
         internal void FightRobots(GameState gameState)
         {
-            var groupedByPos = gameState.Robots.ToList().GroupBy(r => r.Position);
-            foreach (var group in groupedByPos.Where(g => g.Count() > 1))
+            var fightingPlaces = gameState.Robots.GroupBy(r => r.Position).Where(g => g.Count() > 1).ToList();
+            foreach (var robotGroup in fightingPlaces)
             {
-                this.FightRobotsOnSameField(gameState, group);
+                FightRobotsOnSameField(gameState, robotGroup);
             }
         }
 
