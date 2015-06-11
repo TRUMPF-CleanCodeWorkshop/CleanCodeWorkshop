@@ -20,7 +20,7 @@
             var noRobotsOrNoDangerousRobotsAroundAndMyLevelRelativelyHigh = (environment.Robots.Any(
                 r => r.IsEnemy && r.Level >= Math.Round(myLevel / 2.0, MidpointRounding.AwayFromZero))
                                || !environment.Robots.Any()) 
-                               && myLevel > currentTurn;
+                               && myLevel > (currentTurn / 2);
 
             if (noDangerAndPowerUpsToGet)
             {
