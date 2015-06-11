@@ -15,6 +15,8 @@
 
         public static void ShowGameState(GameState gameState)
         {
+            Console.Title = gameState.Turn.ToString();
+
             var numberOfColumns = gameState.Configuration.MapSize.Width;
             var numberOfRows = gameState.Configuration.MapSize.Height;
             Console.WindowWidth = numberOfColumns * 12 + 5;
