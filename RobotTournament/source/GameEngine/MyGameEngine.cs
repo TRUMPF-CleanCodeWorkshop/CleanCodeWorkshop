@@ -147,9 +147,13 @@ namespace GameEngine
         }
 
 
-        private void DoRobotMovements(GameState gameState)
+        internal void DoRobotMovements(GameState gameState)
         {
-            throw new NotImplementedException();
+            foreach (Robot robot in gameState.Robots)
+            {
+                //Aufruf getPositionsFromMovement
+            }
+            throw new NotImplementedException;
         }
 
         internal void GetNextTurnsFromRobots(GameState gameState)
