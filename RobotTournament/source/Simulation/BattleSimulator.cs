@@ -26,6 +26,7 @@ namespace Simulation
 
         private static void ApplyWinngTeam(SimulationResult result, string winningTeam)
         {
+            Console.WriteLine("Finished: " + winningTeam);
             lock (result)
             {
                 if (result.TeamWins.ContainsKey(winningTeam))

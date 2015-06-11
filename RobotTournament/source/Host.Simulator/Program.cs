@@ -26,7 +26,7 @@ namespace Host.Simulator
             var robotEngines = RobotLoader.Load(robotEnginePath).ToList();
 
 
-            var result = BattleSimulator.Simulate(configuration, gameEngine, robotEngines, 50);
+            var result = BattleSimulator.Simulate(configuration, gameEngine, robotEngines, 30);
 
             foreach (var team in result.TeamWins.Keys.OrderBy(key => key))
             {
