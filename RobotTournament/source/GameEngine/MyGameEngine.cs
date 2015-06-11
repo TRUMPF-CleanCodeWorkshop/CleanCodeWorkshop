@@ -207,6 +207,17 @@ namespace GameEngine
         internal void PerformSplit(Robot robot, GameState gameState)
         {
             // TODO Copy robot to given position
+            var currentRobotPosition = robot.Position;
+            var robotDirection = robot.CurrentDirection;
+            var mapSize = gameState.Configuration.MapSize;
+
+            var newLevel = (int)Math.Round(robot.Level / 2.0, MidpointRounding.AwayFromZero);
+
+            var newPosition = GetPositionFromMovement(currentRobotPosition, robotDirection, mapSize);
+            var newRobot = new Robot(newPosition, newLevel, robot.TeamName, robot.RobotImplementation);
+            gameState.Robots.Add(newRobot);
+
+            robot.Level = newLevel;
 
             // TODO Decrease strength of both robots (half)
         }

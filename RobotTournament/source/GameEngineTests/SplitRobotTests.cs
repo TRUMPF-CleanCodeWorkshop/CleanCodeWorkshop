@@ -16,6 +16,8 @@ namespace GameEngineTests
 
     using NUnit.Framework;
 
+    using RobotEngine;
+
     class SplitRobotTests
     {
         [Test]
@@ -73,6 +75,30 @@ namespace GameEngineTests
             var newPosition = MyGameEngine.GetPositionFromMovement(position, direction, mapSize);
 
             Assert.AreEqual(new Point(0, 0), newPosition);
+        }
+
+        [Test]
+        public void RobotSplitIsPerformedCorrectly()
+        {
+            var originalRobot = new Robot(new Point(2, 2), 5, "Super Team", new Robot1());
+            originalRobot.CurrentAction = RobotActions.Splitting;
+            originalRobot.CurrentDirection = Directions.W;
+            var gameState = new GameState()
+                                {
+                                    Configuration = new GameConfiguration() { MapSize = new Size(5, 5) },
+                                    Finished = false,
+                                    Robots = new List<Robot>() { originalRobot }
+                                };
+
+            var gameEngine = new MyGameEngine();
+            gameEngine.PerformSplit(originalRobot, gameState);
+
+            var newRobotList = gameState.Robots.Where(r => r.Position == new Point(1, 2)).ToList();
+
+            Assert.AreEqual(originalRobot.Level, 3);
+            Assert.AreEqual(gameState.Robots.Count, 2);
+            Assert.AreEqual(1, newRobotList.Count);
+            Assert.AreEqual(newRobotList.First().Level, 3);
         }
     }
 }
