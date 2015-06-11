@@ -167,7 +167,6 @@
                 }
                 catch (ArgumentException)
                 {
-                    var color = new ConsoleColor();
                     return new ConsoleColor();
                 }
                 return (ConsoleColor)Enum.Parse(typeof(ConsoleColor), colorDictionary[teamName].Name);
