@@ -9,13 +9,26 @@
     {
         public NextRobotTurn DoNextTurn(int currentTurn, int myLevel, Surroundings environment)
         {
-            if (!environment.Robots.Any(r => r.Level >= myLevel && r.IsEnemy) && environment.PowerUps.Any())
+            // Condition variables
+            var noDangerAndPowerUpsToGet = !environment.Robots.Any(r => r.Level >= myLevel && r.IsEnemy) &&
+                                               environment.PowerUps.Any();
+            var noDangerAndBeginningOfGame = currentTurn <= 6 &&
+                                             !environment.Robots.Any(r => r.Level > myLevel && r.IsEnemy);
+            var dangerousEnemyAround = environment.Robots.Any(r => r.IsEnemy && r.Level > myLevel);
+            var weakEnemyAround = environment.Robots.Any(r => r.IsEnemy && r.Level < myLevel);
+            var enemyAround = environment.Robots.Any(r => r.IsEnemy);
+            var noRobotsOrNoDangerousRobotsAroundAndMyLevelRelativelyHigh = (environment.Robots.Any(
+                r => r.IsEnemy && r.Level >= Math.Round(myLevel / 2.0, MidpointRounding.AwayFromZero))
+                               || !environment.Robots.Any()) 
+                               && myLevel > currentTurn;
+
+            if (noDangerAndPowerUpsToGet)
             {
                 var firstPowerUpDirection = environment.PowerUps.First().Direction;
                 return new NextRobotTurn {NextAction = RobotActions.Moving, NextDirection = firstPowerUpDirection};
             }
 
-            if (currentTurn <= 6 && !environment.Robots.Any(r => r.Level > myLevel && r.IsEnemy))
+            if (noDangerAndBeginningOfGame)
             {
                 return new NextRobotTurn
                 {
@@ -24,7 +37,7 @@
                 };
             }
 
-            if ((environment.Robots.Any(r => r.IsEnemy && r.Level >= Math.Round(myLevel / 2.0, MidpointRounding.AwayFromZero)) || !environment.Robots.Any()) && myLevel > currentTurn)
+            if (noRobotsOrNoDangerousRobotsAroundAndMyLevelRelativelyHigh)
             {
                 return new NextRobotTurn
                 {
@@ -33,7 +46,7 @@
                 };
             }
 
-            if (!environment.Robots.Any(r => r.IsEnemy))
+            if (!enemyAround)
             {
                 var random = new Random();
                 var randomDirection = (Directions)random.Next(0, 8);
@@ -44,8 +57,7 @@
                 };
             }
 
-            // Schwacher Robot in Reichweite
-            if (environment.Robots.Any(r => r.IsEnemy && r.Level < myLevel))
+            if (weakEnemyAround)
             {
                 return new NextRobotTurn
                 {
@@ -54,14 +66,14 @@
                 };
             }
 
-            if (environment.Robots.Any(r => r.IsEnemy && r.Level > myLevel))
+            if (dangerousEnemyAround)
             {
-                Directions directionOfFirstDangerousBot =
+                var directionOfFirstDangerousBot =
                     environment.Robots.First(r => r.IsEnemy && r.Level > myLevel).Direction;
-                Directions directionToMove = directionOfFirstDangerousBot + 4;
-                if ((int) directionToMove > 7)
+                var directionToMove = directionOfFirstDangerousBot + 4;
+                if ((int)directionToMove > 7)
                 {
-                    directionToMove -= 7;
+                    directionToMove -= 8;
                 }
 
                 return new NextRobotTurn {NextAction = RobotActions.Moving, NextDirection = directionToMove};
