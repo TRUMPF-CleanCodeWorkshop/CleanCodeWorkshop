@@ -131,7 +131,7 @@ namespace GameEngine
             throw new NotImplementedException();
         }
 
-        private void DoRobotMovements(GameState gameState)
+        public void DoRobotMovements(GameState gameState)
         {
             throw new NotImplementedException();
         }
