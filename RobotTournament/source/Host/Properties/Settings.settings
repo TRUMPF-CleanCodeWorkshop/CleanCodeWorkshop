@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="MapSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">15, 15</Value>
+      <Value Profile="(Default)">10, 10</Value>
     </Setting>
     <Setting Name="PowerUpPropability" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.01</Value>
