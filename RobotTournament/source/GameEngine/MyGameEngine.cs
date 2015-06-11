@@ -72,6 +72,12 @@ namespace GameEngine
             DoRobotMovements(gameState);
             ResolveFieldConflicts(gameState);
             DoPowerUps(gameState);
+            IncreaseTurn(gameState);
+        }
+
+        private void IncreaseTurn(GameState gameState)
+        {
+            gameState.Turn += 1;
         }
 
         private void ResolveFieldConflicts(GameState gameState)
@@ -177,7 +183,7 @@ namespace GameEngine
 
             if (robot.CurrentAction == RobotActions.Splitting || robot.CurrentAction == RobotActions.Upgrading)
             {
-                robot.WaitTurns = 1;
+                robot.WaitTurns = 2;
             }
         }
 
@@ -228,9 +234,10 @@ namespace GameEngine
                 for (var y = 0; y < mapSize.Height; y++)
                 {
                     var randomValue = random.Next(1, 100);
-                    if (randomValue > (100 - propability) && gameState.PowerUps.All(p => p.Position != new Point(x, y)))
+                    if (randomValue > (100 - propability * 100) && gameState.PowerUps.All(p => p.Position != new Point(x, y)))
                     {
-                        gameState.PowerUps.Add(new PowerUp() { Level = gameState.Turn / 2, Position = new Point(x, y) });
+                        var level = Math.Max(gameState.Turn/2, 1);
+                        gameState.PowerUps.Add(new PowerUp() { Level = level, Position = new Point(x, y) });
                     }
                 }
             }
