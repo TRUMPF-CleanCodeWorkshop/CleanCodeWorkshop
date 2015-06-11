@@ -17,6 +17,16 @@ namespace Simulation
             for (var counter = 0; counter < count; counter++)
             {
                 var winningTeam = SimulateOne(configuration, gameEngine, robotEngines);
+                ApplyWinngTeam(result, winningTeam);
+            }
+
+            return result;
+        }
+
+        private static void ApplyWinngTeam(SimulationResult result, string winningTeam)
+        {
+            lock (result)
+            {
                 if (result.TeamWins.ContainsKey(winningTeam))
                 {
                     result.TeamWins[winningTeam] += 1;
@@ -26,8 +36,6 @@ namespace Simulation
                     result.TeamWins.Add(winningTeam, 1);
                 }
             }
-
-            return result;
         }
 
         private static string SimulateOne(GameConfiguration configuration, IGameEngine gameEngine, IEnumerable<IRobotEngine> robotEngines)
