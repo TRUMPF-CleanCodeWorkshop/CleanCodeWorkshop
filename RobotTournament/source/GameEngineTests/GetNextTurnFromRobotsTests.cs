@@ -20,8 +20,8 @@ namespace GameEngineTests
             var robotToCheck = Substitute.For<IRobot>();
             var defaultRobot = Substitute.For<IRobot>();
 
-            defaultRobot.DoNextTurn(Arg.Any<int>(), Arg.Any<Surroundings>()).Returns(new NextRobotTurn() {NextAction = RobotActions.Moving, NextDirection = Directions.N});
-            robotToCheck.DoNextTurn(Arg.Any<int>(), Arg.Any<Surroundings>()).Returns(new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = Directions.N });
+            defaultRobot.DoNextTurn(1, Arg.Any<int>(), Arg.Any<Surroundings>()).Returns(new NextRobotTurn() {NextAction = RobotActions.Moving, NextDirection = Directions.N});
+            robotToCheck.DoNextTurn(1, Arg.Any<int>(), Arg.Any<Surroundings>()).Returns(new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = Directions.N });
 
             var gameEngine = new MyGameEngine();
             var gameState = new GameState()

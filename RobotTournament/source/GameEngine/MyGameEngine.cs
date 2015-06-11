@@ -14,11 +14,6 @@ namespace GameEngine
 
         public GameState CreateInitializeGameState(GameConfiguration configuration, IEnumerable<IRobotEngine> robotEngines)
         {
-            if (configuration == null)
-            {
-                throw new ArgumentNullException("configuration");
-            }
-
             var result = new GameState
             {
                 Configuration = configuration,
@@ -70,7 +65,7 @@ namespace GameEngine
 
         private void EvaluateRobots(GameState gameState)
         {
-            EvaluateSplitAndImrove(gameState);
+            EvaluateSplitAndImprove(gameState);
             DecreaseWaitCounter(gameState);
             GetNextTurnsFromRobots(gameState);
             DoRobotMovements(gameState);
@@ -157,7 +152,7 @@ namespace GameEngine
             var surroundings = new Surroundings();
             surroundings.Robots = GetSurroundingRobots(gameState, robot);
 
-            var result = robot.RobotImplementation.DoNextTurn(robot.Level, surroundings);
+            var result = robot.RobotImplementation.DoNextTurn(gameState.Turn, robot.Level, surroundings);
 
             robot.CurrentAction = result.NextAction;
             robot.CurrentDirection = result.NextDirection;
@@ -177,7 +172,7 @@ namespace GameEngine
             gameState.Robots.Where(r => r.WaitTurns >= 1).ToList().ForEach(r => r.WaitTurns -= 1);
         }
 
-        internal void EvaluateSplitAndImrove(GameState gameState)
+        internal void EvaluateSplitAndImprove(GameState gameState)
         {
             var robots = gameState.Robots.Where(r => r.WaitTurns == 1).ToList();
 

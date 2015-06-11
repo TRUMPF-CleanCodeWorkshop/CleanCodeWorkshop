@@ -34,7 +34,7 @@ namespace GameEngineTests
                 }
             };
 
-            gameEngine.EvaluateSplitAndImrove(gameState);
+            gameEngine.EvaluateSplitAndImprove(gameState);
 
             Assert.That(gameState.Robots.Count(r => r.Level == 3), Is.EqualTo(2));
         }
