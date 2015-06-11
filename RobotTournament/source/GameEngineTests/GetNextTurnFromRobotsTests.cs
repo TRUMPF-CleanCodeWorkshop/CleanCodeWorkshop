@@ -43,7 +43,52 @@ namespace GameEngineTests
             Assert.That(targetRobot.CurrentDirection, Is.EqualTo(Directions.N));
             Assert.That(targetRobot.CurrentAction, Is.EqualTo(RobotActions.Moving));
 
-        } 
+        }
+
+        [Test]
+        public void GetSurroundingRobots_erkennt_zwei_umgebene_Robots()
+        {
+            var robotToCheck = Substitute.For<IRobot>();
+            var defaultRobot = Substitute.For<IRobot>();
+
+            var robot = new Robot(new Point(1, 1), 1, "my", robotToCheck);
+            var gameState = new GameState()
+            {
+                Robots = new List<Robot>()
+                {
+                    new Robot(new Point(0, 0), 1, "feind", defaultRobot),
+                    new Robot(new Point(2, 2), 1, "feind", defaultRobot)
+                }
+            };
+
+            var robots = MyGameEngine.GetSurroundingRobots(gameState, robot).ToList();
+
+            Assert.That(robots.Count(), Is.EqualTo(2));
+            Assert.That(robots.First().Direction , Is.EqualTo(Directions.NW));
+            Assert.That(robots.Skip(1).First().Direction , Is.EqualTo(Directions.SE));
+        }
+
+        [Test]
+        public void GetSurroundingRobots_ignoriert_Robots_die_weiter_entfernt_sind()
+        {
+            var robotToCheck = Substitute.For<IRobot>();
+            var defaultRobot = Substitute.For<IRobot>();
+
+            var robot = new Robot(new Point(2, 2), 1, "my", robotToCheck);
+            var gameState = new GameState()
+            {
+                Robots = new List<Robot>()
+                {
+                    new Robot(new Point(0, 0), 1, "feind", defaultRobot),
+                    new Robot(new Point(4, 4), 1, "feind", defaultRobot)
+                }
+            };
+
+            var robots = MyGameEngine.GetSurroundingRobots(gameState, robot).ToList();
+
+            Assert.That(robots.Count(), Is.EqualTo(0));
+           
+        }
 
     }
 }
