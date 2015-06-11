@@ -127,10 +127,25 @@ namespace GameEngine
             }
         }
 
-        private void DoPowerUps(GameState gameState)
+        internal void DoPowerUps(GameState gameState)
         {
-            throw new NotImplementedException();
+            var removeCandidates = new List<PowerUp>();
+
+            foreach (var powerUp in gameState.PowerUps)
+            {
+                var robotOnPowerup = gameState.Robots.FirstOrDefault(r => r.Position == powerUp.Position);
+                if (robotOnPowerup == null)
+                {
+                    continue;
+                }
+
+                robotOnPowerup.Level += powerUp.Level;
+                removeCandidates.Add(powerUp);
+            }
+
+            gameState.PowerUps = gameState.PowerUps.Except(removeCandidates).ToList();
         }
+
 
         private void DoRobotMovements(GameState gameState)
         {
