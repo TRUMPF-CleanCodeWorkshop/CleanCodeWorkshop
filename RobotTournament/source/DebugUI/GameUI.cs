@@ -38,6 +38,15 @@
             {
                 PrintRowWithRobots(rowCounter, numberOfColumns, gameState, gameState.PowerUps);
             }
+
+            if (gameState.Finished)
+            {
+                Console.WriteLine("Game Over!");
+
+                Console.WriteLine("The winner is Team XXXXX.");
+                Console.WriteLine("Press any key to exit.");
+                Console.ReadLine();
+            }
         }
 
         public static void PrintRowWithRobots(int rowNumber, int mapWidth, GameState gameState, IEnumerable<PowerUp> powerUps)
