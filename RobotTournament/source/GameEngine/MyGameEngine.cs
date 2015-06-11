@@ -149,11 +149,9 @@ namespace GameEngine
 
         internal void DoRobotMovements(GameState gameState)
         {
-            foreach (var robot in gameState.Robots)
-            {
-                var newPosition = GetPositionFromMovement(robot.Position, robot.CurrentDirection, gameState.Configuration.MapSize);
-                robot.Position = newPosition;
-            }
+            var robotsToMove = gameState.Robots.Where(r => r.WaitTurns == 0).ToList();
+
+            robotsToMove.ForEach(robot => robot.Position = GetPositionFromMovement(robot.Position, robot.CurrentDirection, gameState.Configuration.MapSize));
         }
 
         internal void GetNextTurnsFromRobots(GameState gameState)
