@@ -229,9 +229,14 @@ namespace GameEngine
 
             if (relativePosition.Equals(new Point(-1, -1))) { return Directions.NW; }
             if (relativePosition.Equals(new Point(0, -1))) { return Directions.N; }
-            if (relativePosition.Equals(new Point(0, -1))) { return Directions.NE; }
+            if (relativePosition.Equals(new Point(1, -1))) { return Directions.NE; }
+            if (relativePosition.Equals(new Point(-1, 0))) { return Directions.W; }
+            if (relativePosition.Equals(new Point(1, 0))) { return Directions.E; }
+            if (relativePosition.Equals(new Point(-1, 1))) { return Directions.SW; }
+            if (relativePosition.Equals(new Point(0, 1))) { return Directions.S; }
+            if (relativePosition.Equals(new Point(1, 1))) { return Directions.SE; }
 
-            return Directions.S;
+            throw new Exception(string.Format("Invalid direction with robot {0} and surrounding robot {1}", currentRobotPosition, surroundRobotPosition));
         }
 
         private static IEnumerable<Point> GetSurroundingPositions(Point position)
