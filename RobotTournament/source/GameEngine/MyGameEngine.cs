@@ -276,7 +276,7 @@ namespace GameEngine
             yield return new Point(position.X + 1, position.Y + 1);
         }
 
-        private static Point getPositionAfterSplit(Point robotPosition, Directions direction, Size mapSize)
+        private static Point GetPositionFromMovement(Point robotPosition, Directions direction, Size mapSize)
         {
 
 
