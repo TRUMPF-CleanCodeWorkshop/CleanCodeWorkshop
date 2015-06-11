@@ -153,7 +153,6 @@ namespace GameEngine
             {
                 //Aufruf getPositionsFromMovement
             }
-            throw new NotImplementedException;
         }
 
         internal void GetNextTurnsFromRobots(GameState gameState)
