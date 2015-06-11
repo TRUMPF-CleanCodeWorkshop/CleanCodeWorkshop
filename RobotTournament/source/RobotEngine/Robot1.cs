@@ -50,23 +50,23 @@ namespace RobotEngine
 
         private void VeryEarlyGameSettings()
         {
-            upgrade = 60;
+            upgrade = 90;
             split = 20;
-            move = 5;
+            move = 10;
         }
 
         private void EarlyGameSettings()
         {
-            upgrade = 80;
+            upgrade = 90;
             split = 40;
-            move = 5;
+            move = 10;
         }
 
         private void MidGameSettings()
         {
-            upgrade = 80;
-            split = 60;
-            move = 5;
+            upgrade = 90;
+            split = 70;
+            move = 0;
         }
 
         private void MidLateGameSettings()
