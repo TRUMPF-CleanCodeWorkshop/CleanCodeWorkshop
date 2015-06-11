@@ -42,10 +42,7 @@
             if (gameState.Finished)
             {
                 Console.WriteLine("Game Over!");
-
-                Console.WriteLine("The winner is Team XXXXX.");
-                Console.WriteLine("Press any key to exit.");
-                Console.ReadLine();
+                Console.WriteLine("The winner is Team {0}.", "[Winnner Team]");
             }
         }
 
@@ -116,6 +113,10 @@
                 {
                     Console.ForegroundColor = GetConsoleColorForTeamName(teams[2], gameState);
                 } 
+                else if (teams.Count > 3 && secondRowString.Contains(teams[3]))
+                {
+                    Console.ForegroundColor = GetConsoleColorForTeamName(teams[3], gameState);
+                }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.White;
