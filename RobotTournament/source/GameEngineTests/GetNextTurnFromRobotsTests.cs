@@ -47,7 +47,7 @@ namespace GameEngineTests
 
 
         [Test]
-        public void GetNextTurnsFromRobots_setzt_die_WaitTurns_auf_zwei_wenn_gesplittet_oder_geupgraded_wird()
+        public void GetNextTurnsFromRobots_setzt_die_WaitTurns_auf_eins_wenn_gesplittet_oder_geupgraded_wird()
         {
             var robotEngine1 = Substitute.For<IRobot>();
             var robotEngine2 = Substitute.For<IRobot>();
@@ -71,10 +71,12 @@ namespace GameEngineTests
 
             var targetRobot = gameState.Robots.Single(robot => robot.TeamName == "r1");
             Assert.That(targetRobot.CurrentAction, Is.EqualTo(RobotActions.Upgrading));
+            Assert.That(targetRobot.WaitTurns, Is.EqualTo(1));
 
             targetRobot = gameState.Robots.Single(robot => robot.TeamName == "r2");
             Assert.That(targetRobot.CurrentDirection, Is.EqualTo(Directions.N));
             Assert.That(targetRobot.CurrentAction, Is.EqualTo(RobotActions.Splitting));
+            Assert.That(targetRobot.WaitTurns, Is.EqualTo(1));
         }
 
         [Test]
