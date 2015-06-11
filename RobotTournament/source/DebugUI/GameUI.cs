@@ -16,6 +16,7 @@
         public static void ShowGameState(GameState gameState)
         {
             Console.Title = gameState.Turn.ToString();
+            Console.Clear();
 
             var numberOfColumns = gameState.Configuration.MapSize.Width;
             var numberOfRows = gameState.Configuration.MapSize.Height;
