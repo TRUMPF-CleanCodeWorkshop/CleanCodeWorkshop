@@ -19,11 +19,31 @@ namespace GameEngineTests
         [Test]
         public void MovementToNorthWestGivesRightMovment()
         {
-            var direction = Directions.NE;
+            var direction = Directions.NW;
 
             var resultTuple = MyGameEngine.GetMovement(direction);
 
-            Assert.Equals(resultTuple, new Tuple<int, int>(-1, -1));
+            Assert.AreEqual(resultTuple, new Point(-1, -1));
+        }
+
+        [Test]
+        public void MovementToEastGivesRightMovment()
+        {
+            var direction = Directions.E;
+
+            var resultTuple = MyGameEngine.GetMovement(direction);
+
+            Assert.AreEqual(resultTuple, new Point(1, 0));
+        }
+
+        [Test]
+        public void MovementToSouthEastGivesRightMovment()
+        {
+            var direction = Directions.SE;
+
+            var resultTuple = MyGameEngine.GetMovement(direction);
+
+            Assert.AreEqual(resultTuple, new Point(1, 1));
         }
 
         [Test]
