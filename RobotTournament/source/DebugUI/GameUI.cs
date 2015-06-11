@@ -16,6 +16,7 @@
         public static void ShowGameState(GameState gameState)
         {
             Console.Title = gameState.Turn.ToString();
+            Console.Clear();
 
             var numberOfColumns = gameState.Configuration.MapSize.Width;
             var numberOfRows = gameState.Configuration.MapSize.Height;
@@ -33,7 +34,6 @@
             Console.WriteLine(firstRow);
             Console.WriteLine(secondRow);
 
-            Console.Clear();
             for (var rowCounter = 0; rowCounter < numberOfRows; rowCounter++)
             {
                 PrintRowWithRobots(rowCounter, numberOfColumns, gameState.Robots, gameState.PowerUps);
