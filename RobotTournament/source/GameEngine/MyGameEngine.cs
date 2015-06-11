@@ -234,7 +234,7 @@ namespace GameEngine
                 for (var y = 0; y < mapSize.Height; y++)
                 {
                     var randomValue = random.Next(1, 100);
-                    if (randomValue > (100 - propability * 100) && gameState.PowerUps.All(p => p.Position != new Point(x, y)))
+                    if (randomValue >= (100 - propability * 100) && gameState.PowerUps.All(p => p.Position != new Point(x, y)))
                     {
                         var level = Math.Max(gameState.Turn/2, 1);
                         gameState.PowerUps.Add(new PowerUp() { Level = level, Position = new Point(x, y) });

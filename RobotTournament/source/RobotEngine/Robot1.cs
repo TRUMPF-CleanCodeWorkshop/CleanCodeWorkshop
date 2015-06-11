@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Contracts;
 using Contracts.Model;
 
@@ -10,18 +11,24 @@ namespace RobotEngine
         private int split = 9;
         private int move = 8;
 
+        private Random random = new Random();
+
         public NextRobotTurn DoNextTurn(int currentTurn, int myLevel, Surroundings environment)
         {
-            var random = new Random();
             var decisionAction = random.Next(100);
             var decisionDirection = (Directions)random.Next(0, 7);
 
-            if (currentTurn == 10) VeryEarlyGameSettings();
-            if (currentTurn == 30) EarlyGameSettings();
+            if (currentTurn == 5) VeryEarlyGameSettings();
+            if (currentTurn == 15) EarlyGameSettings();
             if (currentTurn == 60) MidGameSettings();
             if (currentTurn == 100) MidLateGameSettings();
             if (currentTurn == 200) LateGameSettings();
 
+
+            if (environment.PowerUps.Any())
+            {
+                return new NextRobotTurn() {NextAction = RobotActions.Moving, NextDirection = environment.PowerUps.First().Direction};
+            }
 
             if (decisionAction > upgrade)
             {

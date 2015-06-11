@@ -22,14 +22,14 @@
                 return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = firstPussyBot };
             }
 
-            var decisionDirection = currentTurn % 23 == 0 ? Directions.NW : Directions.SW;
+            var decisionDirection = currentTurn % 5 == 0 ? Directions.NW : Directions.SW;
 
             if (currentTurn % 3 == 0)
             {
-                return new NextRobotTurn() { NextAction = RobotActions.Upgrading, NextDirection = decisionDirection };
+                return new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = decisionDirection };
             }
 
-            return currentTurn % 7 == 0 ? new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = decisionDirection } : new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = decisionDirection };
+            return currentTurn % 7 == 0 ? new NextRobotTurn() { NextAction = RobotActions.Upgrading, NextDirection = decisionDirection } : new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = decisionDirection };
         }
     }
 }
