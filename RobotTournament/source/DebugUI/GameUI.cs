@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Contracts.Model;
-
-namespace DebugUI
+﻿namespace DebugUI
 {
+    using System;
+    using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
+    using System.Text;
+
+    using Contracts.Model;
 
     public static class GameUI
     {
@@ -16,9 +15,6 @@ namespace DebugUI
 
         public static void ShowGameState(GameState gameState)
         {
-
-
-            
             var numberOfColumns = gameState.Configuration.MapSize.Width;
             var numberOfRows = gameState.Configuration.MapSize.Height;
             Console.WindowWidth = numberOfColumns * 12 + 5;
@@ -43,7 +39,7 @@ namespace DebugUI
 
         public static void PrintRowWithRobots(int rowNumber, int mapWidth, IEnumerable<Robot> robots, IEnumerable<PowerUp> powerUps)
         {
-            var teams = robots.GroupBy(r => r.TeamName).Select(t => t.First().TeamName).ToList();
+            var teams = robots.OrderBy(r => r.TeamName).GroupBy(r => r.TeamName).Select(t => t.First().TeamName).ToList();
 
             var firstRowStrings = new List<string>() { "  |" };
             var secondRowStrings = new List<string>() { string.Format("{0} |", rowNumber) };
