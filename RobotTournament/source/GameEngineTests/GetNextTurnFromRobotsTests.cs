@@ -17,20 +17,20 @@ namespace GameEngineTests
         [Test]
         public void GetNextTurnsFromRobots_prüft_das_die_Ergebnisse_Der_Robot_Dlls_in_den_GameState_übernommen_werden()
         {
-            var robotToCheck = Substitute.For<IRobot>();
-            var defaultRobot = Substitute.For<IRobot>();
+            var robotEngine2 = Substitute.For<IRobot>();
+            var robotEngine1 = Substitute.For<IRobot>();
 
-            defaultRobot.DoNextTurn(1, Arg.Any<int>(), Arg.Any<Surroundings>()).Returns(new NextRobotTurn() {NextAction = RobotActions.Moving, NextDirection = Directions.N});
-            robotToCheck.DoNextTurn(1, Arg.Any<int>(), Arg.Any<Surroundings>()).Returns(new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = Directions.N });
+            robotEngine1.DoNextTurn(1, Arg.Any<int>(), Arg.Any<Surroundings>()).Returns(new NextRobotTurn() {NextAction = RobotActions.Moving, NextDirection = Directions.S});
+            robotEngine2.DoNextTurn(1, Arg.Any<int>(), Arg.Any<Surroundings>()).Returns(new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = Directions.N });
 
             var gameEngine = new MyGameEngine();
             var gameState = new GameState()
             {
                 Robots = new List<Robot>()
                 {
-                    new Robot(new Point(1, 1), 1 ,"feindlich", defaultRobot),
-                    new Robot(new Point(2, 1), 1 ,"my", robotToCheck),
-                    new Robot(new Point(3, 1), 1 ,"freund", defaultRobot)
+                    new Robot(new Point(1, 1), 1 ,"feindlich", robotEngine1),
+                    new Robot(new Point(2, 1), 1 ,"my", robotEngine2),
+                    new Robot(new Point(3, 1), 1 ,"freund", robotEngine1)
                 },
                 Turn =1,
                 PowerUps = new List<PowerUp>()
@@ -43,6 +43,38 @@ namespace GameEngineTests
             Assert.That(targetRobot.CurrentDirection, Is.EqualTo(Directions.N));
             Assert.That(targetRobot.CurrentAction, Is.EqualTo(RobotActions.Moving));
 
+        }
+
+
+        [Test]
+        public void GetNextTurnsFromRobots_setzt_die_WaitTurns_auf_zwei_wenn_gesplittet_oder_geupgraded_wird()
+        {
+            var robotEngine1 = Substitute.For<IRobot>();
+            var robotEngine2 = Substitute.For<IRobot>();
+
+            robotEngine1.DoNextTurn(1, Arg.Any<int>(), Arg.Any<Surroundings>()).Returns(new NextRobotTurn() { NextAction = RobotActions.Upgrading, NextDirection = Directions.N });
+            robotEngine2.DoNextTurn(1, Arg.Any<int>(), Arg.Any<Surroundings>()).Returns(new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = Directions.N });
+            
+            var gameEngine = new MyGameEngine();
+            var gameState = new GameState()
+            {
+                Robots = new List<Robot>()
+                {
+                    new Robot(new Point(1, 1), 1 ,"r1", robotEngine1),
+                    new Robot(new Point(2, 1), 1 ,"r2", robotEngine2),
+                },
+                Turn = 1,
+                PowerUps = new List<PowerUp>()
+            };
+
+            gameEngine.GetNextTurnsFromRobots(gameState);
+
+            var targetRobot = gameState.Robots.Single(robot => robot.TeamName == "r1");
+            Assert.That(targetRobot.CurrentAction, Is.EqualTo(RobotActions.Upgrading));
+
+            targetRobot = gameState.Robots.Single(robot => robot.TeamName == "r2");
+            Assert.That(targetRobot.CurrentDirection, Is.EqualTo(Directions.N));
+            Assert.That(targetRobot.CurrentAction, Is.EqualTo(RobotActions.Splitting));
         }
 
         [Test]
