@@ -58,5 +58,17 @@ namespace Host.Properties {
                 this["RobotStartLevel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20000")]
+        public int MaxTurns {
+            get {
+                return ((int)(this["MaxTurns"]));
+            }
+            set {
+                this["MaxTurns"] = value;
+            }
+        }
     }
 }

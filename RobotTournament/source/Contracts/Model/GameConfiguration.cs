@@ -9,5 +9,7 @@
         public double PowerupPropability { get; set; }
 
         public int RobotStartLevel { get; set; }
+
+        public int MaxTurns { get; set; }
     }
 }
