@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Contracts;
-using Contracts.Model;
-using GameEngine;
-using System.Drawing;
-using NSubstitute;
-
-using NUnit.Framework;
-namespace GameEngineTests
+﻿namespace GameEngineTests
 {
-    class DoRobotMovementTests
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Contracts;
+    using Contracts.Model;
+    using GameEngine;
+    using NSubstitute;
+    using NUnit.Framework;
+
+    internal class DoRobotMovementTests
     {
         [Test]
-        public void robotsAreMoved() 
+        public void RobotsAreMoved()
         {
+            var configuration = new GameConfiguration()
+            {
+                MapSize = new Size(10, 10)
+            };
             var engineToCheck = Substitute.For<IRobot>();
             var gameEngine = new MyGameEngine();
             var gameState = new GameState()
@@ -26,7 +27,8 @@ namespace GameEngineTests
                     new Robot(new Point(0, 0), 1 ,"feindlich", Substitute.For<IRobot>()),
                     new Robot(new Point(2, 1), 1 ,"freund", engineToCheck) { WaitTurns = 1, CurrentAction = RobotActions.Upgrading},
                     new Robot(new Point(3, 1), 1 ,"freund", Substitute.For<IRobot>()) {WaitTurns = 1, CurrentAction = RobotActions.Upgrading}
-                }
+                },
+                Configuration = configuration
             };
 
             gameState.Robots[0].CurrentDirection = Directions.NE;
@@ -34,7 +36,9 @@ namespace GameEngineTests
             gameState.Robots[2].CurrentDirection = Directions.S;
 
             gameEngine.DoRobotMovements(gameState);
-            Assert.That(gameState.Robots[0].Position, Is.EqualTo(new Point(1, gameState.Configuration.MapSize.Height-1)));
+            Assert.That(
+                gameState.Robots[0].Position,
+                Is.EqualTo(new Point(1, gameState.Configuration.MapSize.Height - 1)));
             Assert.That(gameState.Robots[1].Position, Is.EqualTo(new Point(2, 0)));
             Assert.That(gameState.Robots[2].Position, Is.EqualTo(new Point(3, 2)));
         }
