@@ -13,9 +13,10 @@
             // Darwin!
             var enemies = environment.Robots.Where(r => r.IsEnemy).ToList();
             var friends = environment.Robots.Where(r => !r.IsEnemy).ToList();
+
             foreach (var victim in friends
                 .SelectMany(alliedRobot => enemies
-                    .Where(victim => (alliedRobot.Direction + 1 == victim.Direction) || (alliedRobot.Direction + 1 == victim.Direction))))
+                    .Where(victim => (alliedRobot.Direction + 1 == victim.Direction) || (alliedRobot.Direction - 1 == victim.Direction))))
             {
                 return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = victim.Direction };
             }
