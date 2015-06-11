@@ -7,7 +7,6 @@
 
     internal class Robot3 : IRobot
     {
-
         public NextRobotTurn DoNextTurn(int currentTurn, int myLevel, Surroundings environment)
         {
             if (!environment.Robots.Any(r => r.Level >= myLevel && r.IsEnemy) && environment.PowerUps.Any())
@@ -25,8 +24,7 @@
                 };
             }
 
-            if (environment.Robots.Any(r => r.IsEnemy && r.Level >= Math.Round(myLevel / 2.0, MidpointRounding.AwayFromZero)) 
-                || !environment.Robots.Any())
+            if ((environment.Robots.Any(r => r.IsEnemy && r.Level >= Math.Round(myLevel / 2.0, MidpointRounding.AwayFromZero)) || !environment.Robots.Any()) && myLevel > currentTurn)
             {
                 return new NextRobotTurn
                 {
@@ -70,7 +68,7 @@
             }
 
             var random2 = new Random();
-            var randomDirection2 = (Directions) random2.Next(0, 8);
+            var randomDirection2 = (Directions)random2.Next(0, 8);
             return new NextRobotTurn
             {
                 NextAction = RobotActions.Moving, 
