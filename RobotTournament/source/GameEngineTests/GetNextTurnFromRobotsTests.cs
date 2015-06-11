@@ -15,7 +15,7 @@ namespace GameEngineTests
     public class GetNextTurnFromRobotsTests
     {
         [Test]
-        public void GetNextTurnsFromRobots_()
+        public void GetNextTurnsFromRobots_prüft_das_die_Ergebnisse_Der_Robot_Dlls_in_den_GameState_übernommen_werden()
         {
             var robotToCheck = Substitute.For<IRobot>();
             var defaultRobot = Substitute.For<IRobot>();
@@ -29,14 +29,19 @@ namespace GameEngineTests
                 Robots = new List<Robot>()
                 {
                     new Robot(new Point(1, 1), 1 ,"feindlich", defaultRobot),
-                    new Robot(new Point(2, 1), 1 ,"freund", robotToCheck),
+                    new Robot(new Point(2, 1), 1 ,"my", robotToCheck),
                     new Robot(new Point(3, 1), 1 ,"freund", defaultRobot)
-                }
+                },
+                Turn =1,
+                PowerUps = new List<PowerUp>()
             };
 
             gameEngine.GetNextTurnsFromRobots(gameState);
 
+            var targetRobot = gameState.Robots.Single(robot => robot.TeamName == "my");
 
+            Assert.That(targetRobot.CurrentDirection, Is.EqualTo(Directions.N));
+            Assert.That(targetRobot.CurrentAction, Is.EqualTo(RobotActions.Moving));
 
         } 
 
