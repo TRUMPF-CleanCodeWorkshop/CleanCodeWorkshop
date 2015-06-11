@@ -45,7 +45,7 @@
             var teams = robots.OrderBy(r => r.TeamName).GroupBy(r => r.TeamName).Select(t => t.First().TeamName).ToList();
 
             var firstRowStrings = new List<string>() { "  |" };
-            var secondRowStrings = new List<string>() { string.Format("{0} |", rowNumber) };
+            var secondRowStrings = new List<string>() { string.Format("{0}|", rowNumber.ToString().PadRight(2).Substring(0, 2)) };
 
             var thirdRow = new StringBuilder("  |");
 
