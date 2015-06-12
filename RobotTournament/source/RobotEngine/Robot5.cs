@@ -10,42 +10,28 @@
     {
         public NextRobotTurn DoNextTurn(int currentTurn, int myLevel, Surroundings environment)
         {
-            if (currentTurn == 0)
-            {
-                return new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = this.GetRandomDirections() };
-            }
-
+            var splittingLimit = currentTurn < 20 ? 8 : currentTurn / 2;
+            
             var surroundingRobots = environment.Robots;
             var surroundingPowerUps = environment.PowerUps;
-
-            if (surroundingPowerUps.Any())
-            {
-                var maxPowerUp = surroundingPowerUps.OrderBy(p => p.Level).First();
-                return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = maxPowerUp.Direction };
-            }
-
             var enemies = surroundingRobots.Where(r => r.IsEnemy).ToList();
+            var friends = surroundingRobots.Where(r => !r.IsEnemy).ToList();
 
-            if (!enemies.Any())
+            if (currentTurn < 5)
             {
-                if (myLevel > 5 || myLevel % 2 == 1)
-                {
-                    return new NextRobotTurn()
-                    {
-                        NextAction = RobotActions.Splitting,
-                        NextDirection = this.GetRandomDirections()
-                    };
-                }
-                if (myLevel % 2 == 0)
-                {
-                    return new NextRobotTurn() { NextAction = RobotActions.Upgrading };
-                }
+                return new NextRobotTurn() { NextAction = RobotActions.Splitting, NextDirection = this.GetRandomDirections() };
             }
 
             var strongerEnemies = enemies.Where(e => e.Level >= myLevel).ToList();
 
             if (strongerEnemies.Any())
             {
+                if (friends.Any())
+                {
+                    var strongestFriendAround = friends.OrderByDescending(f => f.Level).First();
+                    return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = strongestFriendAround.Direction };
+                }
+
                 var randomDirection = this.GetRandomDirections();
                 var counter = 0;
                 while (strongerEnemies.Where(se => se.Direction == randomDirection).ToList().Any() && counter++ < 20)
@@ -54,6 +40,21 @@
                 }
 
                 return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = randomDirection };
+            }
+
+            if (surroundingPowerUps.Any())
+            {
+                var maxPowerUp = surroundingPowerUps.OrderBy(p => p.Level).First();
+                return new NextRobotTurn() { NextAction = RobotActions.Moving, NextDirection = maxPowerUp.Direction };
+            }
+            
+            if (myLevel >= splittingLimit)
+            {
+                return new NextRobotTurn()
+                {
+                    NextAction = RobotActions.Splitting,
+                    NextDirection = this.GetRandomDirections()
+                };
             }
 
             return new NextRobotTurn() { NextAction = RobotActions.Upgrading };
