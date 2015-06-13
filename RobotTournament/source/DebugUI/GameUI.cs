@@ -44,6 +44,7 @@
                 Console.WriteLine("Game Over!");
                 Console.WriteLine("The winner is Team {0}, with a total force of {1}.", "[" + gameState.GameResults.Winner + "]", gameState.GameResults.WinnersTotalForce);
                 Console.WriteLine("The game took {0} rounds.", gameState.GameResults.RoundsTaken);
+                Console.ReadLine();
             }
         }
 
@@ -102,29 +103,14 @@
 
             foreach (var secondRowString in secondRowStrings)
             {
-                if (secondRowString.Contains(teams[0]))
+                Console.ForegroundColor = ConsoleColor.White;
+
+                foreach (var team in teams)
                 {
-                    Console.ForegroundColor = GetConsoleColorForTeamName(teams[0], gameState);
-                }
-                else if (teams.Count > 1 && secondRowString.Contains(teams[1]))
-                {
-                    Console.ForegroundColor = GetConsoleColorForTeamName(teams[1], gameState);
-                }
-                else if (teams.Count > 2 && secondRowString.Contains(teams[2]))
-                {
-                    Console.ForegroundColor = GetConsoleColorForTeamName(teams[2], gameState);
-                } 
-                else if (teams.Count > 3 && secondRowString.Contains(teams[3]))
-                {
-                    Console.ForegroundColor = GetConsoleColorForTeamName(teams[3], gameState);
-                }
-                else if (teams.Count > 4 && secondRowString.Contains(teams[4]))
-                {
-                    Console.ForegroundColor = GetConsoleColorForTeamName(teams[4], gameState);
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
+                    if (secondRowString.Contains(team))
+                    {
+                        Console.ForegroundColor = GetConsoleColorForTeamName(team, gameState);
+                    }
                 }
 
                 Console.Write(secondRowString);
