@@ -23,7 +23,7 @@ namespace RobotEngine
 
         public RobotEngine2()
         {
-            TeamName = "Team 2";
+            TeamName = "Robotnik";
         }
     }
 }
