@@ -16,7 +16,7 @@ namespace RobotEngine
 
         public RobotEngine5()
         {
-            this.TeamName = "Team 5";
+            this.TeamName = "DonRobot";
         }
 
         public IRobot GetNewRobot()
