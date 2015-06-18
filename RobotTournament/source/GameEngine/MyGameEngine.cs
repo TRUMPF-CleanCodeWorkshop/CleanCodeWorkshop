@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Messaging;
-using Contracts;
-using Contracts.Model;
-
-namespace GameEngine
+﻿namespace GameEngine
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+
+    using Contracts;
+    using Contracts.Model;
+
     public class MyGameEngine : IGameEngine
     {
         private static readonly Random Randomizer = new Random();
@@ -190,7 +188,7 @@ namespace GameEngine
 
         internal void DoRobotMovements(GameState gameState)
         {
-            var robotsToMove = gameState.Robots.Where(r => r.WaitTurns == 0).ToList();
+            var robotsToMove = gameState.Robots.Where(r => r.WaitTurns == 0 && r.CurrentAction != RobotActions.Idle).ToList();
 
             robotsToMove.ForEach(robot => robot.Position = GetPositionFromMovement(robot.Position, robot.CurrentDirection, gameState.Configuration.MapSize));
         }
