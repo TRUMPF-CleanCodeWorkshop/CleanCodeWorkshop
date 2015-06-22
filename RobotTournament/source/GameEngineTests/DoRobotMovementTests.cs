@@ -25,10 +25,12 @@
                 {
                     new Robot(new Point(0, 0), 1, "feindlich", Substitute.For<IRobot>())
                     {
+                        CurrentAction = RobotActions.Moving,
                         WaitTurns = 0
                     },
                     new Robot(new Point(2, 1), 1, "freund", engineToCheck)
                     {
+                        CurrentAction = RobotActions.Moving,
                         WaitTurns = 0
                     },
                     new Robot(new Point(3, 1), 1, "freund", Substitute.For<IRobot>())
