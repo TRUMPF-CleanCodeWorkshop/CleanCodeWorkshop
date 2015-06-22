@@ -76,7 +76,7 @@
 
         internal void IncreaseTurnOrEndGame(GameState gameState)
         {
-            if (GetTeamsAlive(gameState).Count > 1 && gameState.Turn < gameState.Configuration.MaxTurns)
+            if (GetTeamsAlive(gameState).Count > 1 && (gameState.Configuration.MaxTurns == 0 || gameState.Turn < gameState.Configuration.MaxTurns))
             {
                 IncreaseTurn(gameState);
             }
