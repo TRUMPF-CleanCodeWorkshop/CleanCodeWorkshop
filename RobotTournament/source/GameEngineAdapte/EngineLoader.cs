@@ -16,20 +16,27 @@ namespace GameEngineAdapter
         {
             var files = Directory.GetFiles(path, "*.dll");
 
-            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve +=CurrentDomain_ReflectionOnlyAssemblyResolve;
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += CurrentDomain_ReflectionOnlyAssemblyResolve;
 
-            var assemblies = files.Select(Assembly.ReflectionOnlyLoadFrom);
-            var types = assemblies.SelectMany(assembly => assembly.GetTypes());
-            var typesWithInterface = types.Where(t => t.GetInterfaces().Any(i => i.FullName == typeof (IGameEngine).FullName)).ToList();
-
-            if (typesWithInterface.Count == 0)
+            var assemblies = files.Select(Assembly.ReflectionOnlyLoadFrom).ToList();
+            try
             {
-                throw new Exception("IGameInterface in keiner DLL gefunden");
+                var types = assemblies.SelectMany(assembly => assembly.GetTypes());
+                var typesWithInterface = types.Where(t => t.GetInterfaces().Any(i => i.FullName == typeof(IGameEngine).FullName)).ToList();
+                if (typesWithInterface.Count == 0)
+                {
+                    throw new Exception("IGameInterface in keiner DLL gefunden");
+                }
+
+                var typeToLoad = typesWithInterface.First();
+
+                return (IGameEngine)Assembly.LoadFrom(typeToLoad.Assembly.CodeBase).CreateInstance(typeToLoad.FullName);
             }
-
-            var typeToLoad = typesWithInterface.First();
-
-            return (IGameEngine)Assembly.LoadFrom(typeToLoad.Assembly.CodeBase).CreateInstance(typeToLoad.FullName);
+            catch (ReflectionTypeLoadException e)
+            {
+                var message = e.LoaderExceptions.Aggregate(string.Empty, (s, exception) => string.Format("{0}\n{1}", s, exception.Message));
+                throw new Exception(message, e);
+            }
         }
 
         private static Assembly CurrentDomain_ReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
