@@ -309,7 +309,13 @@
 
             var surroundingrobots = surroundingPositions.SelectMany(pos => map.ContainsKey(pos) ? map[pos] : new List<Robot>());
             
-            return surroundingrobots.Select(r => new SurroundingRobot() { Level = r.Level, IsEnemy = r.TeamName != robot.TeamName, Direction = GetDirectionFromRelativePositions(robot.Position, r.Position) }).ToList();
+            return surroundingrobots.Select(r => 
+                new SurroundingRobot()
+                {
+                    Level = r.Level, 
+                    IsEnemy = r.TeamName != robot.TeamName, 
+                    Direction = GetDirectionFromRelativePositions(robot.Position, r.Position)
+                }).ToList();
         }
 
         internal static IEnumerable<SurroundingPowerUp> GetSurroundingPowerUps(GameState gameState, Robot robot)
