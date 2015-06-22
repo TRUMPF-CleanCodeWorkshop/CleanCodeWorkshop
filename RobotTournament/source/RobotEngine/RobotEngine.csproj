@@ -51,6 +51,16 @@
     <Compile Include="RobotEngine3.cs" />
     <Compile Include="RobotEngine5.cs" />
     <Compile Include="Robot5.cs" />
+    <Compile Include="TheSwarm\Drone.cs" />
+    <Compile Include="TheSwarm\Helper\Actions.cs" />
+    <Compile Include="TheSwarm\Helper\DirectionsExtensions.cs" />
+    <Compile Include="TheSwarm\Helper\SurroundingsExtensions.cs" />
+    <Compile Include="TheSwarm\HiveMind.cs" />
+    <Compile Include="TheSwarm\Mind\HiveMemory.cs" />
+    <Compile Include="TheSwarm\Mind\ICerebellum.cs" />
+    <Compile Include="TheSwarm\Mind\SettingsDiscovery.cs" />
+    <Compile Include="TheSwarm\SwarmEngine.cs" />
+    <Compile Include="TheSwarm\SwarmUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
